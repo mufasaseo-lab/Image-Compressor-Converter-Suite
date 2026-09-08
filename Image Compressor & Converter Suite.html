@@ -1,0 +1,1427 @@
+<div id="gg-image-tools-app">
+  <style>
+    #gg-image-tools-app,
+    #gg-image-tools-app * {
+      box-sizing: border-box;
+    }
+
+    #gg-image-tools-app {
+      --gg-bg: #06111f;
+      --gg-bg-2: #0a1728;
+      --gg-card: rgba(255, 255, 255, 0.075);
+      --gg-card-2: rgba(255, 255, 255, 0.105);
+      --gg-border: rgba(255, 255, 255, 0.14);
+      --gg-border-strong: rgba(103, 232, 249, 0.45);
+      --gg-text: #ffffff;
+      --gg-muted: #b7c4d8;
+      --gg-soft: #7f8da3;
+      --gg-primary: #22d3ee;
+      --gg-primary-2: #38bdf8;
+      --gg-dark: #06111f;
+      --gg-success: #34d399;
+      --gg-warning: #fbbf24;
+      --gg-danger: #fb7185;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--gg-text);
+      width: 100%;
+      isolation: isolate;
+    }
+
+    #gg-image-tools-app button,
+    #gg-image-tools-app input,
+    #gg-image-tools-app select,
+    #gg-image-tools-app textarea {
+      font-family: inherit;
+    }
+
+    #gg-image-tools-app .gg-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      padding: 34px 16px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(34, 211, 238, 0.25), transparent 30%),
+        radial-gradient(circle at 90% 18%, rgba(59, 130, 246, 0.20), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.13), transparent 34%),
+        linear-gradient(135deg, #06111f 0%, #08192c 52%, #07111f 100%);
+    }
+
+    #gg-image-tools-app .gg-container {
+      position: relative;
+      z-index: 2;
+      width: min(1240px, 100%);
+      margin: 0 auto;
+    }
+
+    #gg-image-tools-app .gg-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 14px;
+      border: 1px solid var(--gg-border);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+    }
+
+    #gg-image-tools-app .gg-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #gg-image-tools-app .gg-logo {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      background: #ffffff;
+      color: #06111f;
+      font-size: 24px;
+      box-shadow: 0 20px 40px rgba(34, 211, 238, 0.18);
+    }
+
+    #gg-image-tools-app .gg-brand h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    #gg-image-tools-app .gg-brand p {
+      margin: 4px 0 0;
+      color: var(--gg-muted);
+      font-size: 12px;
+    }
+
+    #gg-image-tools-app .gg-hero {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    #gg-image-tools-app .gg-hero-card,
+    #gg-image-tools-app .gg-panel,
+    #gg-image-tools-app .gg-tool-card {
+      border: 1px solid var(--gg-border);
+      background: var(--gg-card);
+      border-radius: 34px;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+    }
+
+    #gg-image-tools-app .gg-hero-card {
+      padding: 32px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #gg-image-tools-app .gg-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(103, 232, 249, 0.28);
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.11);
+      color: #cffafe;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    #gg-image-tools-app .gg-hero-card h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      color: #fff;
+    }
+
+    #gg-image-tools-app .gg-hero-card p {
+      margin: 18px 0 0;
+      max-width: 620px;
+      color: var(--gg-muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    #gg-image-tools-app .gg-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    #gg-image-tools-app .gg-btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 18px;
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: 0.22s ease;
+      min-height: 46px;
+      text-decoration: none !important;
+    }
+
+    #gg-image-tools-app .gg-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    #gg-image-tools-app .gg-btn-primary {
+      background: linear-gradient(135deg, var(--gg-primary), var(--gg-primary-2));
+      color: #031019;
+      box-shadow: 0 20px 46px rgba(34, 211, 238, 0.23);
+    }
+
+    #gg-image-tools-app .gg-btn-primary:hover {
+      background: linear-gradient(135deg, #67e8f9, #7dd3fc);
+      color: #031019;
+    }
+
+    #gg-image-tools-app .gg-btn-danger {
+      background: rgba(251, 113, 133, 0.16);
+      color: #fecdd3;
+    }
+
+    #gg-image-tools-app .gg-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    #gg-image-tools-app .gg-stat {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    #gg-image-tools-app .gg-stat strong {
+      display: block;
+      font-size: 19px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    #gg-image-tools-app .gg-stat span {
+      color: var(--gg-soft);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #gg-image-tools-app .gg-workspace {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    #gg-image-tools-app .gg-uploader {
+      position: relative;
+      min-height: 390px;
+      border: 1px dashed rgba(103, 232, 249, 0.45);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(34, 211, 238, 0.075), rgba(255, 255, 255, 0.035)),
+        rgba(8, 25, 44, 0.72);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    #gg-image-tools-app .gg-uploader.gg-dragover {
+      border-color: #67e8f9;
+      background: rgba(34, 211, 238, 0.14);
+    }
+
+    #gg-image-tools-app .gg-empty-upload {
+      text-align: center;
+      max-width: 440px;
+    }
+
+    #gg-image-tools-app .gg-upload-icon {
+      width: 78px;
+      height: 78px;
+      border-radius: 26px;
+      margin: 0 auto 16px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: #07111f;
+      font-size: 34px;
+      box-shadow: 0 20px 50px rgba(34, 211, 238, 0.17);
+    }
+
+    #gg-image-tools-app .gg-empty-upload h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 26px;
+      letter-spacing: -0.03em;
+    }
+
+    #gg-image-tools-app .gg-empty-upload p {
+      margin: 10px 0 18px;
+      color: var(--gg-muted);
+      line-height: 1.7;
+    }
+
+    #gg-image-tools-app #ggPreviewWrap {
+      width: 100%;
+      min-height: 340px;
+      display: none;
+      place-items: center;
+      position: relative;
+    }
+
+    #gg-image-tools-app #ggPreviewImage {
+      max-width: 100%;
+      max-height: 540px;
+      border-radius: 20px;
+      object-fit: contain;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.36);
+      background: #fff;
+    }
+
+    #gg-image-tools-app .gg-file-info {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-info-box {
+      border: 1px solid rgba(255, 255, 255, 0.095);
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.13);
+      min-width: 0;
+    }
+
+    #gg-image-tools-app .gg-info-box span {
+      display: block;
+      color: var(--gg-soft);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+
+    #gg-image-tools-app .gg-info-box strong {
+      display: block;
+      color: #fff;
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #gg-image-tools-app .gg-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    #gg-image-tools-app .gg-sidebar {
+      position: sticky;
+      top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-tool-tab {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #gg-image-tools-app .gg-tool-tab:hover,
+    #gg-image-tools-app .gg-tool-tab.gg-active {
+      border-color: var(--gg-border-strong);
+      background: rgba(34, 211, 238, 0.12);
+      transform: translateY(-1px);
+    }
+
+    #gg-image-tools-app .gg-tab-icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.12);
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+    }
+
+    #gg-image-tools-app .gg-tool-tab strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.15;
+    }
+
+    #gg-image-tools-app .gg-tool-tab small {
+      display: block;
+      color: var(--gg-muted);
+      margin-top: 3px;
+      line-height: 1.2;
+      font-size: 11px;
+    }
+
+    #gg-image-tools-app .gg-main-panel {
+      padding: 18px;
+    }
+
+    #gg-image-tools-app .gg-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    #gg-image-tools-app .gg-panel-head h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 28px;
+      letter-spacing: -0.035em;
+    }
+
+    #gg-image-tools-app .gg-panel-head p {
+      margin: 6px 0 0;
+      color: var(--gg-muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    #gg-image-tools-app .gg-badge {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.14);
+      color: #cffafe;
+      font-weight: 900;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    #gg-image-tools-app .gg-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    #gg-image-tools-app .gg-control {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    #gg-image-tools-app .gg-control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 9px;
+    }
+
+    #gg-image-tools-app .gg-control label span {
+      color: #67e8f9;
+      font-weight: 900;
+    }
+
+    #gg-image-tools-app .gg-control input,
+    #gg-image-tools-app .gg-control select,
+    #gg-image-tools-app .gg-control textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.075);
+      color: #fff;
+      border-radius: 14px;
+      padding: 11px 12px;
+      outline: none;
+      font-weight: 750;
+    }
+
+    #gg-image-tools-app .gg-control select option {
+      color: #06111f;
+      background: #fff;
+    }
+
+    #gg-image-tools-app .gg-control input[type="range"] {
+      padding: 0;
+      accent-color: var(--gg-primary);
+    }
+
+    #gg-image-tools-app .gg-help {
+      color: var(--gg-soft);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
+    #gg-image-tools-app .gg-action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.095);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    #gg-image-tools-app .gg-output {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 22px;
+      background: rgba(52, 211, 153, 0.09);
+    }
+
+    #gg-image-tools-app .gg-output h3 {
+      margin: 0 0 10px;
+      color: #d1fae5;
+      font-size: 18px;
+    }
+
+    #gg-image-tools-app .gg-output-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    #gg-image-tools-app .gg-social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    #gg-image-tools-app .gg-social-preset {
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      background: rgba(255, 255, 255, 0.055);
+      border-radius: 18px;
+      color: #fff;
+      padding: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+
+    #gg-image-tools-app .gg-social-preset:hover,
+    #gg-image-tools-app .gg-social-preset.gg-selected {
+      border-color: var(--gg-border-strong);
+      background: rgba(34, 211, 238, 0.12);
+    }
+
+    #gg-image-tools-app .gg-social-preset strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    #gg-image-tools-app .gg-social-preset span {
+      color: var(--gg-muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #gg-image-tools-app .gg-toast {
+      position: fixed;
+      z-index: 999999;
+      right: 18px;
+      bottom: 18px;
+      max-width: 360px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #ffffff;
+      color: #06111f;
+      box-shadow: 0 18px 70px rgba(0, 0, 0, 0.32);
+      font-weight: 850;
+      display: none;
+    }
+
+    #gg-image-tools-app .gg-loader {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid rgba(6, 17, 31, 0.22);
+      border-top-color: #06111f;
+      display: none;
+      animation: ggSpin 0.75s linear infinite;
+    }
+
+    #gg-image-tools-app .gg-processing .gg-loader {
+      display: inline-block;
+    }
+
+    @keyframes ggSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      #gg-image-tools-app .gg-hero,
+      #gg-image-tools-app .gg-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #gg-image-tools-app .gg-sidebar {
+        position: static;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      #gg-image-tools-app .gg-shell {
+        padding: 16px 10px;
+        border-radius: 22px;
+      }
+
+      #gg-image-tools-app .gg-topbar,
+      #gg-image-tools-app .gg-panel-head,
+      #gg-image-tools-app .gg-action-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      #gg-image-tools-app .gg-hero-card,
+      #gg-image-tools-app .gg-main-panel {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      #gg-image-tools-app .gg-stats,
+      #gg-image-tools-app .gg-file-info,
+      #gg-image-tools-app .gg-controls,
+      #gg-image-tools-app .gg-output-grid,
+      #gg-image-tools-app .gg-social-grid,
+      #gg-image-tools-app .gg-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      #gg-image-tools-app .gg-uploader {
+        min-height: 310px;
+      }
+
+      #gg-image-tools-app .gg-btn {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <div class="gg-shell">
+    <div class="gg-container">
+      <div class="gg-topbar">
+        <div class="gg-brand">
+          <div class="gg-logo">✦</div>
+          <div>
+            <h3>GrandGellexy Image Tools</h3>
+            <p>Compress • Resize • Convert • Crop • Watermark</p>
+          </div>
+        </div>
+        <button class="gg-btn gg-btn-primary" type="button" data-gg-upload>⬆ Upload Image</button>
+      </div>
+
+      <section class="gg-hero">
+        <div class="gg-hero-card">
+          <div class="gg-pill">⚡ SaaS Level Browser Tool</div>
+          <h1>Image Compressor & Converter Suite</h1>
+          <p>Upload one image and use premium tools to compress, resize, convert JPG/PNG/WebP, crop, rotate, add watermark, and create social media image sizes.</p>
+          <div class="gg-hero-actions">
+            <button class="gg-btn gg-btn-primary" type="button" data-gg-upload>Start Now</button>
+            <button class="gg-btn" type="button" id="ggScrollTools">View Tools</button>
+          </div>
+          <div class="gg-stats">
+            <div class="gg-stat"><strong>11+</strong><span>Image Tools</span></div>
+            <div class="gg-stat"><strong>100%</strong><span>Client Side</span></div>
+            <div class="gg-stat"><strong>Fast</strong><span>Canvas Engine</span></div>
+          </div>
+        </div>
+
+        <div class="gg-panel gg-workspace">
+          <div id="ggDropZone" class="gg-uploader">
+            <div id="ggEmptyUpload" class="gg-empty-upload">
+              <div class="gg-upload-icon">⬆</div>
+              <h2>Upload or Drop Your Image</h2>
+              <p>Supports JPG, PNG and WebP. All processing runs inside the browser using HTML canvas.</p>
+              <button class="gg-btn gg-btn-primary" type="button" data-gg-upload>Choose Image</button>
+            </div>
+            <div id="ggPreviewWrap">
+              <img id="ggPreviewImage" alt="Uploaded image preview">
+            </div>
+            <input id="ggFileInput" type="file" accept="image/jpeg,image/png,image/webp,image/jpg" hidden>
+          </div>
+
+          <div id="ggFileInfo" class="gg-file-info">
+            <div class="gg-info-box"><span>File</span><strong id="ggFileName">—</strong></div>
+            <div class="gg-info-box"><span>Original Size</span><strong id="ggFileSize">—</strong></div>
+            <div class="gg-info-box"><span>Dimensions</span><strong id="ggFileDimensions">—</strong></div>
+            <div class="gg-info-box"><span>Type</span><strong id="ggFileType">—</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ggToolsArea" class="gg-grid">
+        <aside class="gg-sidebar" id="ggToolTabs">
+          <button class="gg-tool-tab gg-active" type="button" data-tool="compress"><span class="gg-tab-icon">🗜️</span><span><strong>Image Compressor</strong><small>Reduce image file size</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="resize"><span class="gg-tab-icon">↔️</span><span><strong>Image Resizer</strong><small>Custom width and height</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="jpgpng"><span class="gg-tab-icon">🖼️</span><span><strong>JPG to PNG</strong><small>Convert JPG into PNG</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="pngjpg"><span class="gg-tab-icon">🌄</span><span><strong>PNG to JPG</strong><small>Convert PNG into JPG</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="towebp"><span class="gg-tab-icon">⚡</span><span><strong>Image to WebP</strong><small>Modern WebP format</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="webpjpg"><span class="gg-tab-icon">🔁</span><span><strong>WebP to JPG</strong><small>Universal JPG output</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="webppng"><span class="gg-tab-icon">🔄</span><span><strong>WebP to PNG</strong><small>Editable PNG output</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="crop"><span class="gg-tab-icon">✂️</span><span><strong>Image Cropper</strong><small>Crop by position and size</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="rotate"><span class="gg-tab-icon">↻</span><span><strong>Rotate Image</strong><small>Rotate left, right, custom</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="watermark"><span class="gg-tab-icon">©️</span><span><strong>Add Watermark</strong><small>Text watermark branding</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="social"><span class="gg-tab-icon">📱</span><span><strong>Social Media Resizer</strong><small>Facebook, Instagram, YouTube, LinkedIn</small></span></button>
+        </aside>
+
+        <main class="gg-panel gg-main-panel">
+          <div class="gg-panel-head">
+            <div>
+              <h2 id="ggPanelTitle">Image Compressor</h2>
+              <p id="ggPanelDesc">Reduce image file size while keeping strong quality. Best for website speed and SEO.</p>
+            </div>
+            <span id="ggPanelBadge" class="gg-badge">MAIN TOOL</span>
+          </div>
+
+          <div id="ggStandardControls" class="gg-controls">
+            <div class="gg-control" id="ggQualityControl">
+              <label>Quality <span id="ggQualityValue">75%</span></label>
+              <input id="ggQuality" type="range" min="10" max="100" value="75">
+              <div class="gg-help">Lower quality creates smaller files.</div>
+            </div>
+
+            <div class="gg-control" id="ggWidthControl">
+              <label>Width <span>px</span></label>
+              <input id="ggWidth" type="number" min="1" placeholder="Auto">
+              <div class="gg-help">Enter output width.</div>
+            </div>
+
+            <div class="gg-control" id="ggHeightControl">
+              <label>Height <span>px</span></label>
+              <input id="ggHeight" type="number" min="1" placeholder="Auto">
+              <div class="gg-help">Enter output height.</div>
+            </div>
+
+            <div class="gg-control" id="ggFormatControl">
+              <label>Output Format <span>file</span></label>
+              <select id="ggFormat">
+                <option value="image/webp">WebP</option>
+                <option value="image/jpeg">JPG</option>
+                <option value="image/png">PNG</option>
+              </select>
+              <div class="gg-help">Choose export format.</div>
+            </div>
+
+            <div class="gg-control" id="ggBgControl">
+              <label>JPG Background <span>color</span></label>
+              <input id="ggBgColor" type="color" value="#ffffff">
+              <div class="gg-help">Used when transparent PNG/WebP converts to JPG.</div>
+            </div>
+
+            <div class="gg-control" id="ggKeepRatioControl">
+              <label>Aspect Ratio <span>lock</span></label>
+              <select id="ggKeepRatio">
+                <option value="yes">Keep aspect ratio</option>
+                <option value="no">Stretch exact size</option>
+              </select>
+              <div class="gg-help">Best quality uses locked ratio.</div>
+            </div>
+          </div>
+
+          <div id="ggCropControls" class="gg-controls" style="display:none;">
+            <div class="gg-control"><label>Crop X <span id="ggCropXValue">0%</span></label><input id="ggCropX" type="range" min="0" max="90" value="0"><div class="gg-help">Move crop area from left.</div></div>
+            <div class="gg-control"><label>Crop Y <span id="ggCropYValue">0%</span></label><input id="ggCropY" type="range" min="0" max="90" value="0"><div class="gg-help">Move crop area from top.</div></div>
+            <div class="gg-control"><label>Crop Width <span id="ggCropWValue">80%</span></label><input id="ggCropW" type="range" min="10" max="100" value="80"><div class="gg-help">Width of selected crop area.</div></div>
+            <div class="gg-control"><label>Crop Height <span id="ggCropHValue">80%</span></label><input id="ggCropH" type="range" min="10" max="100" value="80"><div class="gg-help">Height of selected crop area.</div></div>
+            <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggCropFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose cropped image format.</div></div>
+            <div class="gg-control"><label>Quality <span id="ggCropQualityValue">90%</span></label><input id="ggCropQuality" type="range" min="10" max="100" value="90"><div class="gg-help">For JPG/WebP exports.</div></div>
+          </div>
+
+          <div id="ggRotateControls" class="gg-controls" style="display:none;">
+            <div class="gg-control"><label>Rotation <span>angle</span></label><select id="ggRotateAngle"><option value="90">90° Right</option><option value="-90">90° Left</option><option value="180">180°</option><option value="270">270°</option></select><div class="gg-help">Select rotation angle.</div></div>
+            <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggRotateFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose rotated image format.</div></div>
+            <div class="gg-control"><label>Quality <span id="ggRotateQualityValue">90%</span></label><input id="ggRotateQuality" type="range" min="10" max="100" value="90"><div class="gg-help">For JPG/WebP exports.</div></div>
+          </div>
+
+          <div id="ggWatermarkControls" class="gg-controls" style="display:none;">
+            <div class="gg-control"><label>Watermark Text <span>brand</span></label><input id="ggWatermarkText" type="text" value="GrandGellexy"><div class="gg-help">Your brand or website name.</div></div>
+            <div class="gg-control"><label>Position <span>corner</span></label><select id="ggWatermarkPosition"><option value="bottom-right">Bottom Right</option><option value="bottom-left">Bottom Left</option><option value="top-right">Top Right</option><option value="top-left">Top Left</option><option value="center">Center</option></select><div class="gg-help">Where watermark appears.</div></div>
+            <div class="gg-control"><label>Size <span id="ggWatermarkSizeValue">36px</span></label><input id="ggWatermarkSize" type="range" min="12" max="120" value="36"><div class="gg-help">Watermark font size.</div></div>
+            <div class="gg-control"><label>Opacity <span id="ggWatermarkOpacityValue">55%</span></label><input id="ggWatermarkOpacity" type="range" min="10" max="100" value="55"><div class="gg-help">Watermark transparency.</div></div>
+            <div class="gg-control"><label>Text Color <span>color</span></label><input id="ggWatermarkColor" type="color" value="#ffffff"><div class="gg-help">Watermark text color.</div></div>
+            <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggWatermarkFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose watermarked image format.</div></div>
+          </div>
+
+          <div id="ggSocialControls" style="display:none;">
+            <div class="gg-social-grid" id="ggSocialGrid"></div>
+            <div class="gg-controls">
+              <div class="gg-control"><label>Fit Mode <span>crop/fill</span></label><select id="ggSocialFit"><option value="cover">Cover / Fill Size</option><option value="contain">Contain / Full Image</option></select><div class="gg-help">Cover fills the selected size. Contain keeps full image.</div></div>
+              <div class="gg-control"><label>Background <span>color</span></label><input id="ggSocialBg" type="color" value="#ffffff"><div class="gg-help">Used in contain mode and JPG output.</div></div>
+              <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggSocialFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose social image format.</div></div>
+            </div>
+          </div>
+
+          <div class="gg-action-row">
+            <div>
+              <strong id="ggActionHint">Upload an image, adjust quality, then process it.</strong>
+              <div class="gg-help" id="ggSmallHint">Tip: WebP usually gives smaller size for websites.</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="gg-btn" type="button" id="ggResetBtn">Reset</button>
+              <button class="gg-btn gg-btn-primary" type="button" id="ggProcessBtn"><span class="gg-loader"></span><span id="ggProcessText">Process Image</span></button>
+            </div>
+          </div>
+
+          <div id="ggOutput" class="gg-output">
+            <h3>✅ Your image is ready</h3>
+            <div class="gg-output-grid">
+              <div class="gg-info-box"><span>Output Name</span><strong id="ggOutputName">—</strong></div>
+              <div class="gg-info-box"><span>New Size</span><strong id="ggOutputSize">—</strong></div>
+              <div class="gg-info-box"><span>Saved</span><strong id="ggOutputSaved">—</strong></div>
+              <div class="gg-info-box"><span>Dimensions</span><strong id="ggOutputDim">—</strong></div>
+            </div>
+            <button class="gg-btn gg-btn-primary" type="button" id="ggDownloadBtn">⬇ Download Image</button>
+          </div>
+        </main>
+      </section>
+    </div>
+  </div>
+
+  <div id="ggToast" class="gg-toast"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const app = document.getElementById("gg-image-tools-app");
+      if (!app) return;
+
+      const $ = (selector) => app.querySelector(selector);
+      const $$ = (selector) => Array.from(app.querySelectorAll(selector));
+
+      const fileInput = $("#ggFileInput");
+      const dropZone = $("#ggDropZone");
+      const emptyUpload = $("#ggEmptyUpload");
+      const previewWrap = $("#ggPreviewWrap");
+      const previewImage = $("#ggPreviewImage");
+      const fileInfo = $("#ggFileInfo");
+      const toast = $("#ggToast");
+      const processBtn = $("#ggProcessBtn");
+      const processText = $("#ggProcessText");
+      const outputBox = $("#ggOutput");
+      const downloadBtn = $("#ggDownloadBtn");
+
+      const state = {
+        file: null,
+        image: null,
+        originalUrl: "",
+        originalWidth: 0,
+        originalHeight: 0,
+        activeTool: "compress",
+        resultBlob: null,
+        resultName: "",
+        resultUrl: "",
+        socialPreset: { name: "Facebook Post", width: 1200, height: 630 }
+      };
+
+      const toolMeta = {
+        compress: {
+          title: "Image Compressor",
+          desc: "Reduce image file size while keeping strong quality. Best for website speed and SEO.",
+          badge: "MAIN TOOL",
+          hint: "Upload an image, adjust quality, then process it.",
+          small: "Tip: WebP usually gives smaller size for websites."
+        },
+        resize: {
+          title: "Image Resizer",
+          desc: "Resize image by custom width and height with aspect ratio control.",
+          badge: "RESIZE",
+          hint: "Enter width and height, then resize your image.",
+          small: "Keep aspect ratio enabled to avoid image stretching."
+        },
+        jpgpng: {
+          title: "JPG to PNG",
+          desc: "Convert JPG image into PNG format for design and editing workflows.",
+          badge: "CONVERT",
+          hint: "This tool exports your uploaded image as PNG.",
+          small: "PNG output can be larger but keeps sharp quality."
+        },
+        pngjpg: {
+          title: "PNG to JPG",
+          desc: "Convert PNG into JPG with custom background color for transparent areas.",
+          badge: "CONVERT",
+          hint: "This tool exports your uploaded PNG/WebP as JPG.",
+          small: "Choose a background color for transparent images."
+        },
+        towebp: {
+          title: "Image to WebP",
+          desc: "Convert JPG or PNG into modern WebP format for faster websites.",
+          badge: "WEBP",
+          hint: "This tool exports your image as WebP.",
+          small: "WebP is recommended for website performance."
+        },
+        webpjpg: {
+          title: "WebP to JPG",
+          desc: "Convert WebP image into standard JPG format.",
+          badge: "WEBP TO JPG",
+          hint: "This tool exports your WebP image as JPG.",
+          small: "JPG is widely supported everywhere."
+        },
+        webppng: {
+          title: "WebP to PNG",
+          desc: "Convert WebP image into PNG format for editing and graphics usage.",
+          badge: "WEBP TO PNG",
+          hint: "This tool exports your WebP image as PNG.",
+          small: "PNG is best for sharp graphics and transparent assets."
+        },
+        crop: {
+          title: "Image Cropper",
+          desc: "Crop your image by selecting crop position, width, and height percentages.",
+          badge: "CROPPER",
+          hint: "Adjust crop X, Y, width and height, then process.",
+          small: "This cropper uses percentage controls for mobile-friendly editing."
+        },
+        rotate: {
+          title: "Rotate Image",
+          desc: "Rotate image left, right, 180 degrees, or 270 degrees.",
+          badge: "ROTATE",
+          hint: "Choose rotation angle and process your image.",
+          small: "Useful for fixing camera orientation."
+        },
+        watermark: {
+          title: "Add Watermark to Image",
+          desc: "Add professional text watermark to protect and brand your images.",
+          badge: "BRANDING",
+          hint: "Enter watermark text, choose position, then process.",
+          small: "Use your brand name or website URL as watermark."
+        },
+        social: {
+          title: "Social Media Image Resizer",
+          desc: "Resize images for Facebook, Instagram, YouTube thumbnails, and LinkedIn.",
+          badge: "SOCIAL",
+          hint: "Select a social media preset and process your image.",
+          small: "Cover mode fills the full social media canvas."
+        }
+      };
+
+      const socialPresets = [
+        { name: "Facebook Post", width: 1200, height: 630 },
+        { name: "Facebook Cover", width: 1640, height: 924 },
+        { name: "Instagram Square", width: 1080, height: 1080 },
+        { name: "Instagram Story", width: 1080, height: 1920 },
+        { name: "YouTube Thumbnail", width: 1280, height: 720 },
+        { name: "LinkedIn Post", width: 1200, height: 627 },
+        { name: "LinkedIn Banner", width: 1584, height: 396 },
+        { name: "X / Twitter Post", width: 1600, height: 900 },
+        { name: "Pinterest Pin", width: 1000, height: 1500 }
+      ];
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.style.display = "block";
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => {
+          toast.style.display = "none";
+        }, 3200);
+      }
+
+      function formatBytes(bytes) {
+        if (!bytes && bytes !== 0) return "—";
+        const units = ["B", "KB", "MB", "GB"];
+        let value = bytes;
+        let unit = 0;
+        while (value >= 1024 && unit < units.length - 1) {
+          value /= 1024;
+          unit++;
+        }
+        return `${value.toFixed(value >= 10 || unit === 0 ? 0 : 1)} ${units[unit]}`;
+      }
+
+      function mimeExt(mime) {
+        if (mime === "image/png") return "png";
+        if (mime === "image/webp") return "webp";
+        return "jpg";
+      }
+
+      function safeBaseName(name) {
+        return (name || "image").replace(/\.[^/.]+$/, "").replace(/[^a-z0-9-_]+/gi, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "image";
+      }
+
+      function getQuality(selector) {
+        return Math.max(0.1, Math.min(1, Number($(selector).value || 90) / 100));
+      }
+
+      function createCanvas(width, height) {
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(width));
+        canvas.height = Math.max(1, Math.round(height));
+        return canvas;
+      }
+
+      function fillBackground(ctx, width, height, color) {
+        ctx.save();
+        ctx.fillStyle = color || "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+      }
+
+      function canvasToBlob(canvas, mime, quality) {
+        return new Promise((resolve, reject) => {
+          if (!canvas.toBlob) {
+            reject(new Error("Canvas export not supported in this browser."));
+            return;
+          }
+          canvas.toBlob((blob) => {
+            if (!blob) reject(new Error("Image processing failed. Try another image."));
+            else resolve(blob);
+          }, mime, quality);
+        });
+      }
+
+      function loadImageFromFile(file) {
+        return new Promise((resolve, reject) => {
+          const url = URL.createObjectURL(file);
+          const image = new Image();
+          image.onload = () => resolve({ image, url });
+          image.onerror = () => reject(new Error("Could not load this image."));
+          image.src = url;
+        });
+      }
+
+      function drawBaseImage(options = {}) {
+        const image = state.image;
+        const targetW = options.width || state.originalWidth;
+        const targetH = options.height || state.originalHeight;
+        const mime = options.mime || "image/jpeg";
+        const bg = options.bg || $("#ggBgColor").value || "#ffffff";
+        const canvas = createCanvas(targetW, targetH);
+        const ctx = canvas.getContext("2d");
+        if (mime === "image/jpeg" || options.forceBg) fillBackground(ctx, targetW, targetH, bg);
+        ctx.drawImage(image, 0, 0, targetW, targetH);
+        return canvas;
+      }
+
+      function getResizeDimensions() {
+        let width = Number($("#ggWidth").value || 0);
+        let height = Number($("#ggHeight").value || 0);
+        const keep = $("#ggKeepRatio").value === "yes";
+        if (!width && !height) {
+          width = state.originalWidth;
+          height = state.originalHeight;
+        } else if (keep) {
+          if (width && !height) height = Math.round(width * state.originalHeight / state.originalWidth);
+          if (!width && height) width = Math.round(height * state.originalWidth / state.originalHeight);
+          if (width && height) {
+            const ratio = state.originalWidth / state.originalHeight;
+            height = Math.round(width / ratio);
+          }
+        } else {
+          width = width || state.originalWidth;
+          height = height || state.originalHeight;
+        }
+        return { width: Math.max(1, width), height: Math.max(1, height) };
+      }
+
+      function setProcessing(isProcessing) {
+        processBtn.classList.toggle("gg-processing", isProcessing);
+        processBtn.disabled = isProcessing;
+        processText.textContent = isProcessing ? "Processing..." : "Process Image";
+      }
+
+      function setOutput(blob, name, width, height) {
+        if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+        state.resultBlob = blob;
+        state.resultName = name;
+        state.resultUrl = URL.createObjectURL(blob);
+
+        const saved = state.file ? state.file.size - blob.size : 0;
+        const savedText = saved > 0 ? `${formatBytes(saved)} saved` : "Optimized";
+
+        $("#ggOutputName").textContent = name;
+        $("#ggOutputSize").textContent = formatBytes(blob.size);
+        $("#ggOutputSaved").textContent = savedText;
+        $("#ggOutputDim").textContent = `${Math.round(width)} × ${Math.round(height)} px`;
+        outputBox.style.display = "block";
+        showToast("Image processed successfully. Download is ready.");
+      }
+
+      async function processImage() {
+        if (!state.image || !state.file) {
+          showToast("Please upload an image first.");
+          return;
+        }
+
+        setProcessing(true);
+        outputBox.style.display = "none";
+
+        try {
+          const base = safeBaseName(state.file.name);
+          let canvas;
+          let mime = $("#ggFormat").value;
+          let quality = getQuality("#ggQuality");
+          let suffix = state.activeTool;
+
+          if (state.activeTool === "compress") {
+            const dims = getResizeDimensions();
+            canvas = drawBaseImage({ width: dims.width, height: dims.height, mime, bg: $("#ggBgColor").value });
+            suffix = "compressed";
+          }
+
+          if (state.activeTool === "resize") {
+            const dims = getResizeDimensions();
+            canvas = drawBaseImage({ width: dims.width, height: dims.height, mime, bg: $("#ggBgColor").value });
+            suffix = "resized";
+          }
+
+          if (state.activeTool === "jpgpng") {
+            mime = "image/png";
+            quality = 1;
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime });
+            suffix = "jpg-to-png";
+          }
+
+          if (state.activeTool === "pngjpg") {
+            mime = "image/jpeg";
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
+            suffix = "png-to-jpg";
+          }
+
+          if (state.activeTool === "towebp") {
+            mime = "image/webp";
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime });
+            suffix = "to-webp";
+          }
+
+          if (state.activeTool === "webpjpg") {
+            mime = "image/jpeg";
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
+            suffix = "webp-to-jpg";
+          }
+
+          if (state.activeTool === "webppng") {
+            mime = "image/png";
+            quality = 1;
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime });
+            suffix = "webp-to-png";
+          }
+
+          if (state.activeTool === "crop") {
+            mime = $("#ggCropFormat").value;
+            quality = getQuality("#ggCropQuality");
+            const xP = Number($("#ggCropX").value) / 100;
+            const yP = Number($("#ggCropY").value) / 100;
+            const wP = Number($("#ggCropW").value) / 100;
+            const hP = Number($("#ggCropH").value) / 100;
+            const sx = Math.round(state.originalWidth * xP);
+            const sy = Math.round(state.originalHeight * yP);
+            const sw = Math.max(1, Math.min(state.originalWidth - sx, Math.round(state.originalWidth * wP)));
+            const sh = Math.max(1, Math.min(state.originalHeight - sy, Math.round(state.originalHeight * hP)));
+            canvas = createCanvas(sw, sh);
+            const ctx = canvas.getContext("2d");
+            if (mime === "image/jpeg") fillBackground(ctx, sw, sh, $("#ggBgColor").value);
+            ctx.drawImage(state.image, sx, sy, sw, sh, 0, 0, sw, sh);
+            suffix = "cropped";
+          }
+
+          if (state.activeTool === "rotate") {
+            mime = $("#ggRotateFormat").value;
+            quality = getQuality("#ggRotateQuality");
+            const angle = Number($("#ggRotateAngle").value);
+            const rad = angle * Math.PI / 180;
+            const swap = Math.abs(angle) === 90 || Math.abs(angle) === 270;
+            const newW = swap ? state.originalHeight : state.originalWidth;
+            const newH = swap ? state.originalWidth : state.originalHeight;
+            canvas = createCanvas(newW, newH);
+            const ctx = canvas.getContext("2d");
+            if (mime === "image/jpeg") fillBackground(ctx, newW, newH, $("#ggBgColor").value);
+            ctx.translate(newW / 2, newH / 2);
+            ctx.rotate(rad);
+            ctx.drawImage(state.image, -state.originalWidth / 2, -state.originalHeight / 2);
+            suffix = "rotated";
+          }
+
+          if (state.activeTool === "watermark") {
+            mime = $("#ggWatermarkFormat").value;
+            quality = 0.92;
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
+            const ctx = canvas.getContext("2d");
+            const text = $("#ggWatermarkText").value.trim() || "GrandGellexy";
+            const fontSize = Number($("#ggWatermarkSize").value || 36);
+            const opacity = Number($("#ggWatermarkOpacity").value || 55) / 100;
+            const color = $("#ggWatermarkColor").value || "#ffffff";
+            const position = $("#ggWatermarkPosition").value;
+            const pad = Math.max(18, Math.round(fontSize * 0.8));
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            ctx.font = `900 ${fontSize}px Arial, sans-serif`;
+            ctx.textBaseline = "middle";
+            const metrics = ctx.measureText(text);
+            let x = pad;
+            let y = pad + fontSize / 2;
+            if (position.includes("right")) x = canvas.width - metrics.width - pad;
+            if (position.includes("bottom")) y = canvas.height - pad - fontSize / 2;
+            if (position === "center") {
+              x = (canvas.width - metrics.width) / 2;
+              y = canvas.height / 2;
+            }
+            ctx.lineWidth = Math.max(2, Math.round(fontSize / 12));
+            ctx.strokeStyle = "rgba(0,0,0,0.55)";
+            ctx.strokeText(text, x, y);
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+            ctx.restore();
+            suffix = "watermarked";
+          }
+
+          if (state.activeTool === "social") {
+            const preset = state.socialPreset;
+            mime = $("#ggSocialFormat").value;
+            quality = 0.92;
+            const fit = $("#ggSocialFit").value;
+            const bg = $("#ggSocialBg").value;
+            canvas = createCanvas(preset.width, preset.height);
+            const ctx = canvas.getContext("2d");
+            fillBackground(ctx, preset.width, preset.height, bg);
+            const srcRatio = state.originalWidth / state.originalHeight;
+            const targetRatio = preset.width / preset.height;
+            let drawW, drawH, dx, dy;
+            if (fit === "cover") {
+              if (srcRatio > targetRatio) {
+                drawH = preset.height;
+                drawW = drawH * srcRatio;
+              } else {
+                drawW = preset.width;
+                drawH = drawW / srcRatio;
+              }
+            } else {
+              if (srcRatio > targetRatio) {
+                drawW = preset.width;
+                drawH = drawW / srcRatio;
+              } else {
+                drawH = preset.height;
+                drawW = drawH * srcRatio;
+              }
+            }
+            dx = (preset.width - drawW) / 2;
+            dy = (preset.height - drawH) / 2;
+            ctx.drawImage(state.image, dx, dy, drawW, drawH);
+            suffix = preset.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+          }
+
+          if (!canvas) throw new Error("Please select a valid tool.");
+          const blob = await canvasToBlob(canvas, mime, quality);
+          const outputName = `${base}-${suffix}.${mimeExt(mime)}`;
+          setOutput(blob, outputName, canvas.width, canvas.height);
+        } catch (error) {
+          showToast(error.message || "Something went wrong while processing image.");
+        } finally {
+          setProcessing(false);
+        }
+      }
+
+      async function handleFile(file) {
+        if (!file) return;
+        if (!/^image\/(jpeg|jpg|png|webp)$/i.test(file.type)) {
+          showToast("Please upload JPG, PNG, or WebP image only.");
+          return;
+        }
+
+        try {
+          const loaded = await loadImageFromFile(file);
+          if (state.originalUrl) URL.revokeObjectURL(state.originalUrl);
+          if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+          state.file = file;
+          state.image = loaded.image;
+          state.originalUrl = loaded.url;
+          state.originalWidth = loaded.image.naturalWidth || loaded.image.width;
+          state.originalHeight = loaded.image.naturalHeight || loaded.image.height;
+          state.resultBlob = null;
+          state.resultUrl = "";
+
+          previewImage.src = loaded.url;
+          emptyUpload.style.display = "none";
+          previewWrap.style.display = "grid";
+          fileInfo.style.display = "grid";
+          outputBox.style.display = "none";
+
+          $("#ggFileName").textContent = file.name;
+          $("#ggFileSize").textContent = formatBytes(file.size);
+          $("#ggFileDimensions").textContent = `${state.originalWidth} × ${state.originalHeight} px`;
+          $("#ggFileType").textContent = file.type.replace("image/", "").toUpperCase();
+          $("#ggWidth").value = state.originalWidth;
+          $("#ggHeight").value = state.originalHeight;
+          showToast("Image uploaded successfully.");
+        } catch (error) {
+          showToast(error.message || "Upload failed.");
+        }
+      }
+
+      function setActiveTool(tool) {
+        state.activeTool = tool;
+        const meta = toolMeta[tool];
+        $$(".gg-tool-tab").forEach((tab) => tab.classList.toggle("gg-active", tab.dataset.tool === tool));
+        $("#ggPanelTitle").textContent = meta.title;
+        $("#ggPanelDesc").textContent = meta.desc;
+        $("#ggPanelBadge").textContent = meta.badge;
+        $("#ggActionHint").textContent = meta.hint;
+        $("#ggSmallHint").textContent = meta.small;
+        outputBox.style.display = "none";
+
+        $("#ggStandardControls").style.display = "none";
+        $("#ggCropControls").style.display = "none";
+        $("#ggRotateControls").style.display = "none";
+        $("#ggWatermarkControls").style.display = "none";
+        $("#ggSocialControls").style.display = "none";
+
+        if (["compress", "resize", "jpgpng", "pngjpg", "towebp", "webpjpg", "webppng"].includes(tool)) {
+          $("#ggStandardControls").style.display = "grid";
+        }
+
+        $("#ggQualityControl").style.display = ["compress", "resize", "towebp", "webpjpg", "pngjpg"].includes(tool) ? "block" : "none";
+        $("#ggWidthControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggHeightControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggKeepRatioControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggFormatControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggBgControl").style.display = ["compress", "resize", "pngjpg", "webpjpg"].includes(tool) ? "block" : "none";
+
+        if (tool === "jpgpng" || tool === "webppng") $("#ggFormat").value = "image/png";
+        if (tool === "pngjpg" || tool === "webpjpg") $("#ggFormat").value = "image/jpeg";
+        if (tool === "towebp") $("#ggFormat").value = "image/webp";
+
+        if (tool === "crop") $("#ggCropControls").style.display = "grid";
+        if (tool === "rotate") $("#ggRotateControls").style.display = "grid";
+        if (tool === "watermark") $("#ggWatermarkControls").style.display = "grid";
+        if (tool === "social") $("#ggSocialControls").style.display = "block";
+      }
+
+      function renderSocialPresets() {
+        const grid = $("#ggSocialGrid");
+        grid.innerHTML = socialPresets.map((preset, index) => `
+          <button class="gg-social-preset ${index === 0 ? "gg-selected" : ""}" type="button" data-index="${index}">
+            <strong>${preset.name}</strong>
+            <span>${preset.width} × ${preset.height}px</span>
+          </button>
+        `).join("");
+
+        grid.addEventListener("click", (event) => {
+          const btn = event.target.closest(".gg-social-preset");
+          if (!btn) return;
+          const preset = socialPresets[Number(btn.dataset.index)];
+          state.socialPreset = preset;
+          $$(".gg-social-preset").forEach((item) => item.classList.remove("gg-selected"));
+          btn.classList.add("gg-selected");
+          showToast(`${preset.name} selected: ${preset.width} × ${preset.height}px`);
+        });
+      }
+
+      function bindControls() {
+        $$('[data-gg-upload]').forEach((btn) => btn.addEventListener("click", () => fileInput.click()));
+        fileInput.addEventListener("change", (event) => handleFile(event.target.files[0]));
+        $("#ggProcessBtn").addEventListener("click", processImage);
+        $("#ggResetBtn").addEventListener("click", () => {
+          fileInput.value = "";
+          if (state.originalUrl) URL.revokeObjectURL(state.originalUrl);
+          if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+          state.file = null;
+          state.image = null;
+          state.originalUrl = "";
+          state.resultBlob = null;
+          state.resultUrl = "";
+          previewImage.removeAttribute("src");
+          previewWrap.style.display = "none";
+          emptyUpload.style.display = "block";
+          fileInfo.style.display = "none";
+          outputBox.style.display = "none";
+          showToast("Tool reset successfully.");
+        });
+
+        downloadBtn.addEventListener("click", () => {
+          if (!state.resultBlob || !state.resultUrl) {
+            showToast("Please process image first.");
+            return;
+          }
+          const link = document.createElement("a");
+          link.href = state.resultUrl;
+          link.download = state.resultName || "processed-image.jpg";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        });
+
+        $$(".gg-tool-tab").forEach((tab) => {
+          tab.addEventListener("click", () => setActiveTool(tab.dataset.tool));
+        });
+
+        $("#ggScrollTools").addEventListener("click", () => {
+          $("#ggToolsArea").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        dropZone.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          dropZone.classList.add("gg-dragover");
+        });
+        dropZone.addEventListener("dragleave", () => dropZone.classList.remove("gg-dragover"));
+        dropZone.addEventListener("drop", (event) => {
+          event.preventDefault();
+          dropZone.classList.remove("gg-dragover");
+          handleFile(event.dataTransfer.files[0]);
+        });
+
+        $("#ggQuality").addEventListener("input", (e) => $("#ggQualityValue").textContent = `${e.target.value}%`);
+        $("#ggCropX").addEventListener("input", (e) => $("#ggCropXValue").textContent = `${e.target.value}%`);
+        $("#ggCropY").addEventListener("input", (e) => $("#ggCropYValue").textContent = `${e.target.value}%`);
+        $("#ggCropW").addEventListener("input", (e) => $("#ggCropWValue").textContent = `${e.target.value}%`);
+        $("#ggCropH").addEventListener("input", (e) => $("#ggCropHValue").textContent = `${e.target.value}%`);
+        $("#ggCropQuality").addEventListener("input", (e) => $("#ggCropQualityValue").textContent = `${e.target.value}%`);
+        $("#ggRotateQuality").addEventListener("input", (e) => $("#ggRotateQualityValue").textContent = `${e.target.value}%`);
+        $("#ggWatermarkSize").addEventListener("input", (e) => $("#ggWatermarkSizeValue").textContent = `${e.target.value}px`);
+        $("#ggWatermarkOpacity").addEventListener("input", (e) => $("#ggWatermarkOpacityValue").textContent = `${e.target.value}%`);
+      }
+
+      renderSocialPresets();
+      bindControls();
+      setActiveTool("compress");
+    })();
+  </script>
+</div>
