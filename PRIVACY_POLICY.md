@@ -14,6 +14,7 @@ Image Compressor & Converter Suite is a browser-based image processing tool. The
 - Images are not uploaded to or stored on an application server.
 - The application does not require an account, name, email address, or other personal information to process images.
 - Processed images are saved only when you choose to download them through your browser.
+- When batch processing is used, selected files, queue status, and generated results remain in browser memory for the current page session. Individual downloads and ZIP creation also happen locally.
 
 You remain responsible for ensuring that you have the right to process any image you select.
 
@@ -21,11 +22,11 @@ You remain responsible for ensuring that you have the right to process any image
 
 The current application does not intentionally use cookies, analytics trackers, advertising trackers, or persistent local storage to collect user information.
 
-Your browser may temporarily manage object URLs and cached resources while the application is running. These are controlled by the browser and are released when they are no longer needed or when the page is closed.
+Your browser may temporarily manage object URLs, decoded images, generated Blobs, and cached resources while the application is running. Replaced previews and reset operations release managed object URLs; remaining temporary resources are released when the page is closed.
 
 ## 4. Third-Party Services
 
-The application does not intentionally send uploaded images to third-party processing services. It does not currently depend on external image-processing APIs or external analytics services.
+The application does not intentionally send uploaded images to third-party processing services. It does not currently depend on external image-processing APIs, ZIP services, CDNs, or external analytics services. Batch ZIP files are assembled by local JavaScript in the browser.
 
 If the application is later hosted through a third-party platform, that platform may collect technical information according to its own privacy policy.
 

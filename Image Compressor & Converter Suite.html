@@ -188,6 +188,20 @@
       color: #fff;
     }
 
+    #gg-image-tools-app button:focus-visible,
+    #gg-image-tools-app input:focus-visible,
+    #gg-image-tools-app select:focus-visible,
+    #gg-image-tools-app [tabindex]:focus-visible {
+      outline: 3px solid #fef08a;
+      outline-offset: 3px;
+    }
+
+    #gg-image-tools-app button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+      transform: none;
+    }
+
     #gg-image-tools-app .gg-btn-primary {
       background: linear-gradient(135deg, var(--gg-primary), var(--gg-primary-2));
       color: #031019;
@@ -309,6 +323,92 @@
       display: none;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-warning {
+      display: none;
+      padding: 12px 14px;
+      border: 1px solid rgba(251, 191, 36, 0.38);
+      border-radius: 16px;
+      background: rgba(251, 191, 36, 0.11);
+      color: #fef3c7;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    #gg-image-tools-app .gg-batch-panel {
+      display: none;
+      padding: 16px;
+      border: 1px solid var(--gg-border);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    #gg-image-tools-app .gg-batch-head,
+    #gg-image-tools-app .gg-batch-actions,
+    #gg-image-tools-app .gg-queue-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-batch-head {
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    #gg-image-tools-app .gg-batch-head h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    #gg-image-tools-app .gg-queue {
+      display: grid;
+      gap: 8px;
+      max-height: 300px;
+      overflow: auto;
+      margin-bottom: 12px;
+    }
+
+    #gg-image-tools-app .gg-queue-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 2fr) minmax(90px, 0.7fr) minmax(100px, 0.9fr) minmax(90px, 0.7fr) auto;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.13);
+      font-size: 12px;
+    }
+
+    #gg-image-tools-app .gg-queue-row.gg-queue-head {
+      position: sticky;
+      z-index: 2;
+      top: 0;
+      background: #122236;
+      color: var(--gg-muted);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    #gg-image-tools-app .gg-queue-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    #gg-image-tools-app .gg-queue-status[data-status="done"] { color: #6ee7b7; }
+    #gg-image-tools-app .gg-queue-status[data-status="error"] { color: #fda4af; }
+    #gg-image-tools-app .gg-queue-status[data-status="processing"] { color: #67e8f9; }
+    #gg-image-tools-app .gg-queue-error { grid-column: 1 / -1; color: #fecdd3; line-height: 1.4; }
+
+    #gg-image-tools-app .gg-mini-btn {
+      min-height: 34px;
+      padding: 8px 10px;
+      border-radius: 11px;
+      font-size: 11px;
     }
 
     #gg-image-tools-app .gg-info-box {
@@ -524,10 +624,149 @@
 
     #gg-image-tools-app .gg-output-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
       margin-bottom: 12px;
     }
+
+    #gg-image-tools-app .gg-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    #gg-image-tools-app .gg-result-preview {
+      margin: 0;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    #gg-image-tools-app .gg-result-preview figcaption {
+      margin-bottom: 8px;
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    #gg-image-tools-app .gg-result-preview img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: repeating-conic-gradient(#d1d5db 0 25%, #fff 0 50%) 50% / 18px 18px;
+    }
+
+    #gg-image-tools-app .gg-compare-wrap {
+      margin: 14px 0;
+      padding: 12px;
+      border: 1px solid rgba(103, 232, 249, 0.24);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    #gg-image-tools-app .gg-compare-stage {
+      position: relative;
+      height: min(52vw, 420px);
+      min-height: 240px;
+      overflow: hidden;
+      border-radius: 14px;
+      background: repeating-conic-gradient(#d1d5db 0 25%, #fff 0 50%) 50% / 18px 18px;
+    }
+
+    #gg-image-tools-app .gg-compare-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    #gg-image-tools-app .gg-compare-after {
+      clip-path: inset(0 50% 0 0);
+    }
+
+    #gg-image-tools-app .gg-compare-label {
+      position: absolute;
+      z-index: 3;
+      top: 10px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(6, 17, 31, 0.82);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    #gg-image-tools-app .gg-compare-label-before { left: 10px; }
+    #gg-image-tools-app .gg-compare-label-after { right: 10px; }
+    #gg-image-tools-app .gg-compare-control { margin-top: 10px; }
+    #gg-image-tools-app .gg-compare-control input { width: 100%; accent-color: var(--gg-primary); }
+
+    #gg-image-tools-app .gg-crop-editor {
+      grid-column: 1 / -1;
+      display: none;
+      padding: 12px;
+      border: 1px solid rgba(103, 232, 249, 0.24);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    #gg-image-tools-app .gg-crop-stage {
+      position: relative;
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      line-height: 0;
+      touch-action: none;
+      user-select: none;
+    }
+
+    #gg-image-tools-app .gg-crop-stage img {
+      display: block;
+      max-width: 100%;
+      max-height: 460px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    #gg-image-tools-app .gg-crop-box {
+      position: absolute;
+      border: 2px solid #67e8f9;
+      background: rgba(34, 211, 238, 0.13);
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.48);
+      cursor: move;
+      touch-action: none;
+    }
+
+    #gg-image-tools-app .gg-crop-handle {
+      position: absolute;
+      right: -8px;
+      bottom: -8px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #06111f;
+      border-radius: 50%;
+      background: #67e8f9;
+      cursor: nwse-resize;
+    }
+
+    #gg-image-tools-app .gg-target-note {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.095);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    #gg-image-tools-app .gg-target-note label { display: flex; align-items: center; gap: 10px; font-weight: 850; }
+    #gg-image-tools-app .gg-target-note input { width: 130px; }
+    #gg-image-tools-app .gg-target-result { margin-top: 7px; color: #a7f3d0; font-size: 12px; }
 
     #gg-image-tools-app .gg-social-grid {
       display: grid;
@@ -633,9 +872,25 @@
       #gg-image-tools-app .gg-file-info,
       #gg-image-tools-app .gg-controls,
       #gg-image-tools-app .gg-output-grid,
+      #gg-image-tools-app .gg-preview-grid,
       #gg-image-tools-app .gg-social-grid,
       #gg-image-tools-app .gg-sidebar {
         grid-template-columns: 1fr;
+      }
+
+      #gg-image-tools-app .gg-queue-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #gg-image-tools-app .gg-queue-name,
+      #gg-image-tools-app .gg-queue-error {
+        grid-column: 1 / -1;
+      }
+
+      #gg-image-tools-app .gg-batch-head,
+      #gg-image-tools-app .gg-batch-actions {
+        align-items: stretch;
+        flex-direction: column;
       }
 
       #gg-image-tools-app .gg-uploader {
@@ -688,7 +943,7 @@
             <div id="ggPreviewWrap">
               <img id="ggPreviewImage" alt="Uploaded image preview">
             </div>
-            <input id="ggFileInput" type="file" accept="image/jpeg,image/png,image/webp,image/jpg" hidden>
+            <input id="ggFileInput" type="file" accept="image/jpeg,image/png,image/webp,image/jpg" multiple hidden>
           </div>
 
           <div id="ggFileInfo" class="gg-file-info">
@@ -697,6 +952,23 @@
             <div class="gg-info-box"><span>Dimensions</span><strong id="ggFileDimensions">—</strong></div>
             <div class="gg-info-box"><span>Type</span><strong id="ggFileType">—</strong></div>
           </div>
+          <div id="ggSafetyWarning" class="gg-warning" role="alert"></div>
+
+          <section id="ggBatchPanel" class="gg-batch-panel" aria-labelledby="ggBatchTitle">
+            <div class="gg-batch-head">
+              <div>
+                <h3 id="ggBatchTitle">Batch queue</h3>
+                <div class="gg-help">Files are processed one at a time to reduce browser memory pressure.</div>
+              </div>
+              <strong id="ggBatchSummary">0 files</strong>
+            </div>
+            <div id="ggQueue" class="gg-queue" aria-live="polite"></div>
+            <div class="gg-batch-actions">
+              <button class="gg-btn gg-btn-primary" type="button" id="ggBatchProcessBtn">Process Queue</button>
+              <button class="gg-btn" type="button" id="ggBatchCancelBtn" disabled>Cancel</button>
+              <button class="gg-btn" type="button" id="ggDownloadZipBtn" disabled>Download Successful as ZIP</button>
+            </div>
+          </section>
         </div>
       </section>
 
@@ -770,12 +1042,20 @@
           </div>
 
           <div id="ggCropControls" class="gg-controls" style="display:none;">
-            <div class="gg-control"><label>Crop X <span id="ggCropXValue">0%</span></label><input id="ggCropX" type="range" min="0" max="90" value="0"><div class="gg-help">Move crop area from left.</div></div>
-            <div class="gg-control"><label>Crop Y <span id="ggCropYValue">0%</span></label><input id="ggCropY" type="range" min="0" max="90" value="0"><div class="gg-help">Move crop area from top.</div></div>
-            <div class="gg-control"><label>Crop Width <span id="ggCropWValue">80%</span></label><input id="ggCropW" type="range" min="10" max="100" value="80"><div class="gg-help">Width of selected crop area.</div></div>
-            <div class="gg-control"><label>Crop Height <span id="ggCropHValue">80%</span></label><input id="ggCropH" type="range" min="10" max="100" value="80"><div class="gg-help">Height of selected crop area.</div></div>
+            <div class="gg-control"><label for="ggCropX">Crop X <span id="ggCropXValue">0%</span></label><input id="ggCropX" type="number" min="0" max="99" step="1" value="0"><div class="gg-help">Percent from the left edge.</div></div>
+            <div class="gg-control"><label for="ggCropY">Crop Y <span id="ggCropYValue">0%</span></label><input id="ggCropY" type="number" min="0" max="99" step="1" value="0"><div class="gg-help">Percent from the top edge.</div></div>
+            <div class="gg-control"><label for="ggCropW">Crop Width <span id="ggCropWValue">80%</span></label><input id="ggCropW" type="number" min="1" max="100" step="1" value="80"><div class="gg-help">Width as a percent of the image.</div></div>
+            <div class="gg-control"><label for="ggCropH">Crop Height <span id="ggCropHValue">80%</span></label><input id="ggCropH" type="number" min="1" max="100" step="1" value="80"><div class="gg-help">Height as a percent of the image.</div></div>
+            <div class="gg-control"><label for="ggCropRatio">Crop Ratio <span>optional</span></label><select id="ggCropRatio"><option value="free">Free</option><option value="1">Square 1:1</option><option value="1.333333">Landscape 4:3</option><option value="1.777778">Widescreen 16:9</option><option value="0.8">Portrait 4:5</option><option value="0.5625">Story 9:16</option></select><div class="gg-help">Locks the crop shape while resizing.</div></div>
             <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggCropFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose cropped image format.</div></div>
             <div class="gg-control"><label>Quality <span id="ggCropQualityValue">90%</span></label><input id="ggCropQuality" type="range" min="10" max="100" value="90"><div class="gg-help">For JPG/WebP exports.</div></div>
+            <div id="ggCropEditor" class="gg-crop-editor">
+              <div class="gg-help" style="margin:0 0 10px;">Drag the rectangle to move it. Drag the round handle to resize. With the rectangle focused, Arrow keys move it and Shift + Arrow keys resize it.</div>
+              <div id="ggCropStage" class="gg-crop-stage">
+                <img id="ggCropImage" alt="Source image for crop selection">
+                <div id="ggCropBox" class="gg-crop-box" tabindex="0" role="group" aria-label="Crop selection. Use arrow keys to move and Shift plus arrow keys to resize."><span class="gg-crop-handle" aria-hidden="true"></span></div>
+              </div>
+            </div>
           </div>
 
           <div id="ggRotateControls" class="gg-controls" style="display:none;">
@@ -797,9 +1077,15 @@
             <div class="gg-social-grid" id="ggSocialGrid"></div>
             <div class="gg-controls">
               <div class="gg-control"><label>Fit Mode <span>crop/fill</span></label><select id="ggSocialFit"><option value="cover">Cover / Fill Size</option><option value="contain">Contain / Full Image</option></select><div class="gg-help">Cover fills the selected size. Contain keeps full image.</div></div>
-              <div class="gg-control"><label>Background <span>color</span></label><input id="ggSocialBg" type="color" value="#ffffff"><div class="gg-help">Used in contain mode and JPG output.</div></div>
+              <div class="gg-control"><label>Background <span>color</span></label><input id="ggSocialBg" type="color" value="#ffffff"><div class="gg-help">Used for JPG. PNG/WebP contain mode keeps unused space transparent.</div></div>
               <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggSocialFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose social image format.</div></div>
             </div>
+          </div>
+
+          <div class="gg-target-note">
+            <label for="ggTargetKB">Optional target size <input id="ggTargetKB" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 200"> KB</label>
+            <div class="gg-help">JPEG and WebP only. The app searches quality without changing dimensions or format. PNG cannot reliably meet an arbitrary target through Canvas quality settings.</div>
+            <div id="ggTargetResult" class="gg-target-result" aria-live="polite"></div>
           </div>
 
           <div class="gg-action-row">
@@ -813,13 +1099,31 @@
             </div>
           </div>
 
-          <div id="ggOutput" class="gg-output">
+          <div id="ggOutput" class="gg-output" aria-live="polite">
             <h3>✅ Your image is ready</h3>
             <div class="gg-output-grid">
               <div class="gg-info-box"><span>Output Name</span><strong id="ggOutputName">—</strong></div>
+              <div class="gg-info-box"><span>Format</span><strong id="ggOutputFormat">—</strong></div>
               <div class="gg-info-box"><span>New Size</span><strong id="ggOutputSize">—</strong></div>
-              <div class="gg-info-box"><span>Saved</span><strong id="ggOutputSaved">—</strong></div>
+              <div class="gg-info-box"><span>Size Difference</span><strong id="ggOutputSaved">—</strong></div>
               <div class="gg-info-box"><span>Dimensions</span><strong id="ggOutputDim">—</strong></div>
+            </div>
+            <div class="gg-preview-grid">
+              <figure class="gg-result-preview"><figcaption>Original image</figcaption><img id="ggOriginalResultPreview" alt="Original image preview"></figure>
+              <figure class="gg-result-preview"><figcaption>Processed image</figcaption><img id="ggProcessedResultPreview" alt="Processed image preview"></figure>
+            </div>
+            <div class="gg-compare-wrap">
+              <div class="gg-compare-stage" aria-hidden="true">
+                <img id="ggCompareBefore" alt="">
+                <img id="ggCompareAfter" class="gg-compare-after" alt="">
+                <span class="gg-compare-label gg-compare-label-before">Original</span>
+                <span class="gg-compare-label gg-compare-label-after">Processed</span>
+              </div>
+              <div class="gg-compare-control">
+                <label for="ggCompareRange">Before/after comparison: <strong id="ggCompareValue">50% processed</strong></label>
+                <input id="ggCompareRange" type="range" min="0" max="100" value="50" aria-describedby="ggCompareHelp">
+                <div id="ggCompareHelp" class="gg-help">Use the slider with mouse, touch, or Arrow keys. The side-by-side previews above remain available when image shapes differ.</div>
+              </div>
             </div>
             <button class="gg-btn gg-btn-primary" type="button" id="ggDownloadBtn">⬇ Download Image</button>
           </div>
@@ -828,7 +1132,7 @@
     </div>
   </div>
 
-  <div id="ggToast" class="gg-toast"></div>
+  <div id="ggToast" class="gg-toast" role="status" aria-live="polite"></div>
 
   <script>
     (function () {
@@ -851,6 +1155,12 @@
       const processText = $("#ggProcessText");
       const outputBox = $("#ggOutput");
       const downloadBtn = $("#ggDownloadBtn");
+      const safetyWarning = $("#ggSafetyWarning");
+      const batchPanel = $("#ggBatchPanel");
+      const queueBox = $("#ggQueue");
+      const batchProcessBtn = $("#ggBatchProcessBtn");
+      const batchCancelBtn = $("#ggBatchCancelBtn");
+      const downloadZipBtn = $("#ggDownloadZipBtn");
 
       const state = {
         file: null,
@@ -862,7 +1172,12 @@
         resultBlob: null,
         resultName: "",
         resultUrl: "",
-        socialPreset: { name: "Facebook Post", width: 1200, height: 630 }
+        resultMime: "",
+        socialPreset: { name: "Facebook Post", width: 1200, height: 630 },
+        queue: [],
+        operationVersion: 0,
+        batchRunning: false,
+        batchRestoreSource: true
       };
 
       const toolMeta = {
@@ -949,12 +1264,16 @@
         { name: "Facebook Post", width: 1200, height: 630 },
         { name: "Facebook Cover", width: 1640, height: 924 },
         { name: "Instagram Square", width: 1080, height: 1080 },
+        { name: "Instagram Portrait", width: 1080, height: 1350 },
+        { name: "Facebook / Instagram Portrait", width: 1080, height: 1350 },
         { name: "Instagram Story", width: 1080, height: 1920 },
+        { name: "WhatsApp Status", width: 1080, height: 1920 },
         { name: "YouTube Thumbnail", width: 1280, height: 720 },
         { name: "LinkedIn Post", width: 1200, height: 627 },
         { name: "LinkedIn Banner", width: 1584, height: 396 },
         { name: "X / Twitter Post", width: 1600, height: 900 },
-        { name: "Pinterest Pin", width: 1000, height: 1500 }
+        { name: "Pinterest Pin", width: 1000, height: 1500 },
+        { name: "Square Product Image", width: 2000, height: 2000 }
       ];
 
       function showToast(message) {
@@ -992,10 +1311,55 @@
         return Math.max(0.1, Math.min(1, Number($(selector).value || 90) / 100));
       }
 
+      function normalizeMime(mime) {
+        return mime === "image/jpg" ? "image/jpeg" : String(mime || "").toLowerCase();
+      }
+
+      function invalidateOperations() {
+        state.operationVersion++;
+      }
+
+      function clearOutput() {
+        if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+        state.resultBlob = null;
+        state.resultName = "";
+        state.resultUrl = "";
+        state.resultMime = "";
+        outputBox.style.display = "none";
+        $("#ggTargetResult").textContent = "";
+        ["#ggOriginalResultPreview", "#ggProcessedResultPreview", "#ggCompareBefore", "#ggCompareAfter"].forEach((selector) => $(selector).removeAttribute("src"));
+      }
+
+      function assessImage(file, width, height) {
+        const pixels = width * height;
+        const estimatedBytes = pixels * 4 * 3;
+        const warnings = [];
+        if (file && file.size > 25 * 1024 * 1024) warnings.push(`Large source file (${formatBytes(file.size)}).`);
+        if (pixels > 30000000) warnings.push(`High resolution (${width} × ${height}, ${(pixels / 1000000).toFixed(1)} MP).`);
+        if (estimatedBytes > 256 * 1024 * 1024) warnings.push(`Estimated peak canvas memory is about ${formatBytes(estimatedBytes)}.`);
+        const blocked = width > 32767 || height > 32767 || pixels > 100000000 || estimatedBytes > 768 * 1024 * 1024;
+        return {
+          blocked,
+          message: blocked
+            ? `This image is likely beyond safe browser Canvas limits (${width} × ${height}). Processing was blocked to avoid a crash.`
+            : warnings.join(" ")
+        };
+      }
+
+      function showSafety(message) {
+        safetyWarning.textContent = message || "";
+        safetyWarning.style.display = message ? "block" : "none";
+      }
+
       function createCanvas(width, height) {
+        width = Math.max(1, Math.round(Number(width)));
+        height = Math.max(1, Math.round(Number(height)));
+        if (!Number.isFinite(width) || !Number.isFinite(height)) throw new Error("Output dimensions must be valid numbers.");
+        const safety = assessImage(null, width, height);
+        if (safety.blocked) throw new Error(safety.message);
         const canvas = document.createElement("canvas");
-        canvas.width = Math.max(1, Math.round(width));
-        canvas.height = Math.max(1, Math.round(height));
+        canvas.width = width;
+        canvas.height = height;
         return canvas;
       }
 
@@ -1012,11 +1376,69 @@
             reject(new Error("Canvas export not supported in this browser."));
             return;
           }
-          canvas.toBlob((blob) => {
-            if (!blob) reject(new Error("Image processing failed. Try another image."));
-            else resolve(blob);
-          }, mime, quality);
+          try {
+            canvas.toBlob((blob) => {
+              if (!blob) {
+                reject(new Error("The browser could not encode this canvas. The image may be too large or the format may be unsupported."));
+                return;
+              }
+              const actual = normalizeMime(blob.type);
+              if (actual !== normalizeMime(mime)) {
+                reject(new Error(`The browser returned ${actual || "an unknown format"} instead of ${mime}. No misleading file was created.`));
+                return;
+              }
+              resolve(blob);
+            }, mime, quality);
+          } catch (error) {
+            reject(new Error(error && error.message ? error.message : "Canvas export failed, possibly because browser memory was exhausted."));
+          }
         });
+      }
+
+      async function encodeCanvas(canvas, mime, quality, targetKB) {
+        const targetValue = Number(targetKB || 0);
+        if (targetKB && (!Number.isFinite(targetValue) || targetValue <= 0)) throw new Error("Target size must be a positive number of KB.");
+        const targetBytes = Math.round(targetValue * 1024);
+        if (!targetBytes) return { blob: await canvasToBlob(canvas, mime, quality), message: "", targetMet: null };
+        if (!["image/jpeg", "image/webp"].includes(mime)) {
+          return {
+            blob: await canvasToBlob(canvas, mime, quality),
+            message: "Target size was not applied: PNG quality is not a reliable size control in Canvas.",
+            targetMet: false
+          };
+        }
+
+        let highQuality = quality;
+        let highBlob = await canvasToBlob(canvas, mime, highQuality);
+        if (highBlob.size <= targetBytes) {
+          return { blob: highBlob, message: `Target met at ${Math.round(highQuality * 100)}% quality.`, targetMet: true };
+        }
+
+        const minimumQuality = 0.1;
+        let bestQuality = minimumQuality;
+        let bestBlob = await canvasToBlob(canvas, mime, minimumQuality);
+        if (bestBlob.size > targetBytes) {
+          return {
+            blob: bestBlob,
+            message: `Target cannot be reached at the selected dimensions. Smallest tested output is ${formatBytes(bestBlob.size)} at 10% quality.`,
+            targetMet: false
+          };
+        }
+
+        let low = minimumQuality;
+        let high = highQuality;
+        for (let attempt = 0; attempt < 8; attempt++) {
+          const candidateQuality = (low + high) / 2;
+          const candidateBlob = await canvasToBlob(canvas, mime, candidateQuality);
+          if (candidateBlob.size <= targetBytes) {
+            bestBlob = candidateBlob;
+            bestQuality = candidateQuality;
+            low = candidateQuality;
+          } else {
+            high = candidateQuality;
+          }
+        }
+        return { blob: bestBlob, message: `Target met at about ${Math.round(bestQuality * 100)}% quality.`, targetMet: true };
       }
 
       function loadImageFromFile(file) {
@@ -1024,7 +1446,10 @@
           const url = URL.createObjectURL(file);
           const image = new Image();
           image.onload = () => resolve({ image, url });
-          image.onerror = () => reject(new Error("Could not load this image."));
+          image.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error("Could not decode this image. It may be damaged or unsupported by this browser."));
+          };
           image.src = url;
         });
       }
@@ -1037,6 +1462,7 @@
         const bg = options.bg || $("#ggBgColor").value || "#ffffff";
         const canvas = createCanvas(targetW, targetH);
         const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("The browser could not create a 2D canvas, possibly because the image is too large.");
         if (mime === "image/jpeg" || options.forceBg) fillBackground(ctx, targetW, targetH, bg);
         ctx.drawImage(image, 0, 0, targetW, targetH);
         return canvas;
@@ -1066,36 +1492,58 @@
       function setProcessing(isProcessing) {
         processBtn.classList.toggle("gg-processing", isProcessing);
         processBtn.disabled = isProcessing;
+        processBtn.setAttribute("aria-busy", String(isProcessing));
         processText.textContent = isProcessing ? "Processing..." : "Process Image";
       }
 
-      function setOutput(blob, name, width, height) {
+      function setOutput(blob, name, width, height, mime, targetMessage = "") {
         if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
         state.resultBlob = blob;
         state.resultName = name;
         state.resultUrl = URL.createObjectURL(blob);
+        state.resultMime = normalizeMime(mime || blob.type);
 
-        const saved = state.file ? state.file.size - blob.size : 0;
-        const savedText = saved > 0 ? `${formatBytes(saved)} saved` : "Optimized";
+        const difference = state.file ? state.file.size - blob.size : 0;
+        const differenceText = difference > 0
+          ? `${formatBytes(difference)} smaller`
+          : difference < 0
+            ? `${formatBytes(Math.abs(difference))} larger`
+            : "No size change";
 
         $("#ggOutputName").textContent = name;
+        $("#ggOutputFormat").textContent = state.resultMime.replace("image/", "").toUpperCase().replace("JPEG", "JPG");
         $("#ggOutputSize").textContent = formatBytes(blob.size);
-        $("#ggOutputSaved").textContent = savedText;
+        $("#ggOutputSaved").textContent = differenceText;
         $("#ggOutputDim").textContent = `${Math.round(width)} × ${Math.round(height)} px`;
+        $("#ggOriginalResultPreview").src = state.originalUrl;
+        $("#ggProcessedResultPreview").src = state.resultUrl;
+        $("#ggCompareBefore").src = state.originalUrl;
+        $("#ggCompareAfter").src = state.resultUrl;
+        $("#ggCompareRange").value = 50;
+        $("#ggCompareAfter").style.clipPath = "inset(0 50% 0 0)";
+        $("#ggCompareValue").textContent = "50% processed";
+        $("#ggTargetResult").textContent = targetMessage;
         outputBox.style.display = "block";
         showToast("Image processed successfully. Download is ready.");
       }
 
-      async function processImage() {
+      async function processImage(options = {}) {
         if (!state.image || !state.file) {
-          showToast("Please upload an image first.");
-          return;
+          const error = new Error("Please upload an image first.");
+          if (options.silent) throw error;
+          showToast(error.message);
+          return null;
         }
 
-        setProcessing(true);
-        outputBox.style.display = "none";
+        const operationVersion = options.version === undefined ? state.operationVersion : options.version;
+        if (!options.silent) {
+          setProcessing(true);
+          clearOutput();
+        }
 
         try {
+          const sourceSafety = assessImage(state.file, state.originalWidth, state.originalHeight);
+          if (sourceSafety.blocked) throw new Error(sourceSafety.message);
           const base = safeBaseName(state.file.name);
           let canvas;
           let mime = $("#ggFormat").value;
@@ -1149,16 +1597,18 @@
           if (state.activeTool === "crop") {
             mime = $("#ggCropFormat").value;
             quality = getQuality("#ggCropQuality");
-            const xP = Number($("#ggCropX").value) / 100;
-            const yP = Number($("#ggCropY").value) / 100;
-            const wP = Number($("#ggCropW").value) / 100;
-            const hP = Number($("#ggCropH").value) / 100;
+            const crop = getCropValues();
+            const xP = crop.x / 100;
+            const yP = crop.y / 100;
+            const wP = crop.width / 100;
+            const hP = crop.height / 100;
             const sx = Math.round(state.originalWidth * xP);
             const sy = Math.round(state.originalHeight * yP);
             const sw = Math.max(1, Math.min(state.originalWidth - sx, Math.round(state.originalWidth * wP)));
             const sh = Math.max(1, Math.min(state.originalHeight - sy, Math.round(state.originalHeight * hP)));
             canvas = createCanvas(sw, sh);
             const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the crop canvas.");
             if (mime === "image/jpeg") fillBackground(ctx, sw, sh, $("#ggBgColor").value);
             ctx.drawImage(state.image, sx, sy, sw, sh, 0, 0, sw, sh);
             suffix = "cropped";
@@ -1174,6 +1624,7 @@
             const newH = swap ? state.originalWidth : state.originalHeight;
             canvas = createCanvas(newW, newH);
             const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the rotation canvas.");
             if (mime === "image/jpeg") fillBackground(ctx, newW, newH, $("#ggBgColor").value);
             ctx.translate(newW / 2, newH / 2);
             ctx.rotate(rad);
@@ -1186,6 +1637,7 @@
             quality = 0.92;
             canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
             const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the watermark canvas.");
             const text = $("#ggWatermarkText").value.trim() || "GrandGellexy";
             const fontSize = Number($("#ggWatermarkSize").value || 36);
             const opacity = Number($("#ggWatermarkOpacity").value || 55) / 100;
@@ -1222,7 +1674,8 @@
             const bg = $("#ggSocialBg").value;
             canvas = createCanvas(preset.width, preset.height);
             const ctx = canvas.getContext("2d");
-            fillBackground(ctx, preset.width, preset.height, bg);
+            if (!ctx) throw new Error("The browser could not create the social-media canvas.");
+            if (mime === "image/jpeg") fillBackground(ctx, preset.width, preset.height, bg);
             const srcRatio = state.originalWidth / state.originalHeight;
             const targetRatio = preset.width / preset.height;
             let drawW, drawH, dx, dy;
@@ -1250,17 +1703,25 @@
           }
 
           if (!canvas) throw new Error("Please select a valid tool.");
-          const blob = await canvasToBlob(canvas, mime, quality);
+          const outputSafety = assessImage(null, canvas.width, canvas.height);
+          if (outputSafety.blocked) throw new Error(outputSafety.message);
+          const encoded = await encodeCanvas(canvas, mime, quality, $("#ggTargetKB").value);
+          if (operationVersion !== state.operationVersion) throw new DOMException("Processing was cancelled.", "AbortError");
+          const blob = encoded.blob;
           const outputName = `${base}-${suffix}.${mimeExt(mime)}`;
-          setOutput(blob, outputName, canvas.width, canvas.height);
+          const result = { blob, name: outputName, width: canvas.width, height: canvas.height, mime, targetMessage: encoded.message };
+          if (!options.silent) setOutput(blob, outputName, canvas.width, canvas.height, mime, encoded.message);
+          return result;
         } catch (error) {
-          showToast(error.message || "Something went wrong while processing image.");
+          if (options.silent) throw error;
+          if (error.name !== "AbortError") showToast(error.message || "Something went wrong while processing image.");
+          return null;
         } finally {
-          setProcessing(false);
+          if (!options.silent) setProcessing(false);
         }
       }
 
-      async function handleFile(file) {
+      async function handleFile(file, options = {}) {
         if (!file) return;
         if (!/^image\/(jpeg|jpg|png|webp)$/i.test(file.type)) {
           showToast("Please upload JPG, PNG, or WebP image only.");
@@ -1268,22 +1729,22 @@
         }
 
         try {
+          if (!options.keepOperation) invalidateOperations();
           const loaded = await loadImageFromFile(file);
           if (state.originalUrl) URL.revokeObjectURL(state.originalUrl);
-          if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+          clearOutput();
           state.file = file;
           state.image = loaded.image;
           state.originalUrl = loaded.url;
           state.originalWidth = loaded.image.naturalWidth || loaded.image.width;
           state.originalHeight = loaded.image.naturalHeight || loaded.image.height;
-          state.resultBlob = null;
-          state.resultUrl = "";
 
           previewImage.src = loaded.url;
+          $("#ggCropImage").src = loaded.url;
           emptyUpload.style.display = "none";
           previewWrap.style.display = "grid";
           fileInfo.style.display = "grid";
-          outputBox.style.display = "none";
+          updateCropOverlay();
 
           $("#ggFileName").textContent = file.name;
           $("#ggFileSize").textContent = formatBytes(file.size);
@@ -1291,13 +1752,48 @@
           $("#ggFileType").textContent = file.type.replace("image/", "").toUpperCase();
           $("#ggWidth").value = state.originalWidth;
           $("#ggHeight").value = state.originalHeight;
+          if (state.activeTool === "crop") $("#ggCropEditor").style.display = "block";
+          const safety = assessImage(file, state.originalWidth, state.originalHeight);
+          showSafety(safety.message);
           showToast("Image uploaded successfully.");
         } catch (error) {
           showToast(error.message || "Upload failed.");
         }
       }
 
+      async function handleFiles(fileList) {
+        const files = Array.from(fileList || []);
+        fileInput.value = "";
+        if (!files.length) return;
+        const supported = files.filter((file) => /^image\/(jpeg|jpg|png|webp)$/i.test(file.type));
+        if (!supported.length) {
+          showToast("Please upload JPG, PNG, or WebP images only.");
+          return;
+        }
+        clearQueue();
+        if (supported.length > 1) {
+          state.queue = supported.map((file, index) => ({
+            id: `${Date.now()}-${index}`,
+            file,
+            status: "pending",
+            result: null,
+            error: "",
+            warning: file.size > 25 * 1024 * 1024 ? `Large source file (${formatBytes(file.size)}); decoded dimensions will be checked before processing.` : "",
+            note: ""
+          }));
+          renderQueue();
+          batchPanel.style.display = "block";
+        }
+        await handleFile(supported[0]);
+        if (supported.length !== files.length) showToast(`${files.length - supported.length} unsupported file(s) were skipped.`);
+      }
+
       function setActiveTool(tool) {
+        if (state.activeTool !== tool) {
+          invalidateOperations();
+          clearOutput();
+          resetQueueResults();
+        }
         state.activeTool = tool;
         const meta = toolMeta[tool];
         $$(".gg-tool-tab").forEach((tab) => tab.classList.toggle("gg-active", tab.dataset.tool === tool));
@@ -1329,7 +1825,11 @@
         if (tool === "pngjpg" || tool === "webpjpg") $("#ggFormat").value = "image/jpeg";
         if (tool === "towebp") $("#ggFormat").value = "image/webp";
 
-        if (tool === "crop") $("#ggCropControls").style.display = "grid";
+        if (tool === "crop") {
+          $("#ggCropControls").style.display = "grid";
+          $("#ggCropEditor").style.display = state.image ? "block" : "none";
+          updateCropOverlay();
+        }
         if (tool === "rotate") $("#ggRotateControls").style.display = "grid";
         if (tool === "watermark") $("#ggWatermarkControls").style.display = "grid";
         if (tool === "social") $("#ggSocialControls").style.display = "block";
@@ -1355,24 +1855,431 @@
         });
       }
 
+      function clamp(value, minimum, maximum) {
+        return Math.min(maximum, Math.max(minimum, Number(value) || 0));
+      }
+
+      function getCropValues(preferred = "width") {
+        let x = clamp($("#ggCropX").value, 0, 99);
+        let y = clamp($("#ggCropY").value, 0, 99);
+        let width = clamp($("#ggCropW").value, 1, 100 - x);
+        let height = clamp($("#ggCropH").value, 1, 100 - y);
+        const ratio = $("#ggCropRatio").value;
+        if (ratio !== "free" && state.originalWidth && state.originalHeight) {
+          const targetRatio = Number(ratio);
+          if (preferred === "height") {
+            width = height * targetRatio * state.originalHeight / state.originalWidth;
+            if (width > 100 - x) {
+              width = 100 - x;
+              height = width * state.originalWidth / (targetRatio * state.originalHeight);
+            }
+          } else {
+            height = width * state.originalWidth / (targetRatio * state.originalHeight);
+            if (height > 100 - y) {
+              height = 100 - y;
+              width = height * targetRatio * state.originalHeight / state.originalWidth;
+            }
+          }
+        }
+        width = clamp(width, 1, 100 - x);
+        height = clamp(height, 1, 100 - y);
+        return { x, y, width, height };
+      }
+
+      function setCropValues(values, preferred = "width") {
+        if (values.x !== undefined) $("#ggCropX").value = values.x;
+        if (values.y !== undefined) $("#ggCropY").value = values.y;
+        if (values.width !== undefined) $("#ggCropW").value = values.width;
+        if (values.height !== undefined) $("#ggCropH").value = values.height;
+        updateCropOverlay(preferred);
+      }
+
+      function updateCropOverlay(preferred = "width") {
+        const values = getCropValues(preferred);
+        $("#ggCropX").value = Number(values.x.toFixed(2));
+        $("#ggCropY").value = Number(values.y.toFixed(2));
+        $("#ggCropW").value = Number(values.width.toFixed(2));
+        $("#ggCropH").value = Number(values.height.toFixed(2));
+        $("#ggCropXValue").textContent = `${Math.round(values.x)}%`;
+        $("#ggCropYValue").textContent = `${Math.round(values.y)}%`;
+        $("#ggCropWValue").textContent = `${Math.round(values.width)}%`;
+        $("#ggCropHValue").textContent = `${Math.round(values.height)}%`;
+        const box = $("#ggCropBox");
+        box.style.left = `${values.x}%`;
+        box.style.top = `${values.y}%`;
+        box.style.width = `${values.width}%`;
+        box.style.height = `${values.height}%`;
+        box.setAttribute("aria-label", `Crop selection at ${Math.round(values.x)} percent from left, ${Math.round(values.y)} percent from top, ${Math.round(values.width)} percent wide and ${Math.round(values.height)} percent high.`);
+      }
+
+      function bindCropEditor() {
+        const box = $("#ggCropBox");
+        const stage = $("#ggCropStage");
+        let drag = null;
+        box.addEventListener("pointerdown", (event) => {
+          if (!state.image) return;
+          event.preventDefault();
+          const values = getCropValues();
+          drag = {
+            mode: event.target.classList.contains("gg-crop-handle") ? "resize" : "move",
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            startY: event.clientY,
+            values
+          };
+          box.setPointerCapture(event.pointerId);
+          box.focus();
+        });
+        box.addEventListener("pointermove", (event) => {
+          if (!drag || event.pointerId !== drag.pointerId) return;
+          const rect = stage.getBoundingClientRect();
+          const dx = (event.clientX - drag.startX) / rect.width * 100;
+          const dy = (event.clientY - drag.startY) / rect.height * 100;
+          if (drag.mode === "move") {
+            setCropValues({
+              x: clamp(drag.values.x + dx, 0, 100 - drag.values.width),
+              y: clamp(drag.values.y + dy, 0, 100 - drag.values.height)
+            });
+          } else {
+            setCropValues({
+              width: clamp(drag.values.width + dx, 1, 100 - drag.values.x),
+              height: clamp(drag.values.height + dy, 1, 100 - drag.values.y)
+            }, Math.abs(dx) >= Math.abs(dy) ? "width" : "height");
+          }
+        });
+        const stopDrag = (event) => {
+          if (!drag || event.pointerId !== drag.pointerId) return;
+          drag = null;
+        };
+        box.addEventListener("pointerup", stopDrag);
+        box.addEventListener("pointercancel", stopDrag);
+        box.addEventListener("keydown", (event) => {
+          const directions = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+          if (!directions[event.key]) return;
+          event.preventDefault();
+          const [dx, dy] = directions[event.key];
+          const values = getCropValues();
+          if (event.shiftKey) {
+            setCropValues({ width: values.width + dx, height: values.height + dy }, dx ? "width" : "height");
+          } else {
+            setCropValues({ x: values.x + dx, y: values.y + dy });
+          }
+        });
+      }
+
+      function resetQueueResults() {
+        state.queue.forEach((item) => {
+          item.status = "pending";
+          item.result = null;
+          item.error = "";
+          item.note = "";
+        });
+        renderQueue();
+      }
+
+      function clearQueue() {
+        invalidateOperations();
+        state.queue = [];
+        queueBox.innerHTML = "";
+        batchPanel.style.display = "none";
+        downloadZipBtn.disabled = true;
+      }
+
+      function renderQueue() {
+        queueBox.innerHTML = "";
+        const completed = state.queue.filter((item) => item.status === "done").length;
+        $("#ggBatchSummary").textContent = `${completed}/${state.queue.length} complete`;
+        const header = document.createElement("div");
+        header.className = "gg-queue-row gg-queue-head";
+        ["File", "Original", "Status", "Output", "Action"].forEach((label) => {
+          const cell = document.createElement("span");
+          cell.textContent = label;
+          header.appendChild(cell);
+        });
+        queueBox.appendChild(header);
+        state.queue.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "gg-queue-row";
+          const name = document.createElement("span");
+          name.className = "gg-queue-name";
+          name.title = item.file.name;
+          name.textContent = item.file.name;
+          const original = document.createElement("span");
+          original.textContent = formatBytes(item.file.size);
+          const status = document.createElement("span");
+          status.className = "gg-queue-status";
+          status.dataset.status = item.status;
+          status.textContent = item.status === "done" ? "Complete" : item.status === "error" ? "Failed" : item.status === "processing" ? "Processing…" : item.status === "cancelled" ? "Cancelled" : "Waiting";
+          const output = document.createElement("span");
+          output.textContent = item.result ? formatBytes(item.result.blob.size) : "—";
+          const action = document.createElement("span");
+          if (item.result) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "gg-btn gg-mini-btn";
+            button.textContent = "Download";
+            button.addEventListener("click", () => downloadBlob(item.result.blob, item.result.name));
+            action.appendChild(button);
+          }
+          row.append(name, original, status, output, action);
+          if (item.error || item.warning) {
+            const error = document.createElement("div");
+            error.className = "gg-queue-error";
+            error.textContent = item.error || `Warning: ${item.warning}`;
+            if (!item.error) error.style.color = "#fde68a";
+            row.appendChild(error);
+          }
+          if (item.note) {
+            const note = document.createElement("div");
+            note.className = "gg-queue-error";
+            note.style.color = "#a7f3d0";
+            note.textContent = item.note;
+            row.appendChild(note);
+          }
+          queueBox.appendChild(row);
+        });
+        downloadZipBtn.disabled = completed === 0 || state.batchRunning;
+      }
+
+      function setBatchControls(running) {
+        state.batchRunning = running;
+        batchPanel.setAttribute("aria-busy", String(running));
+        const selectors = "input, select, .gg-tool-tab, .gg-social-preset, [data-gg-upload], #ggProcessBtn";
+        $$(selectors).forEach((element) => { element.disabled = running; });
+        batchProcessBtn.disabled = running;
+        batchCancelBtn.disabled = !running;
+        if (!running) fileInput.disabled = false;
+      }
+
+      async function processQueue() {
+        if (!state.queue.length || state.batchRunning) return;
+        invalidateOperations();
+        const version = state.operationVersion;
+        clearOutput();
+        resetQueueResults();
+        setBatchControls(true);
+        state.batchRestoreSource = true;
+        const active = {
+          file: state.file,
+          image: state.image,
+          originalUrl: state.originalUrl,
+          originalWidth: state.originalWidth,
+          originalHeight: state.originalHeight
+        };
+        try {
+          for (const item of state.queue) {
+            if (version !== state.operationVersion) break;
+            item.status = "processing";
+            renderQueue();
+            let loaded;
+            try {
+              loaded = await loadImageFromFile(item.file);
+              const width = loaded.image.naturalWidth || loaded.image.width;
+              const height = loaded.image.naturalHeight || loaded.image.height;
+              const safety = assessImage(item.file, width, height);
+              if (safety.blocked) throw new Error(safety.message);
+              if (safety.message) {
+                item.warning = safety.message;
+                renderQueue();
+                await new Promise((resolve) => requestAnimationFrame(resolve));
+              }
+              state.file = item.file;
+              state.image = loaded.image;
+              state.originalUrl = loaded.url;
+              state.originalWidth = width;
+              state.originalHeight = height;
+              item.result = await processImage({ silent: true, version });
+              item.note = item.result.targetMessage || "";
+              item.status = "done";
+            } catch (error) {
+              if (error.name === "AbortError") {
+                item.status = "cancelled";
+                item.error = "Processing cancelled.";
+              } else {
+                item.status = "error";
+                item.error = error.message || "This image could not be processed.";
+              }
+            } finally {
+              if (loaded && loaded.url) URL.revokeObjectURL(loaded.url);
+            }
+            renderQueue();
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+          }
+          if (version !== state.operationVersion) {
+            state.queue.forEach((item) => {
+              if (item.status === "pending") item.status = "cancelled";
+            });
+          }
+        } finally {
+          if (state.batchRestoreSource) {
+            state.file = active.file;
+            state.image = active.image;
+            state.originalUrl = active.originalUrl;
+            state.originalWidth = active.originalWidth;
+            state.originalHeight = active.originalHeight;
+          } else if (active.originalUrl) {
+            URL.revokeObjectURL(active.originalUrl);
+          }
+          setBatchControls(false);
+          renderQueue();
+        }
+        if (version === state.operationVersion) {
+          const first = state.queue[0];
+          if (first && first.result && active.file === first.file) {
+            const result = first.result;
+            setOutput(result.blob, result.name, result.width, result.height, result.mime, result.targetMessage);
+          }
+          const successes = state.queue.filter((item) => item.status === "done").length;
+          showToast(`Batch finished: ${successes} of ${state.queue.length} succeeded.`);
+        }
+      }
+
+      function cancelBatch() {
+        if (!state.batchRunning) return;
+        invalidateOperations();
+        state.queue.forEach((item) => {
+          if (["pending", "processing"].includes(item.status)) item.status = "cancelled";
+        });
+        batchCancelBtn.disabled = true;
+        renderQueue();
+        showToast("Batch processing cancelled.");
+      }
+
+      function downloadBlob(blob, name) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
+
+      const crcTable = (() => {
+        const table = new Uint32Array(256);
+        for (let n = 0; n < 256; n++) {
+          let c = n;
+          for (let k = 0; k < 8; k++) c = (c & 1) ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+          table[n] = c >>> 0;
+        }
+        return table;
+      })();
+
+      function crc32(bytes) {
+        let crc = 0xffffffff;
+        for (const byte of bytes) crc = crcTable[(crc ^ byte) & 0xff] ^ (crc >>> 8);
+        return (crc ^ 0xffffffff) >>> 0;
+      }
+
+      function zipHeader(size) {
+        return { bytes: new Uint8Array(size), view: null };
+      }
+
+      function set16(header, offset, value) {
+        if (!header.view) header.view = new DataView(header.bytes.buffer);
+        header.view.setUint16(offset, value, true);
+      }
+
+      function set32(header, offset, value) {
+        if (!header.view) header.view = new DataView(header.bytes.buffer);
+        header.view.setUint32(offset, value, true);
+      }
+
+      async function createZip(entries) {
+        if (entries.length > 65535) throw new Error("ZIP32 supports at most 65,535 files per archive.");
+        const encoder = new TextEncoder();
+        const parts = [];
+        const centralParts = [];
+        let offset = 0;
+        const usedNames = new Set();
+        for (const entry of entries) {
+          const data = new Uint8Array(await entry.blob.arrayBuffer());
+          if (data.byteLength > 0xffffffff || offset + data.byteLength > 0xffffffff) throw new Error("ZIP is larger than the supported 4 GB browser limit.");
+          let name = entry.name;
+          let counter = 2;
+          while (usedNames.has(name)) {
+            const dot = entry.name.lastIndexOf(".");
+            name = dot > 0 ? `${entry.name.slice(0, dot)}-${counter}${entry.name.slice(dot)}` : `${entry.name}-${counter}`;
+            counter++;
+          }
+          usedNames.add(name);
+          const nameBytes = encoder.encode(name);
+          const checksum = crc32(data);
+          const local = zipHeader(30 + nameBytes.length);
+          set32(local, 0, 0x04034b50);
+          set16(local, 4, 20);
+          set16(local, 6, 0x0800);
+          set16(local, 8, 0);
+          set32(local, 14, checksum);
+          set32(local, 18, data.length);
+          set32(local, 22, data.length);
+          set16(local, 26, nameBytes.length);
+          local.bytes.set(nameBytes, 30);
+          parts.push(local.bytes, data);
+
+          const central = zipHeader(46 + nameBytes.length);
+          set32(central, 0, 0x02014b50);
+          set16(central, 4, 20);
+          set16(central, 6, 20);
+          set16(central, 8, 0x0800);
+          set16(central, 10, 0);
+          set32(central, 16, checksum);
+          set32(central, 20, data.length);
+          set32(central, 24, data.length);
+          set16(central, 28, nameBytes.length);
+          set32(central, 42, offset);
+          central.bytes.set(nameBytes, 46);
+          centralParts.push(central.bytes);
+          offset += local.bytes.length + data.length;
+        }
+        const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
+        const end = zipHeader(22);
+        set32(end, 0, 0x06054b50);
+        set16(end, 8, entries.length);
+        set16(end, 10, entries.length);
+        set32(end, 12, centralSize);
+        set32(end, 16, offset);
+        return new Blob([...parts, ...centralParts, end.bytes], { type: "application/zip" });
+      }
+
+      async function downloadQueueZip() {
+        const entries = state.queue.filter((item) => item.result).map((item) => item.result);
+        if (!entries.length) return;
+        downloadZipBtn.disabled = true;
+        try {
+          const blob = await createZip(entries);
+          downloadBlob(blob, "processed-images.zip");
+        } catch (error) {
+          showToast(error.message || "ZIP creation failed.");
+        } finally {
+          downloadZipBtn.disabled = false;
+        }
+      }
+
       function bindControls() {
         $$('[data-gg-upload]').forEach((btn) => btn.addEventListener("click", () => fileInput.click()));
-        fileInput.addEventListener("change", (event) => handleFile(event.target.files[0]));
+        fileInput.addEventListener("change", (event) => handleFiles(event.target.files));
         $("#ggProcessBtn").addEventListener("click", processImage);
         $("#ggResetBtn").addEventListener("click", () => {
+          state.batchRestoreSource = false;
+          invalidateOperations();
           fileInput.value = "";
           if (state.originalUrl) URL.revokeObjectURL(state.originalUrl);
-          if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+          clearOutput();
+          clearQueue();
           state.file = null;
           state.image = null;
           state.originalUrl = "";
-          state.resultBlob = null;
-          state.resultUrl = "";
+          state.originalWidth = 0;
+          state.originalHeight = 0;
           previewImage.removeAttribute("src");
+          $("#ggCropImage").removeAttribute("src");
+          $("#ggCropEditor").style.display = "none";
           previewWrap.style.display = "none";
           emptyUpload.style.display = "block";
           fileInfo.style.display = "none";
-          outputBox.style.display = "none";
+          showSafety("");
           showToast("Tool reset successfully.");
         });
 
@@ -1381,13 +2288,12 @@
             showToast("Please process image first.");
             return;
           }
-          const link = document.createElement("a");
-          link.href = state.resultUrl;
-          link.download = state.resultName || "processed-image.jpg";
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
+          downloadBlob(state.resultBlob, state.resultName || "processed-image.jpg");
         });
+
+        batchProcessBtn.addEventListener("click", processQueue);
+        batchCancelBtn.addEventListener("click", cancelBatch);
+        downloadZipBtn.addEventListener("click", downloadQueueZip);
 
         $$(".gg-tool-tab").forEach((tab) => {
           tab.addEventListener("click", () => setActiveTool(tab.dataset.tool));
@@ -1405,18 +2311,23 @@
         dropZone.addEventListener("drop", (event) => {
           event.preventDefault();
           dropZone.classList.remove("gg-dragover");
-          handleFile(event.dataTransfer.files[0]);
+          handleFiles(event.dataTransfer.files);
         });
 
         $("#ggQuality").addEventListener("input", (e) => $("#ggQualityValue").textContent = `${e.target.value}%`);
-        $("#ggCropX").addEventListener("input", (e) => $("#ggCropXValue").textContent = `${e.target.value}%`);
-        $("#ggCropY").addEventListener("input", (e) => $("#ggCropYValue").textContent = `${e.target.value}%`);
-        $("#ggCropW").addEventListener("input", (e) => $("#ggCropWValue").textContent = `${e.target.value}%`);
-        $("#ggCropH").addEventListener("input", (e) => $("#ggCropHValue").textContent = `${e.target.value}%`);
+        ["#ggCropX", "#ggCropY", "#ggCropW"].forEach((selector) => $(selector).addEventListener("input", () => updateCropOverlay("width")));
+        $("#ggCropH").addEventListener("input", () => updateCropOverlay("height"));
+        $("#ggCropRatio").addEventListener("change", () => updateCropOverlay("width"));
         $("#ggCropQuality").addEventListener("input", (e) => $("#ggCropQualityValue").textContent = `${e.target.value}%`);
         $("#ggRotateQuality").addEventListener("input", (e) => $("#ggRotateQualityValue").textContent = `${e.target.value}%`);
         $("#ggWatermarkSize").addEventListener("input", (e) => $("#ggWatermarkSizeValue").textContent = `${e.target.value}px`);
         $("#ggWatermarkOpacity").addEventListener("input", (e) => $("#ggWatermarkOpacityValue").textContent = `${e.target.value}%`);
+        $("#ggCompareRange").addEventListener("input", (event) => {
+          const value = Number(event.target.value);
+          $("#ggCompareAfter").style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+          $("#ggCompareValue").textContent = `${value}% processed`;
+        });
+        bindCropEditor();
       }
 
       renderSocialPresets();
