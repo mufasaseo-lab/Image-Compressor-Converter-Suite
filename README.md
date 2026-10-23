@@ -9,7 +9,7 @@ A browser-based image processing toolkit for compressing, resizing, converting, 
 - Compress images with adjustable quality
 - Use Balanced, Maximum compression, or Best quality smart compression modes
 - Resize images with aspect-ratio control
-- Convert images between JPG, PNG, and WebP
+- Convert images between JPG, PNG, WebP, and AVIF when the browser encoder supports AVIF
 - Crop images with synchronized numeric controls and a draggable visual selection
 - Rotate images by 90, 180, or 270 degrees
 - Add customizable text watermarks
@@ -22,7 +22,8 @@ A browser-based image processing toolkit for compressing, resizing, converting, 
 - Process batch queues sequentially with per-file status and failure isolation
 - Download individual results or all successful batch results as a locally generated ZIP
 - Track batch progress with a visual progress bar
-- Paste images directly from the clipboard and switch between light and dark themes
+- Paste images directly from the clipboard
+- Start in dark theme by default and switch to light theme with the theme toggle
 - Warn about source dimensions, file size, estimated Canvas memory, and browser encoder fallback
 - No backend or external dependency required
 
@@ -51,9 +52,10 @@ The social media resizer includes presets for:
 3. Upload one or more images, or drag and drop them into the upload area.
 4. Select a tool from the sidebar.
 5. Adjust the available settings.
-6. For one image, click **Process Image**. For multiple images, click **Process Queue**.
-7. Inspect the output preview and metadata.
-8. Download one result, or download all successful batch outputs as a ZIP.
+6. For compression, choose **Balanced**, **Maximum compression**, or **Best quality**. Compression and resize settings show a debounced live preview after an image is loaded.
+7. For one image, click **Process Image**. For multiple images, click **Process Queue**.
+8. Inspect the output preview, metadata, and estimated size reduction.
+9. Download one result, or download all successful batch outputs as a ZIP.
 
 No installation, build step, or server is required.
 
@@ -66,6 +68,8 @@ The ZIP writer is implemented locally in the application and uses uncompressed Z
 ## Target File Size
 
 The optional KB target applies only to JPEG and WebP. The app tests encoded Blob sizes and searches for the highest tested quality within the target. If 10% quality is still too large, it reports that the target cannot be reached without changing dimensions. It never silently resizes the image or changes the selected format. PNG targets are not claimed because the Canvas PNG encoder does not provide dependable size control through its quality argument.
+
+In compressor mode, if the selected JPEG/WebP settings produce an output larger than the source, the app tests lower quality levels and uses the first smaller result. If no smaller result can be produced, it reports that limitation instead of claiming a reduction.
 
 ## Large-Image Safety
 
@@ -100,8 +104,10 @@ Use a modern browser with support for:
 
 - HTML Canvas
 - `canvas.toBlob()`
+- Browser support for `image/avif` in `canvas.toBlob()` is detected before the AVIF option is shown
 - Object URLs
 - Drag-and-drop file input
+- Clipboard image permissions for the paste action
 - Pointer Events for visual crop interaction
 - `TextEncoder` and typed arrays for local ZIP generation
 
