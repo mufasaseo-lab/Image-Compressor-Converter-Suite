@@ -1,0 +1,2808 @@
+<div id="gg-image-tools-app" class="gg-dark-mode">
+  <style>
+    #gg-image-tools-app,
+    #gg-image-tools-app * {
+      box-sizing: border-box;
+    }
+
+    #gg-image-tools-app {
+      --gg-bg: #06111f;
+      --gg-bg-2: #0a1728;
+      --gg-card: rgba(255, 255, 255, 0.075);
+      --gg-card-2: rgba(255, 255, 255, 0.105);
+      --gg-border: rgba(255, 255, 255, 0.14);
+      --gg-border-strong: rgba(103, 232, 249, 0.45);
+      --gg-text: #ffffff;
+      --gg-muted: #b7c4d8;
+      --gg-soft: #7f8da3;
+      --gg-primary: #22d3ee;
+      --gg-primary-2: #38bdf8;
+      --gg-dark: #06111f;
+      --gg-success: #34d399;
+      --gg-warning: #fbbf24;
+      --gg-danger: #fb7185;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--gg-text);
+      width: 100%;
+      isolation: isolate;
+    }
+
+    #gg-image-tools-app button,
+    #gg-image-tools-app input,
+    #gg-image-tools-app select,
+    #gg-image-tools-app textarea {
+      font-family: inherit;
+    }
+
+    #gg-image-tools-app .gg-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      padding: 34px 16px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(34, 211, 238, 0.25), transparent 30%),
+        radial-gradient(circle at 90% 18%, rgba(59, 130, 246, 0.20), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.13), transparent 34%),
+        linear-gradient(135deg, #06111f 0%, #08192c 52%, #07111f 100%);
+    }
+
+    #gg-image-tools-app .gg-container {
+      position: relative;
+      z-index: 2;
+      width: min(1240px, 100%);
+      margin: 0 auto;
+    }
+
+    #gg-image-tools-app .gg-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 14px;
+      border: 1px solid var(--gg-border);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+    }
+
+    #gg-image-tools-app .gg-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #gg-image-tools-app .gg-logo {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      background: #ffffff;
+      color: #06111f;
+      font-size: 24px;
+      box-shadow: 0 20px 40px rgba(34, 211, 238, 0.18);
+    }
+
+    #gg-image-tools-app .gg-brand h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    #gg-image-tools-app .gg-brand p {
+      margin: 4px 0 0;
+      color: var(--gg-muted);
+      font-size: 12px;
+    }
+
+    #gg-image-tools-app .gg-hero {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    #gg-image-tools-app .gg-hero-card,
+    #gg-image-tools-app .gg-panel,
+    #gg-image-tools-app .gg-tool-card {
+      border: 1px solid var(--gg-border);
+      background: var(--gg-card);
+      border-radius: 34px;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+    }
+
+    #gg-image-tools-app .gg-hero-card {
+      padding: 32px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #gg-image-tools-app .gg-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(103, 232, 249, 0.28);
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.11);
+      color: #cffafe;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    #gg-image-tools-app .gg-hero-card h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      color: #fff;
+    }
+
+    #gg-image-tools-app .gg-hero-card p {
+      margin: 18px 0 0;
+      max-width: 620px;
+      color: var(--gg-muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    #gg-image-tools-app .gg-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    #gg-image-tools-app .gg-btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 18px;
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: 0.22s ease;
+      min-height: 46px;
+      text-decoration: none !important;
+    }
+
+    #gg-image-tools-app .gg-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    #gg-image-tools-app button:focus-visible,
+    #gg-image-tools-app input:focus-visible,
+    #gg-image-tools-app select:focus-visible,
+    #gg-image-tools-app [tabindex]:focus-visible {
+      outline: 3px solid #fef08a;
+      outline-offset: 3px;
+    }
+
+    #gg-image-tools-app button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+      transform: none;
+    }
+
+    #gg-image-tools-app .gg-btn-primary {
+      background: linear-gradient(135deg, var(--gg-primary), var(--gg-primary-2));
+      color: #031019;
+      box-shadow: 0 20px 46px rgba(34, 211, 238, 0.23);
+    }
+
+    #gg-image-tools-app .gg-btn-primary:hover {
+      background: linear-gradient(135deg, #67e8f9, #7dd3fc);
+      color: #031019;
+    }
+
+    #gg-image-tools-app .gg-btn-danger {
+      background: rgba(251, 113, 133, 0.16);
+      color: #fecdd3;
+    }
+
+    #gg-image-tools-app .gg-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    #gg-image-tools-app .gg-stat {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    #gg-image-tools-app .gg-stat strong {
+      display: block;
+      font-size: 19px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    #gg-image-tools-app .gg-stat span {
+      color: var(--gg-soft);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #gg-image-tools-app .gg-workspace {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    #gg-image-tools-app .gg-uploader {
+      position: relative;
+      min-height: 390px;
+      border: 1px dashed rgba(103, 232, 249, 0.45);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(34, 211, 238, 0.075), rgba(255, 255, 255, 0.035)),
+        rgba(8, 25, 44, 0.72);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    #gg-image-tools-app .gg-uploader.gg-dragover {
+      border-color: #67e8f9;
+      background: rgba(34, 211, 238, 0.14);
+    }
+
+    #gg-image-tools-app .gg-empty-upload {
+      text-align: center;
+      max-width: 440px;
+    }
+
+    #gg-image-tools-app .gg-upload-icon {
+      width: 78px;
+      height: 78px;
+      border-radius: 26px;
+      margin: 0 auto 16px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: #07111f;
+      font-size: 34px;
+      box-shadow: 0 20px 50px rgba(34, 211, 238, 0.17);
+    }
+
+    #gg-image-tools-app .gg-empty-upload h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 26px;
+      letter-spacing: -0.03em;
+    }
+
+    #gg-image-tools-app .gg-empty-upload p {
+      margin: 10px 0 18px;
+      color: var(--gg-muted);
+      line-height: 1.7;
+    }
+
+    #gg-image-tools-app #ggPreviewWrap {
+      width: 100%;
+      min-height: 340px;
+      display: none;
+      place-items: center;
+      position: relative;
+    }
+
+    #gg-image-tools-app #ggPreviewImage {
+      max-width: 100%;
+      max-height: 540px;
+      border-radius: 20px;
+      object-fit: contain;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.36);
+      background: #fff;
+    }
+
+    #gg-image-tools-app .gg-file-info {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-warning {
+      display: none;
+      padding: 12px 14px;
+      border: 1px solid rgba(251, 191, 36, 0.38);
+      border-radius: 16px;
+      background: rgba(251, 191, 36, 0.11);
+      color: #fef3c7;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    #gg-image-tools-app .gg-batch-panel {
+      display: none;
+      padding: 16px;
+      border: 1px solid var(--gg-border);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    #gg-image-tools-app .gg-batch-head,
+    #gg-image-tools-app .gg-batch-actions,
+    #gg-image-tools-app .gg-queue-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-batch-head {
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    #gg-image-tools-app .gg-batch-head h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    #gg-image-tools-app .gg-queue {
+      display: grid;
+      gap: 8px;
+      max-height: 300px;
+      overflow: auto;
+      margin-bottom: 12px;
+    }
+
+    #gg-image-tools-app .gg-queue-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 2fr) minmax(90px, 0.7fr) minmax(100px, 0.9fr) minmax(90px, 0.7fr) auto;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.13);
+      font-size: 12px;
+    }
+
+    #gg-image-tools-app .gg-queue-row.gg-queue-head {
+      position: sticky;
+      z-index: 2;
+      top: 0;
+      background: #122236;
+      color: var(--gg-muted);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    #gg-image-tools-app .gg-queue-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    #gg-image-tools-app .gg-queue-status[data-status="done"] { color: #6ee7b7; }
+    #gg-image-tools-app .gg-queue-status[data-status="error"] { color: #fda4af; }
+    #gg-image-tools-app .gg-queue-status[data-status="processing"] { color: #67e8f9; }
+    #gg-image-tools-app .gg-queue-error { grid-column: 1 / -1; color: #fecdd3; line-height: 1.4; }
+
+    #gg-image-tools-app .gg-mini-btn {
+      min-height: 34px;
+      padding: 8px 10px;
+      border-radius: 11px;
+      font-size: 11px;
+    }
+
+    #gg-image-tools-app .gg-info-box {
+      border: 1px solid rgba(255, 255, 255, 0.095);
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.13);
+      min-width: 0;
+    }
+
+    #gg-image-tools-app .gg-info-box span {
+      display: block;
+      color: var(--gg-soft);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+
+    #gg-image-tools-app .gg-info-box strong {
+      display: block;
+      color: #fff;
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #gg-image-tools-app .gg-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    #gg-image-tools-app .gg-sidebar {
+      position: sticky;
+      top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    #gg-image-tools-app .gg-tool-tab {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #gg-image-tools-app .gg-tool-tab:hover,
+    #gg-image-tools-app .gg-tool-tab.gg-active {
+      border-color: var(--gg-border-strong);
+      background: rgba(34, 211, 238, 0.12);
+      transform: translateY(-1px);
+    }
+
+    #gg-image-tools-app .gg-tab-icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.12);
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+    }
+
+    #gg-image-tools-app .gg-tool-tab strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.15;
+    }
+
+    #gg-image-tools-app .gg-tool-tab small {
+      display: block;
+      color: var(--gg-muted);
+      margin-top: 3px;
+      line-height: 1.2;
+      font-size: 11px;
+    }
+
+    #gg-image-tools-app .gg-main-panel {
+      padding: 18px;
+    }
+
+    #gg-image-tools-app .gg-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    #gg-image-tools-app .gg-panel-head h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 28px;
+      letter-spacing: -0.035em;
+    }
+
+    #gg-image-tools-app .gg-panel-head p {
+      margin: 6px 0 0;
+      color: var(--gg-muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    #gg-image-tools-app .gg-badge {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.14);
+      color: #cffafe;
+      font-weight: 900;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    #gg-image-tools-app .gg-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    #gg-image-tools-app .gg-control {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    #gg-image-tools-app .gg-control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 9px;
+    }
+
+    #gg-image-tools-app .gg-control label span {
+      color: #67e8f9;
+      font-weight: 900;
+    }
+
+    #gg-image-tools-app .gg-control input,
+    #gg-image-tools-app .gg-control select,
+    #gg-image-tools-app .gg-control textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.075);
+      color: #fff;
+      border-radius: 14px;
+      padding: 11px 12px;
+      outline: none;
+      font-weight: 750;
+    }
+
+    #gg-image-tools-app .gg-control select option {
+      color: #06111f;
+      background: #fff;
+    }
+
+    #gg-image-tools-app .gg-control input[type="range"] {
+      padding: 0;
+      accent-color: var(--gg-primary);
+    }
+
+    #gg-image-tools-app .gg-help {
+      color: var(--gg-soft);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
+    #gg-image-tools-app .gg-action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.095);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    #gg-image-tools-app .gg-output {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 22px;
+      background: rgba(52, 211, 153, 0.09);
+    }
+
+    #gg-image-tools-app .gg-output h3 {
+      margin: 0 0 10px;
+      color: #d1fae5;
+      font-size: 18px;
+    }
+
+    #gg-image-tools-app .gg-output-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    #gg-image-tools-app .gg-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    #gg-image-tools-app .gg-result-preview {
+      margin: 0;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    #gg-image-tools-app .gg-result-preview figcaption {
+      margin-bottom: 8px;
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    #gg-image-tools-app .gg-result-preview img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: repeating-conic-gradient(#d1d5db 0 25%, #fff 0 50%) 50% / 18px 18px;
+    }
+
+    #gg-image-tools-app .gg-compare-wrap {
+      margin: 14px 0;
+      padding: 12px;
+      border: 1px solid rgba(103, 232, 249, 0.24);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    #gg-image-tools-app .gg-compare-stage {
+      position: relative;
+      height: min(52vw, 420px);
+      min-height: 240px;
+      overflow: hidden;
+      border-radius: 14px;
+      background: repeating-conic-gradient(#d1d5db 0 25%, #fff 0 50%) 50% / 18px 18px;
+    }
+
+    #gg-image-tools-app .gg-compare-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    #gg-image-tools-app .gg-compare-after {
+      clip-path: inset(0 50% 0 0);
+    }
+
+    #gg-image-tools-app .gg-compare-label {
+      position: absolute;
+      z-index: 3;
+      top: 10px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(6, 17, 31, 0.82);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    #gg-image-tools-app .gg-compare-label-before { left: 10px; }
+    #gg-image-tools-app .gg-compare-label-after { right: 10px; }
+    #gg-image-tools-app .gg-compare-control { margin-top: 10px; }
+    #gg-image-tools-app .gg-compare-control input { width: 100%; accent-color: var(--gg-primary); }
+
+    #gg-image-tools-app .gg-crop-editor {
+      grid-column: 1 / -1;
+      display: none;
+      padding: 12px;
+      border: 1px solid rgba(103, 232, 249, 0.24);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    #gg-image-tools-app .gg-crop-stage {
+      position: relative;
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      line-height: 0;
+      touch-action: none;
+      user-select: none;
+    }
+
+    #gg-image-tools-app .gg-crop-stage img {
+      display: block;
+      max-width: 100%;
+      max-height: 460px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    #gg-image-tools-app .gg-crop-box {
+      position: absolute;
+      border: 2px solid #67e8f9;
+      background: rgba(34, 211, 238, 0.13);
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.48);
+      cursor: move;
+      touch-action: none;
+    }
+
+    #gg-image-tools-app .gg-crop-handle {
+      position: absolute;
+      right: -8px;
+      bottom: -8px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #06111f;
+      border-radius: 50%;
+      background: #67e8f9;
+      cursor: nwse-resize;
+    }
+
+    #gg-image-tools-app .gg-target-note {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.095);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    #gg-image-tools-app .gg-target-note label { display: flex; align-items: center; gap: 10px; font-weight: 850; }
+    #gg-image-tools-app .gg-target-note input { width: 130px; }
+    #gg-image-tools-app .gg-target-result { margin-top: 7px; color: #a7f3d0; font-size: 12px; }
+
+    #gg-image-tools-app .gg-social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    #gg-image-tools-app .gg-social-preset {
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      background: rgba(255, 255, 255, 0.055);
+      border-radius: 18px;
+      color: #fff;
+      padding: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+
+    #gg-image-tools-app .gg-social-preset:hover,
+    #gg-image-tools-app .gg-social-preset.gg-selected {
+      border-color: var(--gg-border-strong);
+      background: rgba(34, 211, 238, 0.12);
+    }
+
+    #gg-image-tools-app .gg-social-preset strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    #gg-image-tools-app .gg-social-preset span {
+      color: var(--gg-muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #gg-image-tools-app .gg-toast {
+      position: fixed;
+      z-index: 999999;
+      right: 18px;
+      bottom: 18px;
+      max-width: 360px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #ffffff;
+      color: #06111f;
+      box-shadow: 0 18px 70px rgba(0, 0, 0, 0.32);
+      font-weight: 850;
+      display: none;
+    }
+
+    #gg-image-tools-app .gg-loader {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid rgba(6, 17, 31, 0.22);
+      border-top-color: #06111f;
+      display: none;
+      animation: ggSpin 0.75s linear infinite;
+    }
+
+    #gg-image-tools-app .gg-processing .gg-loader {
+      display: inline-block;
+    }
+
+    @keyframes ggSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      #gg-image-tools-app .gg-hero,
+      #gg-image-tools-app .gg-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #gg-image-tools-app .gg-sidebar {
+        position: static;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      #gg-image-tools-app .gg-shell {
+        padding: 16px 10px;
+        border-radius: 22px;
+      }
+
+      #gg-image-tools-app .gg-topbar,
+      #gg-image-tools-app .gg-panel-head,
+      #gg-image-tools-app .gg-action-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      #gg-image-tools-app .gg-hero-card,
+      #gg-image-tools-app .gg-main-panel {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      #gg-image-tools-app .gg-stats,
+      #gg-image-tools-app .gg-file-info,
+      #gg-image-tools-app .gg-controls,
+      #gg-image-tools-app .gg-output-grid,
+      #gg-image-tools-app .gg-preview-grid,
+      #gg-image-tools-app .gg-social-grid,
+      #gg-image-tools-app .gg-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      #gg-image-tools-app .gg-queue-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #gg-image-tools-app .gg-queue-name,
+      #gg-image-tools-app .gg-queue-error {
+        grid-column: 1 / -1;
+      }
+
+      #gg-image-tools-app .gg-batch-head,
+      #gg-image-tools-app .gg-batch-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      #gg-image-tools-app .gg-uploader {
+        min-height: 310px;
+      }
+
+      #gg-image-tools-app .gg-btn {
+        width: 100%;
+      }
+    }
+
+    /* SaaS visual system refresh */
+    #gg-image-tools-app {
+      --gg-bg: #f5f7fb;
+      --gg-bg-2: #eef2f8;
+      --gg-card: rgba(255, 255, 255, 0.92);
+      --gg-card-2: #ffffff;
+      --gg-border: #e4e9f2;
+      --gg-border-strong: rgba(79, 70, 229, 0.38);
+      --gg-text: #172033;
+      --gg-muted: #667085;
+      --gg-soft: #98a2b3;
+      --gg-primary: #6366f1;
+      --gg-primary-2: #8b5cf6;
+      --gg-dark: #172033;
+      color: var(--gg-text);
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    #gg-image-tools-app .gg-shell {
+      min-height: 100vh;
+      padding: 24px 18px 48px;
+      border-radius: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(99, 102, 241, 0.10), transparent 26%),
+        radial-gradient(circle at 100% 8%, rgba(14, 165, 233, 0.08), transparent 24%),
+        linear-gradient(180deg, #f8fafc 0%, #f3f5fa 100%);
+    }
+
+    #gg-image-tools-app .gg-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(99, 102, 241, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, #000, transparent 68%);
+    }
+
+    #gg-image-tools-app .gg-container { max-width: 1320px; min-width: 0; }
+
+    #gg-image-tools-app .gg-topbar {
+      margin-bottom: 18px;
+      padding: 10px 12px 10px 16px;
+      border: 1px solid rgba(228, 233, 242, 0.95);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 10px 30px rgba(31, 41, 55, 0.06);
+      backdrop-filter: blur(20px);
+    }
+
+    #gg-image-tools-app .gg-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-size: 19px;
+      box-shadow: 0 10px 24px rgba(99, 102, 241, 0.24);
+    }
+
+    #gg-image-tools-app .gg-brand h3 { color: #1f2937; font-size: 15px; letter-spacing: -0.02em; }
+    #gg-image-tools-app .gg-brand p { color: #98a2b3; font-size: 11px; }
+
+    #gg-image-tools-app .gg-hero {
+      grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    #gg-image-tools-app .gg-hero-card,
+    #gg-image-tools-app .gg-panel,
+    #gg-image-tools-app .gg-tool-card {
+      border: 1px solid var(--gg-border);
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 24px;
+      box-shadow: 0 16px 42px rgba(31, 41, 55, 0.07);
+      backdrop-filter: blur(18px);
+    }
+
+    #gg-image-tools-app .gg-hero-card {
+      min-height: 360px;
+      padding: 34px;
+      justify-content: flex-start;
+    }
+
+    #gg-image-tools-app .gg-pill {
+      padding: 7px 11px;
+      border: 1px solid #ddd6fe;
+      background: #f5f3ff;
+      color: #5b21b6;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+
+    #gg-image-tools-app .gg-hero-card h1 {
+      max-width: 590px;
+      color: #111827;
+      font-size: clamp(36px, 4.7vw, 60px);
+      line-height: 0.98;
+    }
+
+    #gg-image-tools-app .gg-hero-card p { color: #667085; font-size: 15px; line-height: 1.7; }
+
+    #gg-image-tools-app .gg-btn {
+      min-height: 42px;
+      padding: 11px 15px;
+      border: 1px solid #e4e7ec;
+      border-radius: 12px;
+      background: #fff;
+      color: #344054;
+      font-size: 13px;
+      box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03);
+    }
+
+    #gg-image-tools-app .gg-btn:hover { background: #f8fafc; color: #1f2937; box-shadow: 0 6px 14px rgba(16, 24, 40, 0.08); }
+    #gg-image-tools-app .gg-btn-primary { border-color: transparent; background: linear-gradient(135deg, #6366f1, #7c3aed); color: #fff; box-shadow: 0 10px 22px rgba(99, 102, 241, 0.23); }
+    #gg-image-tools-app .gg-btn-primary:hover { background: linear-gradient(135deg, #4f46e5, #6d28d9); color: #fff; }
+
+    #gg-image-tools-app .gg-stats { gap: 8px; margin-top: auto; padding-top: 26px; }
+    #gg-image-tools-app .gg-stat { padding: 13px; border: 1px solid #e7eaf0; border-radius: 15px; background: #f8fafc; }
+    #gg-image-tools-app .gg-stat strong { color: #1f2937; font-size: 17px; }
+    #gg-image-tools-app .gg-stat span { color: #98a2b3; font-size: 11px; }
+
+    #gg-image-tools-app .gg-workspace { padding: 14px; gap: 12px; }
+    #gg-image-tools-app .gg-uploader {
+      min-height: 360px;
+      border: 1px dashed #c7d2fe;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f8faff, #f3f6ff);
+    }
+    #gg-image-tools-app .gg-uploader.gg-dragover { border-color: #6366f1; background: #eef2ff; }
+    #gg-image-tools-app .gg-upload-icon { width: 62px; height: 62px; border-radius: 19px; background: #eef2ff; color: #4f46e5; font-size: 27px; box-shadow: none; }
+    #gg-image-tools-app .gg-empty-upload h2 { color: #1f2937; font-size: 22px; }
+    #gg-image-tools-app .gg-empty-upload p { color: #667085; font-size: 13px; }
+    #gg-image-tools-app #ggPreviewImage { border-radius: 14px; box-shadow: 0 16px 36px rgba(31, 41, 55, 0.16); }
+
+    #gg-image-tools-app .gg-info-box { border: 1px solid #e7eaf0; border-radius: 14px; background: #fff; }
+    #gg-image-tools-app .gg-info-box span { color: #98a2b3; font-size: 10px; }
+    #gg-image-tools-app .gg-info-box strong { color: #344054; font-size: 12px; }
+    #gg-image-tools-app .gg-grid { grid-template-columns: minmax(220px, 270px) minmax(0, 1fr); gap: 18px; min-width: 0; }
+    #gg-image-tools-app .gg-main-panel,
+    #gg-image-tools-app .gg-hero-card,
+    #gg-image-tools-app .gg-workspace { min-width: 0; }
+    #gg-image-tools-app .gg-sidebar { gap: 7px; }
+    #gg-image-tools-app .gg-tool-tab { padding: 11px; border: 1px solid transparent; border-radius: 14px; background: transparent; color: #344054; }
+    #gg-image-tools-app .gg-tool-tab:hover { border-color: #e4e7ec; background: #fff; transform: none; }
+    #gg-image-tools-app .gg-tool-tab.gg-active { border-color: #c7d2fe; background: #eef2ff; box-shadow: inset 3px 0 0 #6366f1; transform: none; }
+    #gg-image-tools-app .gg-tab-icon { width: 36px; height: 36px; flex-basis: 36px; border-radius: 11px; background: #fff; font-size: 17px; box-shadow: 0 2px 7px rgba(31, 41, 55, 0.06); }
+    #gg-image-tools-app .gg-tool-tab strong { color: #344054; font-size: 13px; }
+    #gg-image-tools-app .gg-tool-tab small { color: #98a2b3; font-size: 10px; }
+    #gg-image-tools-app .gg-main-panel { padding: 24px; }
+    #gg-image-tools-app .gg-panel-head { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid #eef0f4; }
+    #gg-image-tools-app .gg-panel-head h2 { color: #101828; font-size: 24px; }
+    #gg-image-tools-app .gg-panel-head p { color: #667085; font-size: 13px; }
+    #gg-image-tools-app .gg-badge { padding: 6px 9px; background: #eef2ff; color: #4f46e5; font-size: 10px; letter-spacing: 0.06em; }
+    #gg-image-tools-app .gg-controls { gap: 10px; }
+    #gg-image-tools-app .gg-control { padding: 13px; border: 1px solid #e7eaf0; border-radius: 15px; background: #fbfcfe; }
+    #gg-image-tools-app .gg-control label { color: #344054; font-size: 11px; }
+    #gg-image-tools-app .gg-control label span { color: #6366f1; }
+    #gg-image-tools-app .gg-control input,
+    #gg-image-tools-app .gg-control select,
+    #gg-image-tools-app .gg-control textarea { border-color: #dfe4ec; background: #fff; color: #344054; border-radius: 10px; padding: 10px; font-size: 13px; }
+    #gg-image-tools-app .gg-help { color: #98a2b3; font-size: 11px; }
+    #gg-image-tools-app .gg-action-row { padding: 13px; border: 1px solid #e7eaf0; border-radius: 15px; background: #f8fafc; }
+    #gg-image-tools-app .gg-target-note { border-color: #e7eaf0; border-radius: 15px; background: #f8fafc; }
+    #gg-image-tools-app .gg-social-preset { border-color: #e7eaf0; background: #fff; border-radius: 14px; }
+    #gg-image-tools-app .gg-social-preset:hover,
+    #gg-image-tools-app .gg-social-preset.gg-selected { border-color: #a5b4fc; background: #eef2ff; }
+    #gg-image-tools-app .gg-social-preset strong { color: #344054; }
+    #gg-image-tools-app .gg-social-preset span { color: #98a2b3; }
+    #gg-image-tools-app .gg-output { border-color: #a7f3d0; border-radius: 18px; background: #f0fdf4; }
+    #gg-image-tools-app .gg-output h3 { color: #166534; }
+    #gg-image-tools-app .gg-result-preview { border-color: #e7eaf0; border-radius: 14px; background: #fff; }
+    #gg-image-tools-app .gg-result-preview figcaption { color: #344054; }
+    #gg-image-tools-app .gg-compare-wrap { border-color: #c7d2fe; border-radius: 15px; background: #f8fafc; }
+    #gg-image-tools-app .gg-batch-panel { border-color: #e7eaf0; border-radius: 18px; background: #f8fafc; }
+    #gg-image-tools-app .gg-queue-row { border-color: #e7eaf0; background: #fff; color: #667085; }
+    #gg-image-tools-app .gg-queue-row.gg-queue-head { background: #f1f5f9; color: #667085; }
+    #gg-image-tools-app .gg-queue-name { color: #344054; }
+    #gg-image-tools-app .gg-warning { border-color: #fedf89; background: #fffaeb; color: #92400e; }
+    #gg-image-tools-app .gg-toast { background: #172033; color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+
+    #gg-image-tools-app .gg-target-note {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: 12px;
+      row-gap: 7px;
+      padding: 16px 18px;
+    }
+
+    #gg-image-tools-app .gg-target-note > label {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #1f2937;
+      font-size: 15px;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    #gg-image-tools-app .gg-target-note > label::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border-radius: 999px;
+      background: #6366f1;
+      box-shadow: 0 0 0 4px #eef2ff;
+    }
+
+    #gg-image-tools-app .gg-target-note input {
+      width: 126px;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid #d0d5dd;
+      border-radius: 10px;
+      background: #fff;
+      color: #1f2937;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 650;
+      outline: none;
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    }
+
+    #gg-image-tools-app .gg-target-note input::placeholder { color: #98a2b3; }
+    #gg-image-tools-app .gg-target-note input:focus { border-color: #818cf8; box-shadow: 0 0 0 4px #eef2ff; }
+    #gg-image-tools-app .gg-target-note .gg-help { flex: 1 1 100%; margin-top: 0; padding-left: 21px; max-width: 900px; }
+    #gg-image-tools-app .gg-target-result { flex: 1 1 100%; margin-top: 0; padding-left: 21px; }
+
+    #gg-image-tools-app .gg-topbar-actions,
+    #gg-image-tools-app .gg-upload-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    #gg-image-tools-app .gg-upload-actions { justify-content: center; }
+    #gg-image-tools-app .gg-live-estimate { margin-top: 5px; color: #4f46e5; font-size: 11px; font-weight: 750; }
+    #gg-image-tools-app .gg-batch-progress { height: 6px; overflow: hidden; margin-top: 13px; border-radius: 999px; background: #e5e7eb; }
+    #gg-image-tools-app .gg-batch-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #6366f1, #8b5cf6); transition: width 0.25s ease; }
+
+    #gg-image-tools-app.gg-dark-mode { --gg-text: #e5e7eb; --gg-muted: #a7b0c0; --gg-soft: #7f8da3; --gg-border: #273449; background: #0f172a; color: #e5e7eb; }
+    #gg-image-tools-app.gg-dark-mode .gg-shell { background: linear-gradient(180deg, #111827, #0f172a); }
+    #gg-image-tools-app.gg-dark-mode .gg-topbar,
+    #gg-image-tools-app.gg-dark-mode .gg-hero-card,
+    #gg-image-tools-app.gg-dark-mode .gg-panel { background: rgba(17, 24, 39, 0.94); border-color: #273449; }
+    #gg-image-tools-app.gg-dark-mode .gg-brand h3,
+    #gg-image-tools-app.gg-dark-mode .gg-hero-card h1,
+    #gg-image-tools-app.gg-dark-mode .gg-panel-head h2,
+    #gg-image-tools-app.gg-dark-mode .gg-empty-upload h2,
+    #gg-image-tools-app.gg-dark-mode .gg-tool-tab strong,
+    #gg-image-tools-app.gg-dark-mode .gg-control label,
+    #gg-image-tools-app.gg-dark-mode .gg-target-note > label { color: #f8fafc; }
+    #gg-image-tools-app.gg-dark-mode .gg-hero-card p,
+    #gg-image-tools-app.gg-dark-mode .gg-panel-head p,
+    #gg-image-tools-app.gg-dark-mode .gg-empty-upload p { color: #a7b0c0; }
+    #gg-image-tools-app.gg-dark-mode .gg-tool-tab:hover,
+    #gg-image-tools-app.gg-dark-mode .gg-tool-tab.gg-active,
+    #gg-image-tools-app.gg-dark-mode .gg-control,
+    #gg-image-tools-app.gg-dark-mode .gg-action-row,
+    #gg-image-tools-app.gg-dark-mode .gg-target-note { background: #172033; border-color: #2f3d55; }
+    #gg-image-tools-app.gg-dark-mode .gg-uploader {
+      border-color: #475569;
+      background: linear-gradient(135deg, #172033, #111827);
+    }
+    #gg-image-tools-app.gg-dark-mode .gg-uploader.gg-dragover { background: #1e293b; border-color: #818cf8; }
+    #gg-image-tools-app.gg-dark-mode .gg-upload-icon { background: #25304a; color: #a5b4fc; }
+    #gg-image-tools-app.gg-dark-mode .gg-stat,
+    #gg-image-tools-app.gg-dark-mode .gg-info-box,
+    #gg-image-tools-app.gg-dark-mode .gg-social-preset,
+    #gg-image-tools-app.gg-dark-mode .gg-result-preview,
+    #gg-image-tools-app.gg-dark-mode .gg-batch-panel,
+    #gg-image-tools-app.gg-dark-mode .gg-queue-row { background: #172033; border-color: #2f3d55; }
+    #gg-image-tools-app.gg-dark-mode .gg-stat strong,
+    #gg-image-tools-app.gg-dark-mode .gg-info-box strong,
+    #gg-image-tools-app.gg-dark-mode .gg-social-preset strong,
+    #gg-image-tools-app.gg-dark-mode .gg-result-preview figcaption,
+    #gg-image-tools-app.gg-dark-mode .gg-batch-head h3 { color: #f8fafc; }
+    #gg-image-tools-app.gg-dark-mode .gg-stat span,
+    #gg-image-tools-app.gg-dark-mode .gg-info-box span,
+    #gg-image-tools-app.gg-dark-mode .gg-social-preset span,
+    #gg-image-tools-app.gg-dark-mode .gg-result-preview .gg-help,
+    #gg-image-tools-app.gg-dark-mode .gg-batch-panel .gg-help { color: #94a3b8; }
+    #gg-image-tools-app.gg-dark-mode .gg-queue-row.gg-queue-head { background: #111827; color: #94a3b8; }
+    #gg-image-tools-app.gg-dark-mode .gg-queue-name { color: #f8fafc; }
+    #gg-image-tools-app.gg-dark-mode .gg-empty-upload h2 { color: #f8fafc; }
+    #gg-image-tools-app.gg-dark-mode .gg-empty-upload p { color: #a7b0c0; }
+    #gg-image-tools-app.gg-dark-mode .gg-compare-wrap,
+    #gg-image-tools-app.gg-dark-mode .gg-crop-editor { background: #111827; border-color: #334155; }
+    #gg-image-tools-app.gg-dark-mode .gg-output { background: #10261f; border-color: #276749; }
+    #gg-image-tools-app.gg-dark-mode .gg-output h3 { color: #bbf7d0; }
+    #gg-image-tools-app.gg-dark-mode .gg-target-note .gg-help,
+    #gg-image-tools-app.gg-dark-mode .gg-live-estimate { color: #a5b4fc; }
+    #gg-image-tools-app.gg-dark-mode .gg-control input,
+    #gg-image-tools-app.gg-dark-mode .gg-control select,
+    #gg-image-tools-app.gg-dark-mode .gg-target-note input { background: #111827; border-color: #344054; color: #f8fafc; }
+
+    /* Keep the editor usable when the browser is zoomed in or shown in a narrow pane. */
+    @media (max-width: 1400px) {
+      #gg-image-tools-app .gg-hero,
+      #gg-image-tools-app .gg-grid { grid-template-columns: minmax(0, 1fr); }
+      #gg-image-tools-app .gg-sidebar {
+        position: static;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      #gg-image-tools-app .gg-tool-tab { min-width: 0; }
+    }
+
+    @media (max-width: 900px) {
+      #gg-image-tools-app .gg-hero,
+      #gg-image-tools-app .gg-grid { grid-template-columns: minmax(0, 1fr); }
+      #gg-image-tools-app .gg-sidebar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      #gg-image-tools-app .gg-shell { padding: 12px 8px 28px; }
+      #gg-image-tools-app .gg-topbar { padding: 10px; border-radius: 15px; }
+      #gg-image-tools-app .gg-hero-card, #gg-image-tools-app .gg-main-panel { padding: 18px; border-radius: 20px; }
+      #gg-image-tools-app .gg-sidebar { grid-template-columns: minmax(0, 1fr); }
+      #gg-image-tools-app .gg-hero-card h1 { font-size: 38px; }
+    }
+
+    /* Final overflow guard: keep tools and editor in one readable column. */
+    #gg-image-tools-app .gg-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    #gg-image-tools-app .gg-sidebar {
+      position: static;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @media (max-width: 1100px) {
+      #gg-image-tools-app .gg-sidebar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      #gg-image-tools-app .gg-sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      #gg-image-tools-app .gg-sidebar { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+
+  <div class="gg-shell">
+    <div class="gg-container">
+      <div class="gg-topbar">
+        <div class="gg-brand">
+          <div class="gg-logo">✦</div>
+          <div>
+            <h3>GrandGellexy Image Tools</h3>
+            <p>Compress • Resize • Convert • Crop • Watermark</p>
+          </div>
+        </div>
+        <div class="gg-topbar-actions">
+          <button class="gg-btn" type="button" id="ggThemeToggle" aria-pressed="true">Light theme</button>
+          <button class="gg-btn gg-btn-primary" type="button" data-gg-upload>Upload Image</button>
+        </div>
+      </div>
+
+      <section class="gg-hero">
+        <div class="gg-hero-card">
+          <div class="gg-pill">⚡ SaaS Level Browser Tool</div>
+          <h1>Image Compressor & Converter Suite</h1>
+          <p>Upload one image and use premium tools to compress, resize, convert JPG/PNG/WebP, crop, rotate, add watermark, and create social media image sizes.</p>
+          <div class="gg-hero-actions">
+            <button class="gg-btn gg-btn-primary" type="button" data-gg-upload>Start Now</button>
+            <button class="gg-btn" type="button" id="ggScrollTools">View Tools</button>
+          </div>
+          <div class="gg-stats">
+            <div class="gg-stat"><strong>11+</strong><span>Image Tools</span></div>
+            <div class="gg-stat"><strong>100%</strong><span>Client Side</span></div>
+            <div class="gg-stat"><strong>Fast</strong><span>Canvas Engine</span></div>
+          </div>
+        </div>
+
+        <div class="gg-panel gg-workspace">
+          <div id="ggDropZone" class="gg-uploader">
+            <div id="ggEmptyUpload" class="gg-empty-upload">
+              <div class="gg-upload-icon">⬆</div>
+              <h2>Upload or Drop Your Image</h2>
+              <p>Supports JPG, PNG and WebP. All processing runs inside the browser using HTML canvas.</p>
+              <div class="gg-upload-actions">
+                <button class="gg-btn gg-btn-primary" type="button" data-gg-upload>Choose Image</button>
+                <button class="gg-btn" type="button" id="ggPasteBtn">Paste from clipboard</button>
+              </div>
+            </div>
+            <div id="ggPreviewWrap">
+              <img id="ggPreviewImage" alt="Uploaded image preview">
+            </div>
+            <input id="ggFileInput" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/jpg" multiple hidden>
+          </div>
+
+          <div id="ggFileInfo" class="gg-file-info">
+            <div class="gg-info-box"><span>File</span><strong id="ggFileName">—</strong></div>
+            <div class="gg-info-box"><span>Original Size</span><strong id="ggFileSize">—</strong></div>
+            <div class="gg-info-box"><span>Dimensions</span><strong id="ggFileDimensions">—</strong></div>
+            <div class="gg-info-box"><span>Type</span><strong id="ggFileType">—</strong></div>
+          </div>
+          <div id="ggSafetyWarning" class="gg-warning" role="alert"></div>
+
+          <section id="ggBatchPanel" class="gg-batch-panel" aria-labelledby="ggBatchTitle">
+            <div class="gg-batch-head">
+              <div>
+                <h3 id="ggBatchTitle">Batch queue</h3>
+                <div class="gg-help">Files are processed one at a time to reduce browser memory pressure.</div>
+              </div>
+              <strong id="ggBatchSummary">0 files</strong>
+            </div>
+            <div id="ggQueue" class="gg-queue" aria-live="polite"></div>
+            <div class="gg-batch-actions">
+              <button class="gg-btn gg-btn-primary" type="button" id="ggBatchProcessBtn">Process Queue</button>
+              <button class="gg-btn" type="button" id="ggBatchCancelBtn" disabled>Cancel</button>
+              <button class="gg-btn" type="button" id="ggDownloadZipBtn" disabled>Download Successful as ZIP</button>
+            </div>
+            <div class="gg-batch-progress" aria-hidden="true"><span id="ggBatchProgressBar"></span></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="ggToolsArea" class="gg-grid">
+        <aside class="gg-sidebar" id="ggToolTabs">
+          <button class="gg-tool-tab gg-active" type="button" data-tool="compress"><span class="gg-tab-icon">🗜️</span><span><strong>Image Compressor</strong><small>Reduce image file size</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="resize"><span class="gg-tab-icon">↔️</span><span><strong>Image Resizer</strong><small>Custom width and height</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="jpgpng"><span class="gg-tab-icon">🖼️</span><span><strong>JPG to PNG</strong><small>Convert JPG into PNG</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="pngjpg"><span class="gg-tab-icon">🌄</span><span><strong>PNG to JPG</strong><small>Convert PNG into JPG</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="towebp"><span class="gg-tab-icon">⚡</span><span><strong>Image to WebP</strong><small>Modern WebP format</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="webpjpg"><span class="gg-tab-icon">🔁</span><span><strong>WebP to JPG</strong><small>Universal JPG output</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="webppng"><span class="gg-tab-icon">🔄</span><span><strong>WebP to PNG</strong><small>Editable PNG output</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="crop"><span class="gg-tab-icon">✂️</span><span><strong>Image Cropper</strong><small>Crop by position and size</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="rotate"><span class="gg-tab-icon">↻</span><span><strong>Rotate Image</strong><small>Rotate left, right, custom</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="watermark"><span class="gg-tab-icon">©️</span><span><strong>Add Watermark</strong><small>Text watermark branding</small></span></button>
+          <button class="gg-tool-tab" type="button" data-tool="social"><span class="gg-tab-icon">📱</span><span><strong>Social Media Resizer</strong><small>Facebook, Instagram, YouTube, LinkedIn</small></span></button>
+        </aside>
+
+        <main class="gg-panel gg-main-panel">
+          <div class="gg-panel-head">
+            <div>
+              <h2 id="ggPanelTitle">Image Compressor</h2>
+              <p id="ggPanelDesc">Reduce image file size while keeping strong quality. Best for website speed and SEO.</p>
+            </div>
+            <span id="ggPanelBadge" class="gg-badge">MAIN TOOL</span>
+          </div>
+
+          <div id="ggStandardControls" class="gg-controls">
+            <div class="gg-control" id="ggQualityControl">
+              <label>Quality <span id="ggQualityValue">75%</span></label>
+              <input id="ggQuality" type="range" min="10" max="100" value="75">
+              <div class="gg-help">Lower quality creates smaller files.</div>
+            </div>
+
+            <div class="gg-control" id="ggCompressionModeControl">
+              <label>Compression Mode <span>smart</span></label>
+              <select id="ggCompressionMode">
+                <option value="balanced">Balanced</option>
+                <option value="max">Maximum compression</option>
+                <option value="quality">Best quality</option>
+              </select>
+              <div class="gg-help">Automatically balances quality, dimensions, and output size.</div>
+            </div>
+
+            <div class="gg-control" id="ggWidthControl">
+              <label>Width <span>px</span></label>
+              <input id="ggWidth" type="number" min="1" placeholder="Auto">
+              <div class="gg-help">Enter output width.</div>
+            </div>
+
+            <div class="gg-control" id="ggHeightControl">
+              <label>Height <span>px</span></label>
+              <input id="ggHeight" type="number" min="1" placeholder="Auto">
+              <div class="gg-help">Enter output height.</div>
+            </div>
+
+            <div class="gg-control" id="ggFormatControl">
+              <label>Output Format <span>file</span></label>
+              <select id="ggFormat">
+                <option value="image/webp">WebP</option>
+                <option value="image/jpeg">JPG</option>
+                <option value="image/png">PNG</option>
+              </select>
+              <div class="gg-help">Choose export format.</div>
+            </div>
+
+            <div class="gg-control" id="ggBgControl">
+              <label>JPG Background <span>color</span></label>
+              <input id="ggBgColor" type="color" value="#ffffff">
+              <div class="gg-help">Used when transparent PNG/WebP converts to JPG.</div>
+            </div>
+
+            <div class="gg-control" id="ggKeepRatioControl">
+              <label>Aspect Ratio <span>lock</span></label>
+              <select id="ggKeepRatio">
+                <option value="yes">Keep aspect ratio</option>
+                <option value="no">Stretch exact size</option>
+              </select>
+              <div class="gg-help">Best quality uses locked ratio.</div>
+            </div>
+          </div>
+
+          <div id="ggCropControls" class="gg-controls" style="display:none;">
+            <div class="gg-control"><label for="ggCropX">Crop X <span id="ggCropXValue">0%</span></label><input id="ggCropX" type="number" min="0" max="99" step="1" value="0"><div class="gg-help">Percent from the left edge.</div></div>
+            <div class="gg-control"><label for="ggCropY">Crop Y <span id="ggCropYValue">0%</span></label><input id="ggCropY" type="number" min="0" max="99" step="1" value="0"><div class="gg-help">Percent from the top edge.</div></div>
+            <div class="gg-control"><label for="ggCropW">Crop Width <span id="ggCropWValue">80%</span></label><input id="ggCropW" type="number" min="1" max="100" step="1" value="80"><div class="gg-help">Width as a percent of the image.</div></div>
+            <div class="gg-control"><label for="ggCropH">Crop Height <span id="ggCropHValue">80%</span></label><input id="ggCropH" type="number" min="1" max="100" step="1" value="80"><div class="gg-help">Height as a percent of the image.</div></div>
+            <div class="gg-control"><label for="ggCropRatio">Crop Ratio <span>optional</span></label><select id="ggCropRatio"><option value="free">Free</option><option value="1">Square 1:1</option><option value="1.333333">Landscape 4:3</option><option value="1.777778">Widescreen 16:9</option><option value="0.8">Portrait 4:5</option><option value="0.5625">Story 9:16</option></select><div class="gg-help">Locks the crop shape while resizing.</div></div>
+            <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggCropFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose cropped image format.</div></div>
+            <div class="gg-control"><label>Quality <span id="ggCropQualityValue">90%</span></label><input id="ggCropQuality" type="range" min="10" max="100" value="90"><div class="gg-help">For JPG/WebP exports.</div></div>
+            <div id="ggCropEditor" class="gg-crop-editor">
+              <div class="gg-help" style="margin:0 0 10px;">Drag the rectangle to move it. Drag the round handle to resize. With the rectangle focused, Arrow keys move it and Shift + Arrow keys resize it.</div>
+              <div id="ggCropStage" class="gg-crop-stage">
+                <img id="ggCropImage" alt="Source image for crop selection">
+                <div id="ggCropBox" class="gg-crop-box" tabindex="0" role="group" aria-label="Crop selection. Use arrow keys to move and Shift plus arrow keys to resize."><span class="gg-crop-handle" aria-hidden="true"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="ggRotateControls" class="gg-controls" style="display:none;">
+            <div class="gg-control"><label>Rotation <span>angle</span></label><select id="ggRotateAngle"><option value="90">90° Right</option><option value="-90">90° Left</option><option value="180">180°</option><option value="270">270°</option></select><div class="gg-help">Select rotation angle.</div></div>
+            <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggRotateFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose rotated image format.</div></div>
+            <div class="gg-control"><label>Quality <span id="ggRotateQualityValue">90%</span></label><input id="ggRotateQuality" type="range" min="10" max="100" value="90"><div class="gg-help">For JPG/WebP exports.</div></div>
+          </div>
+
+          <div id="ggWatermarkControls" class="gg-controls" style="display:none;">
+            <div class="gg-control"><label>Watermark Text <span>brand</span></label><input id="ggWatermarkText" type="text" value="GrandGellexy"><div class="gg-help">Your brand or website name.</div></div>
+            <div class="gg-control"><label>Position <span>corner</span></label><select id="ggWatermarkPosition"><option value="bottom-right">Bottom Right</option><option value="bottom-left">Bottom Left</option><option value="top-right">Top Right</option><option value="top-left">Top Left</option><option value="center">Center</option></select><div class="gg-help">Where watermark appears.</div></div>
+            <div class="gg-control"><label>Size <span id="ggWatermarkSizeValue">36px</span></label><input id="ggWatermarkSize" type="range" min="12" max="120" value="36"><div class="gg-help">Watermark font size.</div></div>
+            <div class="gg-control"><label>Opacity <span id="ggWatermarkOpacityValue">55%</span></label><input id="ggWatermarkOpacity" type="range" min="10" max="100" value="55"><div class="gg-help">Watermark transparency.</div></div>
+            <div class="gg-control"><label>Text Color <span>color</span></label><input id="ggWatermarkColor" type="color" value="#ffffff"><div class="gg-help">Watermark text color.</div></div>
+            <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggWatermarkFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose watermarked image format.</div></div>
+          </div>
+
+          <div id="ggSocialControls" style="display:none;">
+            <div class="gg-social-grid" id="ggSocialGrid"></div>
+            <div class="gg-controls">
+              <div class="gg-control"><label>Fit Mode <span>crop/fill</span></label><select id="ggSocialFit"><option value="cover">Cover / Fill Size</option><option value="contain">Contain / Full Image</option></select><div class="gg-help">Cover fills the selected size. Contain keeps full image.</div></div>
+              <div class="gg-control"><label>Background <span>color</span></label><input id="ggSocialBg" type="color" value="#ffffff"><div class="gg-help">Used for JPG. PNG/WebP contain mode keeps unused space transparent.</div></div>
+              <div class="gg-control"><label>Export Format <span>file</span></label><select id="ggSocialFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><div class="gg-help">Choose social image format.</div></div>
+            </div>
+          </div>
+
+          <div class="gg-target-note">
+            <label for="ggTargetKB">Optional target size <input id="ggTargetKB" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 200"> KB</label>
+            <div class="gg-help">JPEG and WebP only. The app searches quality without changing dimensions or format. PNG cannot reliably meet an arbitrary target through Canvas quality settings.</div>
+            <div id="ggTargetResult" class="gg-target-result" aria-live="polite"></div>
+          </div>
+
+          <div class="gg-action-row">
+            <div>
+              <strong id="ggActionHint">Upload an image, adjust quality, then process it.</strong>
+              <div class="gg-help" id="ggSmallHint">Tip: WebP usually gives smaller size for websites.</div>
+              <div id="ggLiveEstimate" class="gg-live-estimate" aria-live="polite">Live estimate appears after processing.</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="gg-btn" type="button" id="ggResetBtn">Reset</button>
+              <button class="gg-btn gg-btn-primary" type="button" id="ggProcessBtn"><span class="gg-loader"></span><span id="ggProcessText">Process Image</span></button>
+            </div>
+          </div>
+
+          <div id="ggOutput" class="gg-output" aria-live="polite">
+            <h3>✅ Your image is ready</h3>
+            <div class="gg-output-grid">
+              <div class="gg-info-box"><span>Output Name</span><strong id="ggOutputName">—</strong></div>
+              <div class="gg-info-box"><span>Format</span><strong id="ggOutputFormat">—</strong></div>
+              <div class="gg-info-box"><span>New Size</span><strong id="ggOutputSize">—</strong></div>
+              <div class="gg-info-box"><span>Size Difference</span><strong id="ggOutputSaved">—</strong></div>
+              <div class="gg-info-box"><span>Dimensions</span><strong id="ggOutputDim">—</strong></div>
+            </div>
+            <div class="gg-preview-grid">
+              <figure class="gg-result-preview"><figcaption>Original image</figcaption><img id="ggOriginalResultPreview" alt="Original image preview"></figure>
+              <figure class="gg-result-preview"><figcaption>Processed image</figcaption><img id="ggProcessedResultPreview" alt="Processed image preview"></figure>
+            </div>
+            <div class="gg-compare-wrap">
+              <div class="gg-compare-stage" aria-hidden="true">
+                <img id="ggCompareBefore" alt="">
+                <img id="ggCompareAfter" class="gg-compare-after" alt="">
+                <span class="gg-compare-label gg-compare-label-before">Original</span>
+                <span class="gg-compare-label gg-compare-label-after">Processed</span>
+              </div>
+              <div class="gg-compare-control">
+                <label for="ggCompareRange">Before/after comparison: <strong id="ggCompareValue">50% processed</strong></label>
+                <input id="ggCompareRange" type="range" min="0" max="100" value="50" aria-describedby="ggCompareHelp">
+                <div id="ggCompareHelp" class="gg-help">Use the slider with mouse, touch, or Arrow keys. The side-by-side previews above remain available when image shapes differ.</div>
+              </div>
+            </div>
+            <button class="gg-btn gg-btn-primary" type="button" id="ggDownloadBtn">⬇ Download Image</button>
+          </div>
+        </main>
+      </section>
+    </div>
+  </div>
+
+  <div id="ggToast" class="gg-toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const app = document.getElementById("gg-image-tools-app");
+      if (!app) return;
+
+      const $ = (selector) => app.querySelector(selector);
+      const $$ = (selector) => Array.from(app.querySelectorAll(selector));
+
+      const fileInput = $("#ggFileInput");
+      const dropZone = $("#ggDropZone");
+      const emptyUpload = $("#ggEmptyUpload");
+      const previewWrap = $("#ggPreviewWrap");
+      const previewImage = $("#ggPreviewImage");
+      const fileInfo = $("#ggFileInfo");
+      const toast = $("#ggToast");
+      const processBtn = $("#ggProcessBtn");
+      const processText = $("#ggProcessText");
+      const outputBox = $("#ggOutput");
+      const downloadBtn = $("#ggDownloadBtn");
+      const safetyWarning = $("#ggSafetyWarning");
+      const batchPanel = $("#ggBatchPanel");
+      const queueBox = $("#ggQueue");
+      const batchProcessBtn = $("#ggBatchProcessBtn");
+      const batchCancelBtn = $("#ggBatchCancelBtn");
+      const downloadZipBtn = $("#ggDownloadZipBtn");
+
+      const state = {
+        file: null,
+        image: null,
+        originalUrl: "",
+        originalWidth: 0,
+        originalHeight: 0,
+        activeTool: "compress",
+        resultBlob: null,
+        resultName: "",
+        resultUrl: "",
+        resultMime: "",
+        socialPreset: { name: "Facebook Post", width: 1200, height: 630 },
+        queue: [],
+        operationVersion: 0,
+        batchRunning: false,
+        batchRestoreSource: true
+      };
+
+      const toolMeta = {
+        compress: {
+          title: "Image Compressor",
+          desc: "Reduce image file size while keeping strong quality. Best for website speed and SEO.",
+          badge: "MAIN TOOL",
+          hint: "Upload an image, adjust quality, then process it.",
+          small: "Tip: WebP usually gives smaller size for websites."
+        },
+        resize: {
+          title: "Image Resizer",
+          desc: "Resize image by custom width and height with aspect ratio control.",
+          badge: "RESIZE",
+          hint: "Enter width and height, then resize your image.",
+          small: "Keep aspect ratio enabled to avoid image stretching."
+        },
+        jpgpng: {
+          title: "JPG to PNG",
+          desc: "Convert JPG image into PNG format for design and editing workflows.",
+          badge: "CONVERT",
+          hint: "This tool exports your uploaded image as PNG.",
+          small: "PNG output can be larger but keeps sharp quality."
+        },
+        pngjpg: {
+          title: "PNG to JPG",
+          desc: "Convert PNG into JPG with custom background color for transparent areas.",
+          badge: "CONVERT",
+          hint: "This tool exports your uploaded PNG/WebP as JPG.",
+          small: "Choose a background color for transparent images."
+        },
+        towebp: {
+          title: "Image to WebP",
+          desc: "Convert JPG or PNG into modern WebP format for faster websites.",
+          badge: "WEBP",
+          hint: "This tool exports your image as WebP.",
+          small: "WebP is recommended for website performance."
+        },
+        webpjpg: {
+          title: "WebP to JPG",
+          desc: "Convert WebP image into standard JPG format.",
+          badge: "WEBP TO JPG",
+          hint: "This tool exports your WebP image as JPG.",
+          small: "JPG is widely supported everywhere."
+        },
+        webppng: {
+          title: "WebP to PNG",
+          desc: "Convert WebP image into PNG format for editing and graphics usage.",
+          badge: "WEBP TO PNG",
+          hint: "This tool exports your WebP image as PNG.",
+          small: "PNG is best for sharp graphics and transparent assets."
+        },
+        crop: {
+          title: "Image Cropper",
+          desc: "Crop your image by selecting crop position, width, and height percentages.",
+          badge: "CROPPER",
+          hint: "Adjust crop X, Y, width and height, then process.",
+          small: "This cropper uses percentage controls for mobile-friendly editing."
+        },
+        rotate: {
+          title: "Rotate Image",
+          desc: "Rotate image left, right, 180 degrees, or 270 degrees.",
+          badge: "ROTATE",
+          hint: "Choose rotation angle and process your image.",
+          small: "Useful for fixing camera orientation."
+        },
+        watermark: {
+          title: "Add Watermark to Image",
+          desc: "Add professional text watermark to protect and brand your images.",
+          badge: "BRANDING",
+          hint: "Enter watermark text, choose position, then process.",
+          small: "Use your brand name or website URL as watermark."
+        },
+        social: {
+          title: "Social Media Image Resizer",
+          desc: "Resize images for Facebook, Instagram, YouTube thumbnails, and LinkedIn.",
+          badge: "SOCIAL",
+          hint: "Select a social media preset and process your image.",
+          small: "Cover mode fills the full social media canvas."
+        }
+      };
+
+      const socialPresets = [
+        { name: "Facebook Post", width: 1200, height: 630 },
+        { name: "Facebook Cover", width: 1640, height: 924 },
+        { name: "Instagram Square", width: 1080, height: 1080 },
+        { name: "Instagram Portrait", width: 1080, height: 1350 },
+        { name: "Facebook / Instagram Portrait", width: 1080, height: 1350 },
+        { name: "Instagram Story", width: 1080, height: 1920 },
+        { name: "WhatsApp Status", width: 1080, height: 1920 },
+        { name: "YouTube Thumbnail", width: 1280, height: 720 },
+        { name: "LinkedIn Post", width: 1200, height: 627 },
+        { name: "LinkedIn Banner", width: 1584, height: 396 },
+        { name: "X / Twitter Post", width: 1600, height: 900 },
+        { name: "Pinterest Pin", width: 1000, height: 1500 },
+        { name: "Square Product Image", width: 2000, height: 2000 }
+      ];
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.style.display = "block";
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => {
+          toast.style.display = "none";
+        }, 3200);
+      }
+
+      function formatBytes(bytes) {
+        if (!bytes && bytes !== 0) return "—";
+        const units = ["B", "KB", "MB", "GB"];
+        let value = bytes;
+        let unit = 0;
+        while (value >= 1024 && unit < units.length - 1) {
+          value /= 1024;
+          unit++;
+        }
+        return `${value.toFixed(value >= 10 || unit === 0 ? 0 : 1)} ${units[unit]}`;
+      }
+
+      function mimeExt(mime) {
+        if (mime === "image/png") return "png";
+        if (mime === "image/webp") return "webp";
+        if (mime === "image/avif") return "avif";
+        return "jpg";
+      }
+
+      function safeBaseName(name) {
+        return (name || "image").replace(/\.[^/.]+$/, "").replace(/[^a-z0-9-_]+/gi, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "image";
+      }
+
+      function getQuality(selector) {
+        return Math.max(0.1, Math.min(1, Number($(selector).value || 90) / 100));
+      }
+
+      function normalizeMime(mime) {
+        return mime === "image/jpg" ? "image/jpeg" : String(mime || "").toLowerCase();
+      }
+
+      function invalidateOperations() {
+        state.operationVersion++;
+      }
+
+      function clearOutput() {
+        if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+        state.resultBlob = null;
+        state.resultName = "";
+        state.resultUrl = "";
+        state.resultMime = "";
+        outputBox.style.display = "none";
+        $("#ggTargetResult").textContent = "";
+        ["#ggOriginalResultPreview", "#ggProcessedResultPreview", "#ggCompareBefore", "#ggCompareAfter"].forEach((selector) => $(selector).removeAttribute("src"));
+      }
+
+      function assessImage(file, width, height) {
+        const pixels = width * height;
+        const estimatedBytes = pixels * 4 * 3;
+        const warnings = [];
+        if (file && file.size > 25 * 1024 * 1024) warnings.push(`Large source file (${formatBytes(file.size)}).`);
+        if (pixels > 30000000) warnings.push(`High resolution (${width} × ${height}, ${(pixels / 1000000).toFixed(1)} MP).`);
+        if (estimatedBytes > 256 * 1024 * 1024) warnings.push(`Estimated peak canvas memory is about ${formatBytes(estimatedBytes)}.`);
+        const blocked = width > 32767 || height > 32767 || pixels > 100000000 || estimatedBytes > 768 * 1024 * 1024;
+        return {
+          blocked,
+          message: blocked
+            ? `This image is likely beyond safe browser Canvas limits (${width} × ${height}). Processing was blocked to avoid a crash.`
+            : warnings.join(" ")
+        };
+      }
+
+      function showSafety(message) {
+        safetyWarning.textContent = message || "";
+        safetyWarning.style.display = message ? "block" : "none";
+      }
+
+      function createCanvas(width, height) {
+        width = Math.max(1, Math.round(Number(width)));
+        height = Math.max(1, Math.round(Number(height)));
+        if (!Number.isFinite(width) || !Number.isFinite(height)) throw new Error("Output dimensions must be valid numbers.");
+        const safety = assessImage(null, width, height);
+        if (safety.blocked) throw new Error(safety.message);
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        return canvas;
+      }
+
+      function fillBackground(ctx, width, height, color) {
+        ctx.save();
+        ctx.fillStyle = color || "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+      }
+
+      function canvasToBlob(canvas, mime, quality) {
+        return new Promise((resolve, reject) => {
+          if (!canvas.toBlob) {
+            reject(new Error("Canvas export not supported in this browser."));
+            return;
+          }
+          try {
+            canvas.toBlob((blob) => {
+              if (!blob) {
+                reject(new Error("The browser could not encode this canvas. The image may be too large or the format may be unsupported."));
+                return;
+              }
+              const actual = normalizeMime(blob.type);
+              if (actual !== normalizeMime(mime)) {
+                reject(new Error(`The browser returned ${actual || "an unknown format"} instead of ${mime}. No misleading file was created.`));
+                return;
+              }
+              resolve(blob);
+            }, mime, quality);
+          } catch (error) {
+            reject(new Error(error && error.message ? error.message : "Canvas export failed, possibly because browser memory was exhausted."));
+          }
+        });
+      }
+
+      async function encodeCanvas(canvas, mime, quality, targetKB) {
+        const targetValue = Number(targetKB || 0);
+        if (targetKB && (!Number.isFinite(targetValue) || targetValue <= 0)) throw new Error("Target size must be a positive number of KB.");
+        const targetBytes = Math.round(targetValue * 1024);
+        if (!targetBytes) return { blob: await canvasToBlob(canvas, mime, quality), message: "", targetMet: null };
+        if (!["image/jpeg", "image/webp"].includes(mime)) {
+          return {
+            blob: await canvasToBlob(canvas, mime, quality),
+            message: "Target size was not applied: PNG quality is not a reliable size control in Canvas.",
+            targetMet: false
+          };
+        }
+
+        let highQuality = quality;
+        let highBlob = await canvasToBlob(canvas, mime, highQuality);
+        if (highBlob.size <= targetBytes) {
+          return { blob: highBlob, message: `Target met at ${Math.round(highQuality * 100)}% quality.`, targetMet: true };
+        }
+
+        const minimumQuality = 0.1;
+        let bestQuality = minimumQuality;
+        let bestBlob = await canvasToBlob(canvas, mime, minimumQuality);
+        if (bestBlob.size > targetBytes) {
+          return {
+            blob: bestBlob,
+            message: `Target cannot be reached at the selected dimensions. Smallest tested output is ${formatBytes(bestBlob.size)} at 10% quality.`,
+            targetMet: false
+          };
+        }
+
+        let low = minimumQuality;
+        let high = highQuality;
+        for (let attempt = 0; attempt < 8; attempt++) {
+          const candidateQuality = (low + high) / 2;
+          const candidateBlob = await canvasToBlob(canvas, mime, candidateQuality);
+          if (candidateBlob.size <= targetBytes) {
+            bestBlob = candidateBlob;
+            bestQuality = candidateQuality;
+            low = candidateQuality;
+          } else {
+            high = candidateQuality;
+          }
+        }
+        return { blob: bestBlob, message: `Target met at about ${Math.round(bestQuality * 100)}% quality.`, targetMet: true };
+      }
+
+      async function encodeForCompression(canvas, mime, quality, targetKB, ensureSmaller) {
+        const encoded = await encodeCanvas(canvas, mime, quality, targetKB);
+        if (!ensureSmaller || targetKB || !state.file || !["image/jpeg", "image/webp"].includes(mime)) return encoded;
+        if (encoded.blob.size < state.file.size) return encoded;
+
+        const fallbackQualities = [0.65, 0.55, 0.45, 0.35, 0.25, 0.15, 0.1];
+        for (const fallbackQuality of fallbackQualities) {
+          const candidate = await canvasToBlob(canvas, mime, fallbackQuality);
+          if (candidate.size < state.file.size) {
+            return {
+              blob: candidate,
+              message: `Output was larger at ${Math.round(quality * 100)}% quality, so quality was adjusted to ${Math.round(fallbackQuality * 100)}% to keep it smaller.`,
+              targetMet: true
+            };
+          }
+        }
+        return {
+          ...encoded,
+          message: "The selected dimensions are smaller, but this source could not be reduced further in the selected format."
+        };
+      }
+
+      function loadImageFromFile(file) {
+        return new Promise((resolve, reject) => {
+          const url = URL.createObjectURL(file);
+          const image = new Image();
+          image.onload = () => resolve({ image, url });
+          image.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error("Could not decode this image. It may be damaged or unsupported by this browser."));
+          };
+          image.src = url;
+        });
+      }
+
+      function drawBaseImage(options = {}) {
+        const image = state.image;
+        const targetW = options.width || state.originalWidth;
+        const targetH = options.height || state.originalHeight;
+        const mime = options.mime || "image/jpeg";
+        const bg = options.bg || $("#ggBgColor").value || "#ffffff";
+        const canvas = createCanvas(targetW, targetH);
+        const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("The browser could not create a 2D canvas, possibly because the image is too large.");
+        if (mime === "image/jpeg" || options.forceBg) fillBackground(ctx, targetW, targetH, bg);
+        ctx.drawImage(image, 0, 0, targetW, targetH);
+        return canvas;
+      }
+
+      function getResizeDimensions() {
+        let width = Number($("#ggWidth").value || 0);
+        let height = Number($("#ggHeight").value || 0);
+        const keep = $("#ggKeepRatio").value === "yes";
+        if (!width && !height) {
+          width = state.originalWidth;
+          height = state.originalHeight;
+        } else if (keep) {
+          if (width && !height) height = Math.round(width * state.originalHeight / state.originalWidth);
+          if (!width && height) width = Math.round(height * state.originalWidth / state.originalHeight);
+          if (width && height) {
+            const ratio = state.originalWidth / state.originalHeight;
+            height = Math.round(width / ratio);
+          }
+        } else {
+          width = width || state.originalWidth;
+          height = height || state.originalHeight;
+        }
+        return { width: Math.max(1, width), height: Math.max(1, height) };
+      }
+
+      function setProcessing(isProcessing) {
+        processBtn.classList.toggle("gg-processing", isProcessing);
+        processBtn.disabled = isProcessing;
+        processBtn.setAttribute("aria-busy", String(isProcessing));
+        processText.textContent = isProcessing ? "Processing..." : "Process Image";
+      }
+
+      function setOutput(blob, name, width, height, mime, targetMessage = "", announce = true) {
+        if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+        state.resultBlob = blob;
+        state.resultName = name;
+        state.resultUrl = URL.createObjectURL(blob);
+        state.resultMime = normalizeMime(mime || blob.type);
+
+        const difference = state.file ? state.file.size - blob.size : 0;
+        const differenceText = difference > 0
+          ? `${formatBytes(difference)} smaller`
+          : difference < 0
+            ? `${formatBytes(Math.abs(difference))} larger`
+            : "No size change";
+
+        $("#ggOutputName").textContent = name;
+        $("#ggOutputFormat").textContent = state.resultMime.replace("image/", "").toUpperCase().replace("JPEG", "JPG");
+        $("#ggOutputSize").textContent = formatBytes(blob.size);
+        $("#ggOutputSaved").textContent = differenceText;
+        $("#ggOutputDim").textContent = `${Math.round(width)} × ${Math.round(height)} px`;
+        $("#ggOriginalResultPreview").src = state.originalUrl;
+        $("#ggProcessedResultPreview").src = state.resultUrl;
+        $("#ggCompareBefore").src = state.originalUrl;
+        $("#ggCompareAfter").src = state.resultUrl;
+        $("#ggCompareRange").value = 50;
+        $("#ggCompareAfter").style.clipPath = "inset(0 50% 0 0)";
+        $("#ggCompareValue").textContent = "50% processed";
+        $("#ggTargetResult").textContent = targetMessage;
+        const change = state.file ? Math.round((1 - (blob.size / state.file.size)) * 100) : 0;
+        $("#ggLiveEstimate").textContent = change > 0
+          ? `Estimated reduction: ${change}% (${formatBytes(blob.size)} output)`
+          : `Output: ${formatBytes(blob.size)}${change < 0 ? ` (${Math.abs(change)}% larger)` : ""}`;
+        outputBox.style.display = "block";
+        if (announce) showToast("Image processed successfully. Download is ready.");
+      }
+
+      function scheduleLivePreview() {
+        clearTimeout(scheduleLivePreview.timer);
+        if (!state.image || !["compress", "resize"].includes(state.activeTool)) return;
+        scheduleLivePreview.timer = setTimeout(async () => {
+          await processImage({ silent: true, preview: true });
+        }, 450);
+      }
+
+      async function processImage(options = {}) {
+        if (!state.image || !state.file) {
+          const error = new Error("Please upload an image first.");
+          if (options.silent) throw error;
+          showToast(error.message);
+          return null;
+        }
+
+        const operationVersion = options.version === undefined ? state.operationVersion : options.version;
+        if (!options.silent) {
+          setProcessing(true);
+          clearOutput();
+        }
+
+        try {
+          const sourceSafety = assessImage(state.file, state.originalWidth, state.originalHeight);
+          if (sourceSafety.blocked) throw new Error(sourceSafety.message);
+          const base = safeBaseName(state.file.name);
+          let canvas;
+          let mime = $("#ggFormat").value;
+          let quality = getQuality("#ggQuality");
+          let suffix = state.activeTool;
+
+          if (state.activeTool === "compress") {
+            const dims = getResizeDimensions();
+            const mode = $("#ggCompressionMode").value;
+            if (mode === "max") quality = Math.min(quality, 0.55);
+            if (mode === "quality") quality = Math.max(quality, 0.9);
+            canvas = drawBaseImage({ width: dims.width, height: dims.height, mime, bg: $("#ggBgColor").value });
+            suffix = "compressed";
+          }
+
+          if (state.activeTool === "resize") {
+            const dims = getResizeDimensions();
+            canvas = drawBaseImage({ width: dims.width, height: dims.height, mime, bg: $("#ggBgColor").value });
+            suffix = "resized";
+          }
+
+          if (state.activeTool === "jpgpng") {
+            mime = "image/png";
+            quality = 1;
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime });
+            suffix = "jpg-to-png";
+          }
+
+          if (state.activeTool === "pngjpg") {
+            mime = "image/jpeg";
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
+            suffix = "png-to-jpg";
+          }
+
+          if (state.activeTool === "towebp") {
+            mime = "image/webp";
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime });
+            suffix = "to-webp";
+          }
+
+          if (state.activeTool === "webpjpg") {
+            mime = "image/jpeg";
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
+            suffix = "webp-to-jpg";
+          }
+
+          if (state.activeTool === "webppng") {
+            mime = "image/png";
+            quality = 1;
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime });
+            suffix = "webp-to-png";
+          }
+
+          if (state.activeTool === "crop") {
+            mime = $("#ggCropFormat").value;
+            quality = getQuality("#ggCropQuality");
+            const crop = getCropValues();
+            const xP = crop.x / 100;
+            const yP = crop.y / 100;
+            const wP = crop.width / 100;
+            const hP = crop.height / 100;
+            const sx = Math.round(state.originalWidth * xP);
+            const sy = Math.round(state.originalHeight * yP);
+            const sw = Math.max(1, Math.min(state.originalWidth - sx, Math.round(state.originalWidth * wP)));
+            const sh = Math.max(1, Math.min(state.originalHeight - sy, Math.round(state.originalHeight * hP)));
+            canvas = createCanvas(sw, sh);
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the crop canvas.");
+            if (mime === "image/jpeg") fillBackground(ctx, sw, sh, $("#ggBgColor").value);
+            ctx.drawImage(state.image, sx, sy, sw, sh, 0, 0, sw, sh);
+            suffix = "cropped";
+          }
+
+          if (state.activeTool === "rotate") {
+            mime = $("#ggRotateFormat").value;
+            quality = getQuality("#ggRotateQuality");
+            const angle = Number($("#ggRotateAngle").value);
+            const rad = angle * Math.PI / 180;
+            const swap = Math.abs(angle) === 90 || Math.abs(angle) === 270;
+            const newW = swap ? state.originalHeight : state.originalWidth;
+            const newH = swap ? state.originalWidth : state.originalHeight;
+            canvas = createCanvas(newW, newH);
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the rotation canvas.");
+            if (mime === "image/jpeg") fillBackground(ctx, newW, newH, $("#ggBgColor").value);
+            ctx.translate(newW / 2, newH / 2);
+            ctx.rotate(rad);
+            ctx.drawImage(state.image, -state.originalWidth / 2, -state.originalHeight / 2);
+            suffix = "rotated";
+          }
+
+          if (state.activeTool === "watermark") {
+            mime = $("#ggWatermarkFormat").value;
+            quality = 0.92;
+            canvas = drawBaseImage({ width: state.originalWidth, height: state.originalHeight, mime, bg: $("#ggBgColor").value });
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the watermark canvas.");
+            const text = $("#ggWatermarkText").value.trim() || "GrandGellexy";
+            const fontSize = Number($("#ggWatermarkSize").value || 36);
+            const opacity = Number($("#ggWatermarkOpacity").value || 55) / 100;
+            const color = $("#ggWatermarkColor").value || "#ffffff";
+            const position = $("#ggWatermarkPosition").value;
+            const pad = Math.max(18, Math.round(fontSize * 0.8));
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            ctx.font = `900 ${fontSize}px Arial, sans-serif`;
+            ctx.textBaseline = "middle";
+            const metrics = ctx.measureText(text);
+            let x = pad;
+            let y = pad + fontSize / 2;
+            if (position.includes("right")) x = canvas.width - metrics.width - pad;
+            if (position.includes("bottom")) y = canvas.height - pad - fontSize / 2;
+            if (position === "center") {
+              x = (canvas.width - metrics.width) / 2;
+              y = canvas.height / 2;
+            }
+            ctx.lineWidth = Math.max(2, Math.round(fontSize / 12));
+            ctx.strokeStyle = "rgba(0,0,0,0.55)";
+            ctx.strokeText(text, x, y);
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+            ctx.restore();
+            suffix = "watermarked";
+          }
+
+          if (state.activeTool === "social") {
+            const preset = state.socialPreset;
+            mime = $("#ggSocialFormat").value;
+            quality = 0.92;
+            const fit = $("#ggSocialFit").value;
+            const bg = $("#ggSocialBg").value;
+            canvas = createCanvas(preset.width, preset.height);
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("The browser could not create the social-media canvas.");
+            if (mime === "image/jpeg") fillBackground(ctx, preset.width, preset.height, bg);
+            const srcRatio = state.originalWidth / state.originalHeight;
+            const targetRatio = preset.width / preset.height;
+            let drawW, drawH, dx, dy;
+            if (fit === "cover") {
+              if (srcRatio > targetRatio) {
+                drawH = preset.height;
+                drawW = drawH * srcRatio;
+              } else {
+                drawW = preset.width;
+                drawH = drawW / srcRatio;
+              }
+            } else {
+              if (srcRatio > targetRatio) {
+                drawW = preset.width;
+                drawH = drawW / srcRatio;
+              } else {
+                drawH = preset.height;
+                drawW = drawH * srcRatio;
+              }
+            }
+            dx = (preset.width - drawW) / 2;
+            dy = (preset.height - drawH) / 2;
+            ctx.drawImage(state.image, dx, dy, drawW, drawH);
+            suffix = preset.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+          }
+
+          if (!canvas) throw new Error("Please select a valid tool.");
+          const outputSafety = assessImage(null, canvas.width, canvas.height);
+          if (outputSafety.blocked) throw new Error(outputSafety.message);
+          const encoded = await encodeForCompression(
+            canvas,
+            mime,
+            quality,
+            $("#ggTargetKB").value,
+            state.activeTool === "compress"
+          );
+          if (operationVersion !== state.operationVersion) throw new DOMException("Processing was cancelled.", "AbortError");
+          const blob = encoded.blob;
+          const outputName = `${base}-${suffix}.${mimeExt(mime)}`;
+          const result = { blob, name: outputName, width: canvas.width, height: canvas.height, mime, targetMessage: encoded.message };
+          if (!options.silent || options.preview) {
+            setOutput(blob, outputName, canvas.width, canvas.height, mime, encoded.message, !options.preview);
+          }
+          return result;
+        } catch (error) {
+          if (options.silent) throw error;
+          if (error.name !== "AbortError") showToast(error.message || "Something went wrong while processing image.");
+          return null;
+        } finally {
+          if (!options.silent) setProcessing(false);
+        }
+      }
+
+      async function handleFile(file, options = {}) {
+        if (!file) return;
+        if (!/^image\/(jpeg|jpg|png|webp|avif)$/i.test(file.type)) {
+          showToast("Please upload JPG, PNG, WebP, or AVIF image only.");
+          return;
+        }
+
+        try {
+          if (!options.keepOperation) invalidateOperations();
+          const loaded = await loadImageFromFile(file);
+          if (state.originalUrl) URL.revokeObjectURL(state.originalUrl);
+          clearOutput();
+          state.file = file;
+          state.image = loaded.image;
+          state.originalUrl = loaded.url;
+          state.originalWidth = loaded.image.naturalWidth || loaded.image.width;
+          state.originalHeight = loaded.image.naturalHeight || loaded.image.height;
+
+          previewImage.src = loaded.url;
+          $("#ggCropImage").src = loaded.url;
+          emptyUpload.style.display = "none";
+          previewWrap.style.display = "grid";
+          fileInfo.style.display = "grid";
+          updateCropOverlay();
+
+          $("#ggFileName").textContent = file.name;
+          $("#ggFileSize").textContent = formatBytes(file.size);
+          $("#ggFileDimensions").textContent = `${state.originalWidth} × ${state.originalHeight} px`;
+          $("#ggFileType").textContent = file.type.replace("image/", "").toUpperCase();
+          $("#ggWidth").value = state.originalWidth;
+          $("#ggHeight").value = state.originalHeight;
+          if (state.activeTool === "crop") $("#ggCropEditor").style.display = "block";
+          const safety = assessImage(file, state.originalWidth, state.originalHeight);
+          showSafety(safety.message);
+          scheduleLivePreview();
+          showToast("Image uploaded successfully.");
+        } catch (error) {
+          showToast(error.message || "Upload failed.");
+        }
+      }
+
+      async function handleFiles(fileList) {
+        const files = Array.from(fileList || []);
+        fileInput.value = "";
+        if (!files.length) return;
+        const supported = files.filter((file) => /^image\/(jpeg|jpg|png|webp|avif)$/i.test(file.type));
+        if (!supported.length) {
+          showToast("Please upload JPG, PNG, WebP, or AVIF images only.");
+          return;
+        }
+        clearQueue();
+        if (supported.length > 1) {
+          state.queue = supported.map((file, index) => ({
+            id: `${Date.now()}-${index}`,
+            file,
+            status: "pending",
+            result: null,
+            error: "",
+            warning: file.size > 25 * 1024 * 1024 ? `Large source file (${formatBytes(file.size)}); decoded dimensions will be checked before processing.` : "",
+            note: ""
+          }));
+          renderQueue();
+          batchPanel.style.display = "block";
+        }
+        await handleFile(supported[0]);
+        if (supported.length !== files.length) showToast(`${files.length - supported.length} unsupported file(s) were skipped.`);
+      }
+
+      async function handleClipboardImage() {
+        if (!navigator.clipboard || !navigator.clipboard.read) {
+          showToast("Clipboard image access is not available in this browser.");
+          return;
+        }
+        try {
+          const items = await navigator.clipboard.read();
+          for (const item of items) {
+            const type = item.types.find((value) => /^image\/(png|jpeg|webp|avif)$/i.test(value));
+            if (!type) continue;
+            const blob = await item.getType(type);
+            await handleFile(new File([blob], `clipboard-image.${mimeExt(type)}`, { type }));
+            return;
+          }
+          showToast("No supported image found in the clipboard.");
+        } catch (error) {
+          showToast("Clipboard access was blocked. Use Choose Image instead.");
+        }
+      }
+
+      function addAvifFormatOptions() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 1;
+        canvas.height = 1;
+        canvas.toBlob((blob) => {
+          if (!blob || normalizeMime(blob.type) !== "image/avif") return;
+          ["#ggFormat", "#ggCropFormat", "#ggRotateFormat", "#ggWatermarkFormat", "#ggSocialFormat"].forEach((selector) => {
+            const select = $(selector);
+            if (!select || select.querySelector('option[value="image/avif"]')) return;
+            const option = document.createElement("option");
+            option.value = "image/avif";
+            option.textContent = "AVIF";
+            select.appendChild(option);
+          });
+        }, "image/avif", 0.8);
+      }
+
+      function setActiveTool(tool) {
+        if (state.activeTool !== tool) {
+          invalidateOperations();
+          clearOutput();
+          resetQueueResults();
+        }
+        state.activeTool = tool;
+        const meta = toolMeta[tool];
+        $$(".gg-tool-tab").forEach((tab) => tab.classList.toggle("gg-active", tab.dataset.tool === tool));
+        $("#ggPanelTitle").textContent = meta.title;
+        $("#ggPanelDesc").textContent = meta.desc;
+        $("#ggPanelBadge").textContent = meta.badge;
+        $("#ggActionHint").textContent = meta.hint;
+        $("#ggSmallHint").textContent = meta.small;
+        outputBox.style.display = "none";
+
+        $("#ggStandardControls").style.display = "none";
+        $("#ggCropControls").style.display = "none";
+        $("#ggRotateControls").style.display = "none";
+        $("#ggWatermarkControls").style.display = "none";
+        $("#ggSocialControls").style.display = "none";
+
+        if (["compress", "resize", "jpgpng", "pngjpg", "towebp", "webpjpg", "webppng"].includes(tool)) {
+          $("#ggStandardControls").style.display = "grid";
+        }
+
+        $("#ggQualityControl").style.display = ["compress", "resize", "towebp", "webpjpg", "pngjpg"].includes(tool) ? "block" : "none";
+        $("#ggCompressionModeControl").style.display = tool === "compress" ? "block" : "none";
+        $("#ggWidthControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggHeightControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggKeepRatioControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggFormatControl").style.display = ["compress", "resize"].includes(tool) ? "block" : "none";
+        $("#ggBgControl").style.display = ["compress", "resize", "pngjpg", "webpjpg"].includes(tool) ? "block" : "none";
+
+        if (tool === "jpgpng" || tool === "webppng") $("#ggFormat").value = "image/png";
+        if (tool === "pngjpg" || tool === "webpjpg") $("#ggFormat").value = "image/jpeg";
+        if (tool === "towebp") $("#ggFormat").value = "image/webp";
+
+        if (tool === "crop") {
+          $("#ggCropControls").style.display = "grid";
+          $("#ggCropEditor").style.display = state.image ? "block" : "none";
+          updateCropOverlay();
+        }
+        if (tool === "rotate") $("#ggRotateControls").style.display = "grid";
+        if (tool === "watermark") $("#ggWatermarkControls").style.display = "grid";
+        if (tool === "social") $("#ggSocialControls").style.display = "block";
+      }
+
+      function renderSocialPresets() {
+        const grid = $("#ggSocialGrid");
+        grid.innerHTML = socialPresets.map((preset, index) => `
+          <button class="gg-social-preset ${index === 0 ? "gg-selected" : ""}" type="button" data-index="${index}">
+            <strong>${preset.name}</strong>
+            <span>${preset.width} × ${preset.height}px</span>
+          </button>
+        `).join("");
+
+        grid.addEventListener("click", (event) => {
+          const btn = event.target.closest(".gg-social-preset");
+          if (!btn) return;
+          const preset = socialPresets[Number(btn.dataset.index)];
+          state.socialPreset = preset;
+          $$(".gg-social-preset").forEach((item) => item.classList.remove("gg-selected"));
+          btn.classList.add("gg-selected");
+          showToast(`${preset.name} selected: ${preset.width} × ${preset.height}px`);
+        });
+      }
+
+      function clamp(value, minimum, maximum) {
+        return Math.min(maximum, Math.max(minimum, Number(value) || 0));
+      }
+
+      function getCropValues(preferred = "width") {
+        let x = clamp($("#ggCropX").value, 0, 99);
+        let y = clamp($("#ggCropY").value, 0, 99);
+        let width = clamp($("#ggCropW").value, 1, 100 - x);
+        let height = clamp($("#ggCropH").value, 1, 100 - y);
+        const ratio = $("#ggCropRatio").value;
+        if (ratio !== "free" && state.originalWidth && state.originalHeight) {
+          const targetRatio = Number(ratio);
+          if (preferred === "height") {
+            width = height * targetRatio * state.originalHeight / state.originalWidth;
+            if (width > 100 - x) {
+              width = 100 - x;
+              height = width * state.originalWidth / (targetRatio * state.originalHeight);
+            }
+          } else {
+            height = width * state.originalWidth / (targetRatio * state.originalHeight);
+            if (height > 100 - y) {
+              height = 100 - y;
+              width = height * targetRatio * state.originalHeight / state.originalWidth;
+            }
+          }
+        }
+        width = clamp(width, 1, 100 - x);
+        height = clamp(height, 1, 100 - y);
+        return { x, y, width, height };
+      }
+
+      function setCropValues(values, preferred = "width") {
+        if (values.x !== undefined) $("#ggCropX").value = values.x;
+        if (values.y !== undefined) $("#ggCropY").value = values.y;
+        if (values.width !== undefined) $("#ggCropW").value = values.width;
+        if (values.height !== undefined) $("#ggCropH").value = values.height;
+        updateCropOverlay(preferred);
+      }
+
+      function updateCropOverlay(preferred = "width") {
+        const values = getCropValues(preferred);
+        $("#ggCropX").value = Number(values.x.toFixed(2));
+        $("#ggCropY").value = Number(values.y.toFixed(2));
+        $("#ggCropW").value = Number(values.width.toFixed(2));
+        $("#ggCropH").value = Number(values.height.toFixed(2));
+        $("#ggCropXValue").textContent = `${Math.round(values.x)}%`;
+        $("#ggCropYValue").textContent = `${Math.round(values.y)}%`;
+        $("#ggCropWValue").textContent = `${Math.round(values.width)}%`;
+        $("#ggCropHValue").textContent = `${Math.round(values.height)}%`;
+        const box = $("#ggCropBox");
+        box.style.left = `${values.x}%`;
+        box.style.top = `${values.y}%`;
+        box.style.width = `${values.width}%`;
+        box.style.height = `${values.height}%`;
+        box.setAttribute("aria-label", `Crop selection at ${Math.round(values.x)} percent from left, ${Math.round(values.y)} percent from top, ${Math.round(values.width)} percent wide and ${Math.round(values.height)} percent high.`);
+      }
+
+      function bindCropEditor() {
+        const box = $("#ggCropBox");
+        const stage = $("#ggCropStage");
+        let drag = null;
+        box.addEventListener("pointerdown", (event) => {
+          if (!state.image) return;
+          event.preventDefault();
+          const values = getCropValues();
+          drag = {
+            mode: event.target.classList.contains("gg-crop-handle") ? "resize" : "move",
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            startY: event.clientY,
+            values
+          };
+          box.setPointerCapture(event.pointerId);
+          box.focus();
+        });
+        box.addEventListener("pointermove", (event) => {
+          if (!drag || event.pointerId !== drag.pointerId) return;
+          const rect = stage.getBoundingClientRect();
+          const dx = (event.clientX - drag.startX) / rect.width * 100;
+          const dy = (event.clientY - drag.startY) / rect.height * 100;
+          if (drag.mode === "move") {
+            setCropValues({
+              x: clamp(drag.values.x + dx, 0, 100 - drag.values.width),
+              y: clamp(drag.values.y + dy, 0, 100 - drag.values.height)
+            });
+          } else {
+            setCropValues({
+              width: clamp(drag.values.width + dx, 1, 100 - drag.values.x),
+              height: clamp(drag.values.height + dy, 1, 100 - drag.values.y)
+            }, Math.abs(dx) >= Math.abs(dy) ? "width" : "height");
+          }
+        });
+        const stopDrag = (event) => {
+          if (!drag || event.pointerId !== drag.pointerId) return;
+          drag = null;
+        };
+        box.addEventListener("pointerup", stopDrag);
+        box.addEventListener("pointercancel", stopDrag);
+        box.addEventListener("keydown", (event) => {
+          const directions = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+          if (!directions[event.key]) return;
+          event.preventDefault();
+          const [dx, dy] = directions[event.key];
+          const values = getCropValues();
+          if (event.shiftKey) {
+            setCropValues({ width: values.width + dx, height: values.height + dy }, dx ? "width" : "height");
+          } else {
+            setCropValues({ x: values.x + dx, y: values.y + dy });
+          }
+        });
+      }
+
+      function resetQueueResults() {
+        state.queue.forEach((item) => {
+          item.status = "pending";
+          item.result = null;
+          item.error = "";
+          item.note = "";
+        });
+        renderQueue();
+      }
+
+      function clearQueue() {
+        invalidateOperations();
+        state.queue = [];
+        queueBox.innerHTML = "";
+        batchPanel.style.display = "none";
+        downloadZipBtn.disabled = true;
+      }
+
+      function renderQueue() {
+        queueBox.innerHTML = "";
+        const completed = state.queue.filter((item) => item.status === "done").length;
+        $("#ggBatchSummary").textContent = `${completed}/${state.queue.length} complete`;
+        const progress = state.queue.length ? Math.round((completed / state.queue.length) * 100) : 0;
+        $("#ggBatchProgressBar").style.width = `${progress}%`;
+        const header = document.createElement("div");
+        header.className = "gg-queue-row gg-queue-head";
+        ["File", "Original", "Status", "Output", "Action"].forEach((label) => {
+          const cell = document.createElement("span");
+          cell.textContent = label;
+          header.appendChild(cell);
+        });
+        queueBox.appendChild(header);
+        state.queue.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "gg-queue-row";
+          const name = document.createElement("span");
+          name.className = "gg-queue-name";
+          name.title = item.file.name;
+          name.textContent = item.file.name;
+          const original = document.createElement("span");
+          original.textContent = formatBytes(item.file.size);
+          const status = document.createElement("span");
+          status.className = "gg-queue-status";
+          status.dataset.status = item.status;
+          status.textContent = item.status === "done" ? "Complete" : item.status === "error" ? "Failed" : item.status === "processing" ? "Processing…" : item.status === "cancelled" ? "Cancelled" : "Waiting";
+          const output = document.createElement("span");
+          output.textContent = item.result ? formatBytes(item.result.blob.size) : "—";
+          const action = document.createElement("span");
+          if (item.result) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "gg-btn gg-mini-btn";
+            button.textContent = "Download";
+            button.addEventListener("click", () => downloadBlob(item.result.blob, item.result.name));
+            action.appendChild(button);
+          }
+          row.append(name, original, status, output, action);
+          if (item.error || item.warning) {
+            const error = document.createElement("div");
+            error.className = "gg-queue-error";
+            error.textContent = item.error || `Warning: ${item.warning}`;
+            if (!item.error) error.style.color = "#fde68a";
+            row.appendChild(error);
+          }
+          if (item.note) {
+            const note = document.createElement("div");
+            note.className = "gg-queue-error";
+            note.style.color = "#a7f3d0";
+            note.textContent = item.note;
+            row.appendChild(note);
+          }
+          queueBox.appendChild(row);
+        });
+        downloadZipBtn.disabled = completed === 0 || state.batchRunning;
+      }
+
+      function setBatchControls(running) {
+        state.batchRunning = running;
+        batchPanel.setAttribute("aria-busy", String(running));
+        const selectors = "input, select, .gg-tool-tab, .gg-social-preset, [data-gg-upload], #ggProcessBtn";
+        $$(selectors).forEach((element) => { element.disabled = running; });
+        batchProcessBtn.disabled = running;
+        batchCancelBtn.disabled = !running;
+        if (!running) fileInput.disabled = false;
+      }
+
+      async function processQueue() {
+        if (!state.queue.length || state.batchRunning) return;
+        invalidateOperations();
+        const version = state.operationVersion;
+        clearOutput();
+        resetQueueResults();
+        setBatchControls(true);
+        state.batchRestoreSource = true;
+        const active = {
+          file: state.file,
+          image: state.image,
+          originalUrl: state.originalUrl,
+          originalWidth: state.originalWidth,
+          originalHeight: state.originalHeight
+        };
+        try {
+          for (const item of state.queue) {
+            if (version !== state.operationVersion) break;
+            item.status = "processing";
+            renderQueue();
+            let loaded;
+            try {
+              loaded = await loadImageFromFile(item.file);
+              const width = loaded.image.naturalWidth || loaded.image.width;
+              const height = loaded.image.naturalHeight || loaded.image.height;
+              const safety = assessImage(item.file, width, height);
+              if (safety.blocked) throw new Error(safety.message);
+              if (safety.message) {
+                item.warning = safety.message;
+                renderQueue();
+                await new Promise((resolve) => requestAnimationFrame(resolve));
+              }
+              state.file = item.file;
+              state.image = loaded.image;
+              state.originalUrl = loaded.url;
+              state.originalWidth = width;
+              state.originalHeight = height;
+              item.result = await processImage({ silent: true, version });
+              item.note = item.result.targetMessage || "";
+              item.status = "done";
+            } catch (error) {
+              if (error.name === "AbortError") {
+                item.status = "cancelled";
+                item.error = "Processing cancelled.";
+              } else {
+                item.status = "error";
+                item.error = error.message || "This image could not be processed.";
+              }
+            } finally {
+              if (loaded && loaded.url) URL.revokeObjectURL(loaded.url);
+            }
+            renderQueue();
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+          }
+          if (version !== state.operationVersion) {
+            state.queue.forEach((item) => {
+              if (item.status === "pending") item.status = "cancelled";
+            });
+          }
+        } finally {
+          if (state.batchRestoreSource) {
+            state.file = active.file;
+            state.image = active.image;
+            state.originalUrl = active.originalUrl;
+            state.originalWidth = active.originalWidth;
+            state.originalHeight = active.originalHeight;
+          } else if (active.originalUrl) {
+            URL.revokeObjectURL(active.originalUrl);
+          }
+          setBatchControls(false);
+          renderQueue();
+        }
+        if (version === state.operationVersion) {
+          const first = state.queue[0];
+          if (first && first.result && active.file === first.file) {
+            const result = first.result;
+            setOutput(result.blob, result.name, result.width, result.height, result.mime, result.targetMessage);
+          }
+          const successes = state.queue.filter((item) => item.status === "done").length;
+          showToast(`Batch finished: ${successes} of ${state.queue.length} succeeded.`);
+        }
+      }
+
+      function cancelBatch() {
+        if (!state.batchRunning) return;
+        invalidateOperations();
+        state.queue.forEach((item) => {
+          if (["pending", "processing"].includes(item.status)) item.status = "cancelled";
+        });
+        batchCancelBtn.disabled = true;
+        renderQueue();
+        showToast("Batch processing cancelled.");
+      }
+
+      function downloadBlob(blob, name) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
+
+      const crcTable = (() => {
+        const table = new Uint32Array(256);
+        for (let n = 0; n < 256; n++) {
+          let c = n;
+          for (let k = 0; k < 8; k++) c = (c & 1) ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+          table[n] = c >>> 0;
+        }
+        return table;
+      })();
+
+      function crc32(bytes) {
+        let crc = 0xffffffff;
+        for (const byte of bytes) crc = crcTable[(crc ^ byte) & 0xff] ^ (crc >>> 8);
+        return (crc ^ 0xffffffff) >>> 0;
+      }
+
+      function zipHeader(size) {
+        return { bytes: new Uint8Array(size), view: null };
+      }
+
+      function set16(header, offset, value) {
+        if (!header.view) header.view = new DataView(header.bytes.buffer);
+        header.view.setUint16(offset, value, true);
+      }
+
+      function set32(header, offset, value) {
+        if (!header.view) header.view = new DataView(header.bytes.buffer);
+        header.view.setUint32(offset, value, true);
+      }
+
+      async function createZip(entries) {
+        if (entries.length > 65535) throw new Error("ZIP32 supports at most 65,535 files per archive.");
+        const encoder = new TextEncoder();
+        const parts = [];
+        const centralParts = [];
+        let offset = 0;
+        const usedNames = new Set();
+        for (const entry of entries) {
+          const data = new Uint8Array(await entry.blob.arrayBuffer());
+          if (data.byteLength > 0xffffffff || offset + data.byteLength > 0xffffffff) throw new Error("ZIP is larger than the supported 4 GB browser limit.");
+          let name = entry.name;
+          let counter = 2;
+          while (usedNames.has(name)) {
+            const dot = entry.name.lastIndexOf(".");
+            name = dot > 0 ? `${entry.name.slice(0, dot)}-${counter}${entry.name.slice(dot)}` : `${entry.name}-${counter}`;
+            counter++;
+          }
+          usedNames.add(name);
+          const nameBytes = encoder.encode(name);
+          const checksum = crc32(data);
+          const local = zipHeader(30 + nameBytes.length);
+          set32(local, 0, 0x04034b50);
+          set16(local, 4, 20);
+          set16(local, 6, 0x0800);
+          set16(local, 8, 0);
+          set32(local, 14, checksum);
+          set32(local, 18, data.length);
+          set32(local, 22, data.length);
+          set16(local, 26, nameBytes.length);
+          local.bytes.set(nameBytes, 30);
+          parts.push(local.bytes, data);
+
+          const central = zipHeader(46 + nameBytes.length);
+          set32(central, 0, 0x02014b50);
+          set16(central, 4, 20);
+          set16(central, 6, 20);
+          set16(central, 8, 0x0800);
+          set16(central, 10, 0);
+          set32(central, 16, checksum);
+          set32(central, 20, data.length);
+          set32(central, 24, data.length);
+          set16(central, 28, nameBytes.length);
+          set32(central, 42, offset);
+          central.bytes.set(nameBytes, 46);
+          centralParts.push(central.bytes);
+          offset += local.bytes.length + data.length;
+        }
+        const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
+        const end = zipHeader(22);
+        set32(end, 0, 0x06054b50);
+        set16(end, 8, entries.length);
+        set16(end, 10, entries.length);
+        set32(end, 12, centralSize);
+        set32(end, 16, offset);
+        return new Blob([...parts, ...centralParts, end.bytes], { type: "application/zip" });
+      }
+
+      async function downloadQueueZip() {
+        const entries = state.queue.filter((item) => item.result).map((item) => item.result);
+        if (!entries.length) return;
+        downloadZipBtn.disabled = true;
+        try {
+          const blob = await createZip(entries);
+          downloadBlob(blob, "processed-images.zip");
+        } catch (error) {
+          showToast(error.message || "ZIP creation failed.");
+        } finally {
+          downloadZipBtn.disabled = false;
+        }
+      }
+
+      function bindControls() {
+        $$('[data-gg-upload]').forEach((btn) => btn.addEventListener("click", () => fileInput.click()));
+        $("#ggPasteBtn").addEventListener("click", handleClipboardImage);
+        $("#ggThemeToggle").addEventListener("click", () => {
+          const dark = app.classList.toggle("gg-dark-mode");
+          $("#ggThemeToggle").textContent = dark ? "Light theme" : "Dark theme";
+          $("#ggThemeToggle").setAttribute("aria-pressed", String(dark));
+        });
+        document.addEventListener("paste", (event) => {
+          const imageItem = Array.from(event.clipboardData?.items || []).find((item) => item.type.startsWith("image/"));
+          if (!imageItem) return;
+          event.preventDefault();
+          const blob = imageItem.getAsFile();
+          if (blob) handleFile(new File([blob], `pasted-image.${mimeExt(blob.type)}`, { type: blob.type }));
+        });
+        fileInput.addEventListener("change", (event) => handleFiles(event.target.files));
+        $("#ggProcessBtn").addEventListener("click", processImage);
+        $("#ggResetBtn").addEventListener("click", () => {
+          state.batchRestoreSource = false;
+          invalidateOperations();
+          fileInput.value = "";
+          if (state.originalUrl) URL.revokeObjectURL(state.originalUrl);
+          clearOutput();
+          clearQueue();
+          state.file = null;
+          state.image = null;
+          state.originalUrl = "";
+          state.originalWidth = 0;
+          state.originalHeight = 0;
+          previewImage.removeAttribute("src");
+          $("#ggCropImage").removeAttribute("src");
+          $("#ggCropEditor").style.display = "none";
+          previewWrap.style.display = "none";
+          emptyUpload.style.display = "block";
+          fileInfo.style.display = "none";
+          showSafety("");
+          showToast("Tool reset successfully.");
+        });
+
+        downloadBtn.addEventListener("click", () => {
+          if (!state.resultBlob || !state.resultUrl) {
+            showToast("Please process image first.");
+            return;
+          }
+          downloadBlob(state.resultBlob, state.resultName || "processed-image.jpg");
+        });
+
+        batchProcessBtn.addEventListener("click", processQueue);
+        batchCancelBtn.addEventListener("click", cancelBatch);
+        downloadZipBtn.addEventListener("click", downloadQueueZip);
+
+        $$(".gg-tool-tab").forEach((tab) => {
+          tab.addEventListener("click", () => setActiveTool(tab.dataset.tool));
+        });
+
+        $("#ggScrollTools").addEventListener("click", () => {
+          $("#ggToolsArea").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        dropZone.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          dropZone.classList.add("gg-dragover");
+        });
+        dropZone.addEventListener("dragleave", () => dropZone.classList.remove("gg-dragover"));
+        dropZone.addEventListener("drop", (event) => {
+          event.preventDefault();
+          dropZone.classList.remove("gg-dragover");
+          handleFiles(event.dataTransfer.files);
+        });
+
+        $("#ggQuality").addEventListener("input", (e) => {
+          $("#ggQualityValue").textContent = `${e.target.value}%`;
+          scheduleLivePreview();
+        });
+        $("#ggCompressionMode").addEventListener("change", scheduleLivePreview);
+        $("#ggWidth").addEventListener("input", scheduleLivePreview);
+        $("#ggHeight").addEventListener("input", scheduleLivePreview);
+        $("#ggFormat").addEventListener("change", scheduleLivePreview);
+        ["#ggCropX", "#ggCropY", "#ggCropW"].forEach((selector) => $(selector).addEventListener("input", () => updateCropOverlay("width")));
+        $("#ggCropH").addEventListener("input", () => updateCropOverlay("height"));
+        $("#ggCropRatio").addEventListener("change", () => updateCropOverlay("width"));
+        $("#ggCropQuality").addEventListener("input", (e) => $("#ggCropQualityValue").textContent = `${e.target.value}%`);
+        $("#ggRotateQuality").addEventListener("input", (e) => $("#ggRotateQualityValue").textContent = `${e.target.value}%`);
+        $("#ggWatermarkSize").addEventListener("input", (e) => $("#ggWatermarkSizeValue").textContent = `${e.target.value}px`);
+        $("#ggWatermarkOpacity").addEventListener("input", (e) => $("#ggWatermarkOpacityValue").textContent = `${e.target.value}%`);
+        $("#ggCompareRange").addEventListener("input", (event) => {
+          const value = Number(event.target.value);
+          $("#ggCompareAfter").style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+          $("#ggCompareValue").textContent = `${value}% processed`;
+        });
+        bindCropEditor();
+      }
+
+      renderSocialPresets();
+      bindControls();
+      addAvifFormatOptions();
+      setActiveTool("compress");
+    })();
+  </script>
+</div>
